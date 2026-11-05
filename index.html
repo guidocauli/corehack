@@ -252,9 +252,8 @@ html:not([data-ui="en"]) [data-l="en"], html[data-ui="en"] [data-l="it"] { displ
 .lang button[aria-pressed="true"]:hover { color: var(--bg); }
 
 /* ---- Caratteristiche: quattro gruppi brevi */
-.fgroups { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
-@media (max-width: 980px) { .fgroups { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (max-width: 520px) { .fgroups { grid-template-columns: 1fr; } }
+.fgroups { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+@media (max-width: 860px) { .fgroups { grid-template-columns: 1fr; } }
 .fg { padding: 16px 18px 12px; background: var(--panel); border: 1px solid var(--border); border-top: 2px solid var(--fc); min-width: 0; }
 .fg h4 { margin: 0 0 8px; font-family: var(--f-mono); font-weight: 400; font-size: 17px; color: var(--fc); letter-spacing: 0.04em; text-transform: uppercase; }
 .fg ul { list-style: none; margin: 0; padding: 0; }
@@ -407,64 +406,24 @@ details.more .tw { background: var(--bg); }
       <div class="rule"></div>
       <div class="fgroups">
         <article class="fg" style="--fc:var(--cyan)">
-          <h4><span data-l="it">Hacking</span><span data-l="en">Hacking</span></h4>
-          <ul data-l="it">
-            <li>In tempo reale, mentre il trace sale</li>
-            <li>Terminale con comandi veri o finestre e pulsanti</li>
-            <li>Reti sempre nuove: VLAN, host nascosti, backup</li>
-            <li>Red team (intrusione) e blue team (difesa)</li>
-          </ul>
-          <ul data-l="en">
-            <li>Real time, while the trace climbs</li>
-            <li>A real command terminal, or windows and buttons</li>
-            <li>Always-new networks: VLANs, hidden hosts, backups</li>
-            <li>Red team (intrusion) and blue team (defence)</li>
-          </ul>
+          <h4><span data-l="it">Il lavoro</span><span data-l="en">The job</span></h4>
+          <ul data-l="it"><li>Ogni intrusione avviene in tempo reale: mentre scansioni e forzi le barriere, il trace di NetGuard risale la tua connessione nodo dopo nodo.</li><li>Lavori dal terminale, digitando i comandi come un vero operatore, oppure dalle finestre del gateway, con pulsanti e scorciatoie.</li><li>Nessuna rete è uguale all'altra: VLAN, host nascosti, backup e monitor cambiano a ogni contratto, mentre le aziende della Rubrica ricordano chi è passato di lì.</li><li>Lavori da red team, entrando per rubare, sabotare o distruggere, e da blue team, difendendo in diretta la rete di un cliente sotto attacco.</li></ul>
+          <ul data-l="en"><li>Every intrusion happens in real time: while you scan and break the barriers, NetGuard's trace climbs back up your connection, node by node.</li><li>You work from the terminal, typing commands like a real operator, or from the gateway's windows, with buttons and shortcuts.</li><li>No two networks are alike: VLANs, hidden hosts, backups and monitors change with every contract, while the companies in the Directory remember who came through.</li><li>You work red team, breaking in to steal, sabotage or destroy, and blue team, defending a client's network live while it is under attack.</li></ul>
         </article>
         <article class="fg" style="--fc:var(--magenta)">
-          <h4><span data-l="it">Scelte</span><span data-l="en">Choices</span></h4>
-          <ul data-l="it">
-            <li>Quattro fazioni che ricordano</li>
-            <li>Coscienza su due assi: legalità ed etica</li>
-            <li>NetGuard che sorveglia, perquisisce, arresta</li>
-            <li>Una trama che emerge tra le ombre</li>
-          </ul>
-          <ul data-l="en">
-            <li>Four factions that remember</li>
-            <li>A conscience on two axes: law and ethics</li>
-            <li>NetGuard watches, raids and arrests</li>
-            <li>A story that surfaces from the shadows</li>
-          </ul>
+          <h4><span data-l="it">La tua parte</span><span data-l="en">Your side</span></h4>
+          <ul data-l="it"><li>Quattro fazioni si contendono la Rete, e ognuna ricorda chi l'ha servita e chi l'ha tradita.</li><li>La tua coscienza si muove su due assi, legalità ed etica, e il modo in cui lavori finisce per dire chi sei.</li><li>NetGuard osserva: ogni traccia che lasci alza la sorveglianza, fino alla perquisizione o all'arresto.</li><li>Sotto i contratti di ogni giorno corre una storia più vecchia del Blackout, che si lascia scoprire un frammento alla volta.</li></ul>
+          <ul data-l="en"><li>Four factions fight over the Net, and each remembers who served it and who betrayed it.</li><li>Your conscience moves along two axes, law and ethics, and the way you work ends up saying who you are.</li><li>NetGuard is watching: every trace you leave raises the heat, all the way to a raid or an arrest.</li><li>Beneath everyday contracts runs a story older than the Blackout, one that lets itself be found a fragment at a time.</li></ul>
         </article>
         <article class="fg" style="--fc:var(--green)">
-          <h4><span data-l="it">Progressione</span><span data-l="en">Progression</span></h4>
-          <ul data-l="it">
-            <li>Decine di programmi, a più livelli</li>
-            <li>Gateway e hardware da migliorare</li>
-            <li>Mercato Nero e programmi speciali</li>
-            <li>Operatori rivali, indagini, fascicoli</li>
-          </ul>
-          <ul data-l="en">
-            <li>Dozens of programs, in several versions</li>
-            <li>Gateways and hardware to upgrade</li>
-            <li>The Black Market and special programs</li>
-            <li>Rival operators, investigations, dossiers</li>
-          </ul>
+          <h4><span data-l="it">Il tuo arsenale</span><span data-l="en">Your rig</span></h4>
+          <ul data-l="it"><li>Il gateway cresce con te: processori, memoria e relay migliori, decine di programmi in più versioni e bollette da pagare ogni settimana.</li><li>Nel Mercato Nero si trovano strumenti che ufficialmente non esistono, come RevShell, KeyWraith, Devour e DarkHole.</li><li>Nella Rete lavorano anche altri operatori: puoi indagare su di loro, seguirne le tracce fino al gateway e aprire fascicoli su persone e aziende.</li></ul>
+          <ul data-l="en"><li>Your gateway grows with you: better processors, memory and relays, dozens of programs in several versions, and bills to pay every week.</li><li>The Black Market sells tools that officially don't exist, such as RevShell, KeyWraith, Devour and DarkHole.</li><li>Other operators work the Net too: you can investigate them, follow their trail back to their gateway and open dossiers on people and companies.</li></ul>
         </article>
         <article class="fg" style="--fc:var(--amber)">
-          <h4><span data-l="it">Piattaforma</span><span data-l="en">Platform</span></h4>
-          <ul data-l="it">
-            <li>Linux, Windows e macOS, nessuna installazione</li>
-            <li>Italiano, inglese e francese</li>
-            <li>Multigiocatore con server dedicato</li>
-            <li>Tutorial integrati, cinque temi grafici</li>
-          </ul>
-          <ul data-l="en">
-            <li>Linux, Windows and macOS, nothing to install</li>
-            <li>Italian, English and French</li>
-            <li>Multiplayer with a dedicated server</li>
-            <li>Built-in tutorials, five visual themes</li>
-          </ul>
+          <h4><span data-l="it">Il terminale</span><span data-l="en">The machine</span></h4>
+          <ul data-l="it"><li>Gira su Linux, Windows e macOS senza installazione: estrai l'archivio e sei già in linea.</li><li>Parla italiano, inglese e francese, e cambia aspetto con cinque temi grafici, da Core a Tensor.</li><li>Un server dedicato porta la Rete ad altri operatori, in LAN o in Internet, per sfide, assedi e scambi.</li><li>I tutorial integrati ti accompagnano nelle prime intrusioni, senza toglierti il gusto di scoprire il resto da solo.</li></ul>
+          <ul data-l="en"><li>It runs on Linux, Windows and macOS with nothing to install: extract the archive and you are already online.</li><li>It speaks Italian, English and French, and changes its look with five visual themes, from Core to Tensor.</li><li>A dedicated server brings the Net to other operators, on a LAN or the Internet, for challenges, sieges and trades.</li><li>Built-in tutorials walk you through your first intrusions, without spoiling the pleasure of discovering the rest yourself.</li></ul>
         </article>
       </div>
       <p class="note" data-l="it">Gratuito, senza contenuti a pagamento.</p>
