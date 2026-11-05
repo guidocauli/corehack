@@ -309,6 +309,45 @@ details.more .tw { background: var(--bg); }
 .ab h4 { margin: 0 0 8px; font-family: var(--f-mono); font-weight: 400; font-size: 16.5px; color: var(--fc); letter-spacing: 0.03em; }
 .ab p { font-size: 14.5px; }
 .beta { font-family: var(--f-mono); font-size: 12px; color: var(--bg); background: var(--amber); padding: 1px 6px; margin-left: 4px; letter-spacing: 0.06em; }
+/* ---- Fazioni espandibili e ritratti dei luogotenenti */
+.facs2 { display: flex; flex-direction: column; gap: 12px; }
+.fac2 { background: var(--panel); border: 1px solid var(--border); border-left: 3px solid var(--fc); }
+.fac2 > summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: 76px minmax(0, 1fr) 28px; gap: 16px; align-items: center; padding: 14px 16px; }
+.fac2 > summary::-webkit-details-marker { display: none; }
+.fac2 > summary:hover { background: rgba(255,255,255,0.02); }
+.fac2 > summary img { width: 76px; height: 76px; object-fit: contain; filter: drop-shadow(0 0 10px rgba(0,0,0,0.6)); }
+.fac2 .fh { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.fac2 .fn { font-family: var(--f-mono); font-size: 18px; color: var(--fc); letter-spacing: 0.03em; }
+.fac2 .motto { font-style: italic; color: var(--dim); font-size: 13.5px; }
+.fac2 .fs { font-size: 14.5px; }
+.fac2 .tog { width: 28px; height: 28px; border: 1px solid var(--border); position: relative; justify-self: end; }
+.fac2 .tog::before, .fac2 .tog::after { content: ""; position: absolute; left: 7px; right: 7px; top: 13px; height: 1px; background: var(--fc); transition: transform .2s; }
+.fac2 .tog::after { transform: rotate(90deg); }
+.fac2[open] .tog::after { transform: rotate(0deg); }
+.fac2 .fbody { padding: 4px 20px 16px 108px; border-top: 1px solid var(--border); }
+.fac2 .fbody > p { font-size: 15px; max-width: 78ch; margin-top: 14px; }
+.fac2 .hid { font-size: 14px; color: var(--text); }
+.fac2 .hid b { color: var(--magenta); }
+.fsub { font-family: var(--f-mono); font-weight: 400; color: var(--fc); font-size: 15px; letter-spacing: 0.08em; text-transform: uppercase; margin: 22px 0 10px; }
+.pts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.pt h5 { margin: 0; font-family: var(--f-mono); font-weight: 400; font-size: 15px; color: var(--white); }
+.pt .role { font-size: 12.5px; color: var(--fc); font-family: var(--f-mono); margin: 1px 0 6px; }
+.pt p { font-size: 13.8px; margin: 0; line-height: 1.6; }
+.note2 { font-size: 14px; color: var(--dim); margin-top: 14px; }
+@media (max-width: 980px) { .pts { grid-template-columns: repeat(2, minmax(0, 1fr)); } .fac2 .fbody { padding-left: 20px; } }
+@media (max-width: 560px) { .pts { grid-template-columns: 1fr; } .lead2 { grid-template-columns: minmax(0, 1fr) 96px !important; } }
+@media (max-width: 520px) { .fac2 > summary { grid-template-columns: 52px minmax(0, 1fr) 28px; gap: 12px; } .fac2 > summary img { width: 52px; height: 52px; } .fac2 .fn { font-size: 16px; } }
+/* ---- Ritratti: scanline leggere sopra l'immagine, filo nel colore della fazione */
+.ph { position: relative; overflow: hidden; background: #05070d; }
+.ph img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; }
+.ph::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: repeating-linear-gradient(to bottom, rgba(0,0,0,0.22) 0 1px, transparent 1px 3px); box-shadow: inset 0 -2px 0 var(--fc); }
+.pt { display: flex; flex-direction: column; background: var(--bg); border: 1px solid var(--border); min-width: 0; }
+.pt .tx { padding: 12px 14px 14px; }
+.lead2 { display: grid; grid-template-columns: minmax(0, 1fr) 168px; gap: 18px; align-items: center; margin-top: 16px; padding: 12px; border: 1px dashed var(--border); max-width: 78ch; }
+.lead2 .ph img { aspect-ratio: 1; }
+.lead2 p { margin: 0; font-size: 14.5px; }
+.lead2 .lk { font-family: var(--f-mono); color: var(--fc); text-transform: uppercase; font-size: 13px; letter-spacing: 0.06em; }
 </style>
 </head>
 <body>
@@ -458,46 +497,200 @@ details.more .tw { background: var(--bg); }
       <div class="chnum">03</div>
       <h2><span data-l="it">Le quattro fazioni</span><span data-l="en">The four factions</span></h2>
       <div class="rule"></div>
-      <p data-l="it">La reputazione con ciascuna, da -100 a +100, decide contratti, gateway e mercati. Servirne una spesso significa tradirne un'altra.</p>
-      <p data-l="en">Your standing with each, from -100 to +100, decides contracts, gateways and markets. Serving one often means betraying another.</p>
-      <div class="facs">
-        <article class="fac" style="--fc:#d6dae2">
-          <img src="img/netguard_nf.png" alt="NetGuard emblem" loading="lazy" width="320" height="320">
-          <div>
-            <h4>NETGUARD</h4>
-            <p class="motto"><span data-l="it">«Ordine, prima di tutto.»</span><span data-l="en">"Order, above all."</span></p>
-            <p data-l="it">La polizia della Rete. Alleato paziente per chi collabora, occhio che non si chiude per tutti gli altri.</p>
-            <p data-l="en">The Net's police. A patient ally for those who cooperate, an eye that never closes for everyone else.</p>
+      <p data-l="it">La reputazione con ciascuna, da -100 a +100, decide contratti, gateway e mercati. Servirne una spesso significa tradirne un'altra. Apri una fazione per conoscerne la storia e le persone con cui lavorerai.</p>
+      <p data-l="en">Your standing with each, from -100 to +100, decides contracts, gateways and markets. Serving one often means betraying another. Open a faction to read its story and meet the people you will work with.</p>
+      <div class="facs2">
+        <details class="fac2" id="fac-netguard" style="--fc:#d6dae2">
+          <summary>
+            <img src="img/netguard_nf.png" alt="" loading="lazy" width="320" height="320">
+            <span class="fh">
+              <span class="fn"><span data-l="it">NETGUARD</span><span data-l="en">NETGUARD</span></span>
+              <span class="motto"><span data-l="it">«Ordine, prima di tutto.»</span><span data-l="en">“Order, above all.”</span></span>
+              <span class="fs" data-l="it">La polizia della Rete. Alleato paziente per chi collabora, occhio che non si chiude per tutti gli altri.</span><span class="fs" data-l="en">The Net's police. A patient ally for those who cooperate, an eye that never closes for everyone else.</span>
+            </span>
+            <span class="tog" aria-hidden="true"></span>
+          </summary>
+          <div class="fbody">
+            <p data-l="it">Non li vedi mai arrivare. Una mattina il tuo gateway risponde mezzo secondo più piano del solito, e capisci che da qualche parte qualcuno ha aperto un fascicolo con il tuo nome. NetGuard non bussa alla porta: prende nota. Ha un archivio su ogni cavo, ogni nodo e ogni operatore, anche su chi non ha mai infranto una regola. Le chiama «precauzioni».</p><p data-l="en">You never see them coming. One morning your gateway answers half a second slower than usual, and you realise that somewhere someone has opened a file with your name on it. NetGuard does not knock: it takes notes. It keeps records on every cable, every node and every operator, even on those who have never broken a rule. It calls them “precautions”.</p>
+            <p data-l="it">Nata dalle macerie del Blackout per rimettere ordine in una Rete senza legge, oggi NetGuard è insieme polizia, tribunale e archivio. Per chi collabora offre contratti ufficiali, pagamenti puntuali e la possibilità che una perquisizione diventi un semplice avvertimento. Chi lavora bene per lei finisce al <b>Tribunale</b>, il gateway dove passano gli incarichi federali.</p><p data-l="en">Born from the rubble of the Blackout to bring order to a lawless Net, NetGuard is now police, court and archive at once. To those who cooperate it offers official contracts, punctual pay and the chance that a raid becomes a mere warning. Those who serve it well end up at <b>the Tribunal</b>, the gateway where federal work is handed out.</p>
+            <p class="hid"><b><span data-l="it">Cosa non dicono:</span><span data-l="en">What they don&#39;t say:</span></b> <span data-l="it">Chi controlla i controllori? Dentro NetGuard circola un ordine mai scritto che dice di guardare altrove, ma solo in certi momenti e per certi clienti.</span><span data-l="en">Who watches the watchers? Inside NetGuard an unwritten order circulates, saying to look the other way, but only at certain times and for certain clients.</span></p>
+            <h4 class="fsub"><span data-l="it">I luogotenenti</span><span data-l="en">The lieutenants</span></h4>
+            <div class="pts">
+              <article class="pt">
+                <div class="ph"><img src="img/people/osei.jpg" alt="Inspector Kwabena Osei" loading="lazy" width="405" height="304"></div>
+                <div class="tx">
+                  <h5><span data-l="it">Ispettore Kwabena Osei</span><span data-l="en">Inspector Kwabena Osei</span></h5>
+                  <div class="role"><span data-l="it">Ispettore, Accra</span><span data-l="en">Inspector, Accra</span></div>
+                  <p data-l="it">Conosce i regolamenti abbastanza bene da sapere dove finiscono. Ti ha scelto perché il tuo fascicolo è «pulito come quello di chi non esiste». Gli incarichi che ti affida non passano dai moduli: furti, cancellazioni, ritocchi discreti. Paga bene e non fa domande scomode, purché tu non ne faccia a lui.</p><p data-l="en">He knows the rules well enough to know where they end. He picked you because your file is “as clean as someone who doesn't exist”. The jobs he hands you never go through the forms: thefts, deletions, quiet edits. He pays well and asks no awkward questions, as long as you ask none of him.</p>
+                </div>
+              </article>
+              <article class="pt">
+                <div class="ph"><img src="img/people/aaltonen.jpg" alt="Commissioner Sigrid Aaltonen" loading="lazy" width="405" height="304"></div>
+                <div class="tx">
+                  <h5><span data-l="it">Commissaria Sigrid Aaltonen</span><span data-l="en">Commissioner Sigrid Aaltonen</span></h5>
+                  <div class="role"><span data-l="it">Commissaria, Helsinki</span><span data-l="en">Commissioner, Helsinki</span></div>
+                  <p data-l="it">Mandato scritto, perimetro chiaro, relazione finale. Le sue operazioni sono tutte autorizzate, difese comprese, e vuole che restino invisibili: un trace alto la irrita più di un fallimento. Con Osei non corre buon sangue, e prima o poi ti chiederà da che parte stai.</p><p data-l="en">Written mandate, clear scope, final report. Her operations are all authorised, defences included, and she wants them invisible: a high trace annoys her more than a failure. There is no love lost between her and Osei, and sooner or later she will ask which side you are on.</p>
+                </div>
+              </article>
+              <article class="pt">
+                <div class="ph"><img src="img/people/morimoto.jpg" alt="Analyst Yuki Morimoto" loading="lazy" width="405" height="304"></div>
+                <div class="tx">
+                  <h5><span data-l="it">Analista Yuki Morimoto</span><span data-l="en">Analyst Yuki Morimoto</span></h5>
+                  <div class="role"><span data-l="it">Analista forense, Osaka</span><span data-l="en">Forensic analyst, Osaka</span></div>
+                  <p data-l="it">Non cerca chi rompe le cose: cerca chi sa leggerle. Le servono prove che stanno su macchine altrui, e qualcuno capace di portarle fuori senza lasciare impronte sul resto. Lavoro fine, paziente, quasi da archivista.</p><p data-l="en">She isn't looking for people who break things, but for people who can read them. She needs evidence sitting on other people's machines, and someone able to bring it out without leaving prints on anything else. Fine, patient work, almost an archivist's.</p>
+                </div>
+              </article>
+            </div>
+            <div class="lead2">
+              <p><span class="lk"><span data-l="it">Sopra di loro</span><span data-l="en">Above them</span></span><br><span data-l="it"><b>Ispettore Marchetti</b>, il Direttore: ispettore capo di NetGuard. Non scrive a chi non conosce: è un luogotenente a fare il tuo nome ai piani alti.</span><span data-l="en"><b>Inspector Marchetti</b>, the Director: NetGuard's chief inspector. He does not write to strangers: a lieutenant has to mention your name upstairs.</span></p>
+              <div class="ph"><img src="img/people/marchetti.jpg" alt="Inspector Marchetti" loading="lazy" width="480" height="480"></div>
+            </div>
           </div>
-        </article>
-        <article class="fac" style="--fc:var(--green)">
-          <img src="img/corps_nf.png" alt="Corporate Concord emblem" loading="lazy" width="320" height="320">
-          <div>
-            <h4><span data-l="it">CONCORDATO AZIENDALE</span><span data-l="en">CORPORATE CONCORD</span></h4>
-            <p class="motto"><span data-l="it">«Il mercato si regola da solo.»</span><span data-l="en">"The market regulates itself."</span></p>
-            <p data-l="it">Le megacorporazioni: il cliente più ricco. Paga bene il lavoro, e meglio il silenzio.</p>
-            <p data-l="en">The megacorporations: the richest client. Pays well for the work, better for the silence.</p>
+        </details>
+        <details class="fac2" id="fac-corps" style="--fc:var(--green)">
+          <summary>
+            <img src="img/corps_nf.png" alt="" loading="lazy" width="320" height="320">
+            <span class="fh">
+              <span class="fn"><span data-l="it">CONCORDATO AZIENDALE</span><span data-l="en">CORPORATE CONCORD</span></span>
+              <span class="motto"><span data-l="it">«Il mercato si regola da solo.»</span><span data-l="en">“The market regulates itself.”</span></span>
+              <span class="fs" data-l="it">Le megacorporazioni: il cliente più ricco. Paga bene il lavoro, e meglio il silenzio.</span><span class="fs" data-l="en">The megacorporations: the richest client. Pays well for the work, better for the silence.</span>
+            </span>
+            <span class="tog" aria-hidden="true"></span>
+          </summary>
+          <div class="fbody">
+            <p data-l="it">Il Concordato non ha bisogno di minacciare nessuno: possiede i cavi, i nodi e i dati su cui la Rete cammina, e gli basta mettere un contratto sul tavolo. Dopo il Blackout furono le corporazioni a ricostruire l'infrastruttura, e da allora la affittano ai cittadini al metro.</p><p data-l="en">The Concord has no need to threaten anyone: it owns the cables, nodes and data the Net runs on, and a contract on the table is all it takes. After the Blackout it was the corporations that rebuilt the infrastructure, and they have been renting it to citizens by the metre ever since.</p>
+            <p data-l="it">È il cliente più ricco e più numeroso che troverai. Commissiona test di penetrazione, audit e spionaggio industriale con la stessa cortesia glaciale, purché nessuno chieda come è stato fatto. I fornitori fidati vengono ammessi al <b>Direttivo</b>, dove il blocco aziendale scambia ciò che non può comparire nei bilanci.</p><p data-l="en">It is the richest and most frequent client you will find. It commissions penetration tests, audits and industrial espionage with the same icy courtesy, as long as nobody asks how it was done. Trusted suppliers are admitted to <b>the Board</b>, where the corporate bloc trades what cannot appear on a balance sheet.</p>
+            <p class="hid"><b><span data-l="it">Cosa non dicono:</span><span data-l="en">What they don&#39;t say:</span></b> <span data-l="it">La Rete è un bene che si affitta, e qualcuno nelle sale del consiglio ha già deciso quanto costa tenerla in vita.</span><span data-l="en">The Net is something you rent, and someone in the boardrooms has already decided what it costs to keep it alive.</span></p>
+            <h4 class="fsub"><span data-l="it">I luogotenenti</span><span data-l="en">The lieutenants</span></h4>
+            <div class="pts">
+              <article class="pt">
+                <div class="ph"><img src="img/people/quintero.jpg" alt="Atty. Rafael Quintero" loading="lazy" width="405" height="304"></div>
+                <div class="tx">
+                  <h5><span data-l="it">Avv. Rafael Quintero</span><span data-l="en">Atty. Rafael Quintero</span></h5>
+                  <div class="role"><span data-l="it">Risolutore, Bogotà</span><span data-l="en">Fixer, Bogotá</span></div>
+                  <p data-l="it">Si occupa dei problemi che i suoi clienti preferiscono non portare in tribunale. Elegante, cordiale, sempre un passo indietro rispetto al lavoro sporco. Paga bene la discrezione e ha una sola regola: sul lavoro finito non deve comparire nessuna traccia che porti a lui.</p><p data-l="en">He deals with the problems his clients would rather not take to court. Elegant, friendly, always one step back from the dirty work. He pays well for discretion and has one rule: nothing left on a finished job may lead back to him.</p>
+                </div>
+              </article>
+              <article class="pt">
+                <div class="ph"><img src="img/people/achterberg.jpg" alt="Dr. Leonor Achterberg" loading="lazy" width="405" height="304"></div>
+                <div class="tx">
+                  <h5><span data-l="it">Dott.ssa Leonor Achterberg</span><span data-l="en">Dr. Leonor Achterberg</span></h5>
+                  <div class="role"><span data-l="it">Sicurezza interna, Rotterdam</span><span data-l="en">Internal security, Rotterdam</span></div>
+                  <p data-l="it">Il Comitato le ha affidato la verifica dei fornitori esterni, e lei la prende sul serio. Incarichi regolari e autorizzati, anche di difesa, con scadenze strette e nessuna tolleranza per le sbavature: un errore con lei pesa il doppio. Considera Rahimi un rischio per l'azienda.</p><p data-l="en">The Committee put her in charge of vetting outside suppliers, and she takes it seriously. Regular, authorised work, defences included, with tight deadlines and no tolerance for sloppiness: a mistake counts double with her. She considers Rahimi a risk to the company.</p>
+                </div>
+              </article>
+              <article class="pt">
+                <div class="ph"><img src="img/people/rahimi.jpg" alt="VP Cyrus Rahimi" loading="lazy" width="405" height="304"></div>
+                <div class="tx">
+                  <h5><span data-l="it">VP Cyrus Rahimi</span><span data-l="en">VP Cyrus Rahimi</span></h5>
+                  <div class="role"><span data-l="it">Vicepresidente, Londra</span><span data-l="en">Vice president, London</span></div>
+                  <p data-l="it">Il suo tempo vale più del tuo, e te lo fa capire. Offre gli incarichi meglio pagati del Concordato, dentro una guerra interna che preferisce non rendere visibile. Il rovescio della medaglia: i suoi lavori attirano l'attenzione di NetGuard più di altri.</p><p data-l="en">His time is worth more than yours, and he lets you know it. He offers the best-paid work in the Concord, inside an internal war he would rather keep out of sight. The flip side: his jobs draw NetGuard's attention more than most.</p>
+                </div>
+              </article>
+            </div>
+            <div class="lead2">
+              <p><span class="lk"><span data-l="it">Sopra di loro</span><span data-l="en">Above them</span></span><br><span data-l="it"><b>Direttrice Ferreira</b>, a capo del Concordato. Nel Concordato non si viene convocati per caso: quando il tuo nome arriva sulla scrivania giusta, qualcuno ti scrive a nome della presidenza.</span><span data-l="en"><b>Director Ferreira</b>, head of the Concord. In the Concord nobody is summoned by chance: when your name reaches the right desk, someone writes to you on behalf of the chair.</span></p>
+              <div class="ph"><img src="img/people/ferreira.jpg" alt="Director Ferreira" loading="lazy" width="480" height="480"></div>
+            </div>
           </div>
-        </article>
-        <article class="fac" style="--fc:var(--amber)">
-          <img src="img/lumen_nf.png" alt="Lumen Collective emblem" loading="lazy" width="320" height="320">
-          <div>
-            <h4><span data-l="it">COLLETTIVO LUMEN</span><span data-l="en">LUMEN COLLECTIVE</span></h4>
-            <p class="motto"><span data-l="it">«La Rete è di tutti.»</span><span data-l="en">"The Net belongs to everyone."</span></p>
-            <p data-l="it">Hacktivisti e giornalisti: fughe di notizie e dati da liberare, per poco denaro e molta gratitudine.</p>
-            <p data-l="en">Hacktivists and journalists: leaks and data to free, for little money and a lot of gratitude.</p>
+        </details>
+        <details class="fac2" id="fac-lumen" style="--fc:var(--amber)">
+          <summary>
+            <img src="img/lumen_nf.png" alt="" loading="lazy" width="320" height="320">
+            <span class="fh">
+              <span class="fn"><span data-l="it">COLLETTIVO LUMEN</span><span data-l="en">LUMEN COLLECTIVE</span></span>
+              <span class="motto"><span data-l="it">«La Rete è di tutti.»</span><span data-l="en">“The Net belongs to everyone.”</span></span>
+              <span class="fs" data-l="it">Hacktivisti e giornalisti: fughe di notizie e dati da liberare, per poco denaro e molta gratitudine.</span><span class="fs" data-l="en">Hacktivists and journalists: leaks and data to free, for little money and a lot of gratitude.</span>
+            </span>
+            <span class="tog" aria-hidden="true"></span>
+          </summary>
+          <div class="fbody">
+            <p data-l="it">Lumen non ha soldi né grandi mezzi, ma ha una cosa che le corporazioni non possono comprare: la convinzione di essere dalla parte giusta. Hacktivisti, giornalisti, ex dipendenti e ragazzi con un'idea, uniti dal ricordo di una Rete che una volta era di tutti.</p><p data-l="en">Lumen has neither money nor resources, but it has something the corporations cannot buy: the conviction of being on the right side. Hacktivists, journalists, former employees and kids with an idea, bound by the memory of a Net that once belonged to everyone.</p>
+            <p data-l="it">Ti chiederanno fughe di notizie, debiti da cancellare e dati da liberare, in cambio di compensi modesti e di una gratitudine sincera. Sanno accogliere chi è alle prime armi, e sanno far sentire in colpa chi li abbandona. Chi si guadagna la loro fiducia trova la <b>Biblioteca</b>, il relay nascosto del collettivo.</p><p data-l="en">They will ask you for leaks, debts to erase and data to set free, in exchange for modest pay and sincere gratitude. They know how to welcome beginners, and how to make those who abandon them feel guilty. Those who earn their trust find <b>the Library</b>, the collective's hidden relay.</p>
+            <p class="hid"><b><span data-l="it">Cosa non dicono:</span><span data-l="en">What they don&#39;t say:</span></b> <span data-l="it">Una Rete libera ha un prezzo, e non sempre lo paga chi l'ha scelta: le persone di Lumen hanno debiti, paure e punti deboli.</span><span data-l="en">A free Net has a price, and it is not always paid by those who chose it: Lumen's people have debts, fears and weak spots.</span></p>
+            <h4 class="fsub"><span data-l="it">I luogotenenti</span><span data-l="en">The lieutenants</span></h4>
+            <div class="pts">
+              <article class="pt">
+                <div class="ph"><img src="img/people/vlahos.jpg" alt="Teodor Vlahos" loading="lazy" width="405" height="304"></div>
+                <div class="tx">
+                  <h5><span data-l="it">Teodor Vlahos</span><span data-l="en">Teodor Vlahos</span></h5>
+                  <div class="role"><span data-l="it">Archivista, Salonicco</span><span data-l="en">Archivist, Thessaloniki</span></div>
+                  <p data-l="it">Colleziona ciò che gli altri dimenticano o nascondono. Parla piano, cita a memoria documenti che nessuno dovrebbe aver letto e crede che un file rubato al posto giusto valga più di qualsiasi manifesto. Ti chiede di portare fuori quello che è ancora nelle mani sbagliate.</p><p data-l="en">He collects what others forget or hide. He speaks softly, quotes from memory documents nobody should have read, and believes a file stolen from the right place is worth more than any manifesto. He asks you to bring out what is still in the wrong hands.</p>
+                </div>
+              </article>
+              <article class="pt">
+                <div class="ph"><img src="img/people/nkosi.jpg" alt="Thandi Nkosi" loading="lazy" width="405" height="304"></div>
+                <div class="tx">
+                  <h5><span data-l="it">Thandi Nkosi</span><span data-l="en">Thandi Nkosi</span></h5>
+                  <div class="role"><span data-l="it">Coordinatrice, Johannesburg</span><span data-l="en">Coordinator, Johannesburg</span></div>
+                  <p data-l="it">Per lei Lumen non è solo fuga di notizie: è proteggere chi parla. Cerca chi sappia correggere e custodire, anche difendere, senza accanirsi dove non serve, e non ti proporrà mai un lavoro contro coscienza. Il metodo di Ruido la spaventa.</p><p data-l="en">To her Lumen is not just leaks: it is protecting those who speak. She looks for people who can correct and safeguard, defend too, without going further than needed, and she will never offer you a job against conscience. Ruido's methods frighten her.</p>
+                </div>
+              </article>
+              <article class="pt">
+                <div class="ph"><img src="img/people/quispe.jpg" alt="Kai “Ruido” Quispe" loading="lazy" width="405" height="304"></div>
+                <div class="tx">
+                  <h5><span data-l="it">Kai «Ruido» Quispe</span><span data-l="en">Kai “Ruido” Quispe</span></h5>
+                  <div class="role"><span data-l="it">Attivista radicale, Lima</span><span data-l="en">Radical activist, Lima</span></div>
+                  <p data-l="it">Pensa che il silenzio si rompa solo facendo rumore. I suoi obiettivi vanno spenti, cancellati, bloccati, e il compenso è all'altezza del rischio. Per Ruido la prudenza di Nkosi è un lusso che la Rete non si può più permettere.</p><p data-l="en">Ruido thinks silence can only be broken by making noise. The targets are to be shut down, erased, locked, and the pay matches the risk. To Ruido, Nkosi's caution is a luxury the Net can no longer afford.</p>
+                </div>
+              </article>
+            </div>
+            <div class="lead2">
+              <p><span class="lk"><span data-l="it">Sopra di loro</span><span data-l="en">Above them</span></span><br><span data-l="it"><b>Mara Vesk</b>, la Voce del Collettivo. Lumen dice di non avere capi, ma qualcuno parla per tutti. Ti scriverà quando quello che fai avrà abbastanza peso.</span><span data-l="en"><b>Mara Vesk</b>, the Voice of the Collective. Lumen claims to have no leaders, but someone speaks for everyone. She will write once what you do carries enough weight.</span></p>
+              <div class="ph"><img src="img/people/vesk.jpg" alt="Mara Vesk" loading="lazy" width="480" height="480"></div>
+            </div>
           </div>
-        </article>
-        <article class="fac" style="--fc:var(--violet)">
-          <img src="img/under_nf.png" alt="Black Net emblem" loading="lazy" width="320" height="320">
-          <div>
-            <h4><span data-l="it">LA RETE NERA</span><span data-l="en">THE BLACK NET</span></h4>
-            <p class="motto"><span data-l="it">«Qui non si fanno domande.»</span><span data-l="en">"No questions asked."</span></p>
-            <p data-l="it">Ricatti, sabotaggi, furti su commissione. I compensi più alti, le conseguenze peggiori.</p>
-            <p data-l="en">Blackmail, sabotage, theft to order. The highest pay, the worst consequences.</p>
+        </details>
+        <details class="fac2" id="fac-under" style="--fc:var(--violet)">
+          <summary>
+            <img src="img/under_nf.png" alt="" loading="lazy" width="320" height="320">
+            <span class="fh">
+              <span class="fn"><span data-l="it">LA RETE NERA</span><span data-l="en">THE BLACK NET</span></span>
+              <span class="motto"><span data-l="it">«Qui non si fanno domande.»</span><span data-l="en">“No questions asked.”</span></span>
+              <span class="fs" data-l="it">Ricatti, sabotaggi, furti su commissione. I compensi più alti, le conseguenze peggiori.</span><span class="fs" data-l="en">Blackmail, sabotage, theft to order. The highest pay, the worst consequences.</span>
+            </span>
+            <span class="tog" aria-hidden="true"></span>
+          </summary>
+          <div class="fbody">
+            <p data-l="it">Non ha un indirizzo e non compare su nessuna mappa. Il primo messaggio arriva sempre da qualcuno che sa già troppo di te: quanto devi, chi hai deluso, che cosa saresti disposto a fare per saldare il conto.</p><p data-l="en">It has no address and appears on no map. The first message always comes from someone who already knows too much about you: how much you owe, whom you have let down, what you would be willing to do to settle the score.</p>
+            <p data-l="it">È il mercato sommerso dei ricatti, dei sabotaggi e dei furti su commissione, dove i compensi sono i più alti della Rete e le conseguenze le peggiori. La parola data viene mantenuta con una puntualità che dovrebbe spaventarti più di una minaccia. Chi consegna entra nel <b>Bazaar</b>, dove si vendono cose che ufficialmente non esistono.</p><p data-l="en">It is the underground market of blackmail, sabotage and theft to order, where the pay is the highest in the Net and the consequences the worst. A promise is kept with a punctuality that should scare you more than any threat. Those who deliver get into <b>the Bazaar</b>, where things that officially do not exist are for sale.</p>
+            <p class="hid"><b><span data-l="it">Cosa non dicono:</span><span data-l="en">What they don&#39;t say:</span></b> <span data-l="it">Conoscono il valore di ogni informazione, e hanno un'idea molto precisa di quanto valga la tua.</span><span data-l="en">They know the value of every piece of information, and have a very precise idea of what yours is worth.</span></p>
+            <h4 class="fsub"><span data-l="it">I luogotenenti</span><span data-l="en">The lieutenants</span></h4>
+            <div class="pts">
+              <article class="pt">
+                <div class="ph"><img src="img/people/tazi.jpg" alt="Zahra Tazi" loading="lazy" width="405" height="304"></div>
+                <div class="tx">
+                  <h5><span data-l="it">Zahra Tazi</span><span data-l="en">Zahra Tazi</span></h5>
+                  <div class="role"><span data-l="it">Cartografa, Casablanca</span><span data-l="en">Cartographer, Casablanca</span></div>
+                  <p data-l="it">Disegna le strade che non compaiono su nessun atlante: rotte, relay, porte di servizio. Le mancano pezzi di rete, e tu puoi guardarci dentro. È la più accomodante della Rete Nera, ed è proprio per questo che conviene starle simpatici.</p><p data-l="en">She draws the roads that appear on no atlas: routes, relays, back doors. She is missing pieces of the network, and you can look inside them. She is the most easy-going person in the Black Net, which is exactly why it pays to stay on her good side.</p>
+                </div>
+              </article>
+              <article class="pt">
+                <div class="ph"><img src="img/people/dragan.jpg" alt="Mirela Dragan" loading="lazy" width="405" height="304"></div>
+                <div class="tx">
+                  <h5><span data-l="it">Mirela Dragan</span><span data-l="en">Mirela Dragan</span></h5>
+                  <div class="role"><span data-l="it">Contabile, Bucarest</span><span data-l="en">Bookkeeper, Bucharest</span></div>
+                  <p data-l="it">Tiene i conti della Rete, e i conti vogliono ordine: registri, conti correnti, banche, tasse. Precisa fino alla pignoleria, lavora solo con chi non sbaglia due volte. Considera Kite un rischio che corre troppo.</p><p data-l="en">She keeps the Net's books, and books want order: ledgers, accounts, banks, taxes. Precise to the point of pedantry, she only works with people who don't make the same mistake twice. She sees Kite as a risk who runs too fast.</p>
+                </div>
+              </article>
+              <article class="pt">
+                <div class="ph"><img src="img/people/ozawa.jpg" alt="Haruki “Kite” Ozawa" loading="lazy" width="405" height="304"></div>
+                <div class="tx">
+                  <h5><span data-l="it">Haruki «Kite» Ozawa</span><span data-l="en">Haruki “Kite” Ozawa</span></h5>
+                  <div class="role"><span data-l="it">Corriere, Yokohama</span><span data-l="en">Courier, Yokohama</span></div>
+                  <p data-l="it">Corre, e vuole gente che sappia correre. I suoi lavori hanno finestre piccole e pagano il doppio proprio per questo. Simpatico, impaziente, sempre in movimento: con lui il problema non è il compenso, è il tempo.</p><p data-l="en">He runs, and wants people who can run. His jobs have small windows and pay double for exactly that reason. Friendly, impatient, always on the move: with him the problem is never the pay, it's the clock.</p>
+                </div>
+              </article>
+            </div>
+            <div class="lead2">
+              <p><span class="lk"><span data-l="it">Sopra di loro</span><span data-l="en">Above them</span></span><br><span data-l="it"><b>Il Broker</b>. Nessuno sa chi sia. Quando qualcuno, in alto, ha seguito abbastanza a lungo le tue mosse, arriva una lettera: non fargli perdere tempo.</span><span data-l="en"><b>The Broker</b>. Nobody knows who they are. When someone up high has followed your moves long enough, a letter arrives: don't waste their time.</span></p>
+              <div class="ph"><img src="img/people/broker.jpg" alt="" loading="lazy" width="480" height="480"></div>
+            </div>
           </div>
-        </article>
+        </details>
       </div>
+      <p class="note2" data-l="it">I luogotenenti si presentano man mano che la tua reputazione cresce. Alcuni sono rivali: lavorare bene per uno irrita l'altro.</p>
+      <p class="note2" data-l="en">Lieutenants introduce themselves as your reputation grows. Some are rivals: doing good work for one annoys the other.</p>
     </section>
 
     <!-- 04 -->
