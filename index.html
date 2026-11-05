@@ -376,10 +376,48 @@ details.more .tw { background: var(--bg); }
   .progs-t tr:nth-child(2) { border-top: 0; }
   .progs-t td { border: 0; padding: 3px 12px; }
 }
+/* ---- Icone neon (sprite SVG in cima al corpo) */
+.ic { width: 1em; height: 1em; vertical-align: -0.14em; flex: none; filter: drop-shadow(0 0 3px currentColor); }
+h2 .ic { width: 0.78em; height: 0.78em; color: var(--cyan); margin-right: 0.38em; vertical-align: -0.06em; }
+.fg h4 .ic, .ab h4 .ic { margin-right: 8px; }
+.dl .os { display: flex; align-items: center; gap: 10px; }
+.dl .os::after { content: none; }
+.dl .os .ic { color: var(--magenta); width: 20px; height: 20px; }
+.doc .t { display: flex; align-items: center; gap: 8px; }
+.doc .t .ic { color: var(--cyan); width: 18px; height: 18px; }
+.donate .pay .btn .bl { display: inline-flex; align-items: center; gap: 9px; }
+.donate .pay .btn .ic { width: 20px; height: 20px; }
+.donate .txt h4 .ic { margin-right: 8px; }
+.lang .ic { width: 16px; height: 16px; color: var(--dim); margin: 0 6px 0 4px; align-self: center; filter: none; }
 </style>
 </head>
 <body>
 
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+<symbol id="i-features" viewBox="0 0 24 24"><path d="M7 4h10l3 3v10l-3 3H7l-3-3V7z M9 9h6v6H9z M12 1v3 M12 20v3 M1 12h3 M20 12h3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter"/></symbol>
+<symbol id="i-world" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0.01 0 M3 12h18 M12 3c-3 3-3 15 0 18 M12 3c3 3 3 15 0 18 M5 7.5h14 M5 16.5h14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter"/></symbol>
+<symbol id="i-factions" viewBox="0 0 24 24"><path d="M12 2l8 3v6c0 5-3.5 8.5-8 11-4.5-2.5-8-6-8-11V5z M12 7v10 M7.5 10.5h9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter"/></symbol>
+<symbol id="i-play" viewBox="0 0 24 24"><path d="M3 5h18v14H3z M6 9l3 3-3 3 M11 15h6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter"/></symbol>
+<symbol id="i-multi" viewBox="0 0 24 24"><path d="M5 6a2 2 0 1 0 0.01 0 M19 6a2 2 0 1 0 0.01 0 M12 18a2 2 0 1 0 0.01 0 M7 7l3.5 9.5 M17 7l-3.5 9.5 M7 6h10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter"/></symbol>
+<symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12 M7 10l5 5 5-5 M4 17v3h16v-3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter"/></symbol>
+<symbol id="i-manuals" viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z M15 3v4h4 M9 11h7 M9 14h7 M9 17h4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter"/></symbol>
+<symbol id="i-news" viewBox="0 0 24 24"><path d="M4 4h12l4 4v12H4z M8 9h6 M8 12h8 M8 15h8 M16 4v4h4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter"/></symbol>
+<symbol id="i-about" viewBox="0 0 24 24"><path d="M4 5h16v14H4z M9 9.5a2 2 0 1 0 0.01 0 M6.5 15.5c.8-2 4.2-2 5 0 M14 9h4 M14 12h4 M14 15h3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter"/></symbol>
+<symbol id="i-support" viewBox="0 0 24 24"><path d="M12 20l-7.5-7.5a4.6 4.6 0 0 1 6.5-6.5l1 1 1-1a4.6 4.6 0 0 1 6.5 6.5z M8 11h2l1-2 2 4 1-2h2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter"/></symbol>
+<symbol id="i-job" viewBox="0 0 24 24"><path d="M12 3v4 M12 17v4 M3 12h4 M17 12h4 M12 8a4 4 0 1 0 0.01 0 M12 11.5v1" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter"/></symbol>
+<symbol id="i-side" viewBox="0 0 24 24"><path d="M12 3v18 M5 21h14 M4 8h16 M4 8l-2.5 6h5z M20 8l-2.5 6h5z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter"/></symbol>
+<symbol id="i-rig" viewBox="0 0 24 24"><path d="M4 6h16v4H4z M4 14h16v4H4z M7 8h.01 M7 16h.01 M11 8h6 M11 16h6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter"/></symbol>
+<symbol id="i-machine" viewBox="0 0 24 24"><path d="M3 4h18v12H3z M9 20h6 M12 16v4 M7 8l2 2-2 2 M11 12h3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter"/></symbol>
+<symbol id="i-free" viewBox="0 0 24 24"><path d="M7 11V8a5 5 0 0 1 9.6-2 M5 11h14v10H5z M12 15v2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter"/></symbol>
+<symbol id="i-author" viewBox="0 0 24 24"><path d="M10 4a3.5 3.5 0 1 0 0.01 0 M3 20c1-4 4-5.5 7-5.5s6 1.5 7 5.5 M18 4l3 3-5 5h-3v-3z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter"/></symbol>
+<symbol id="i-beta" viewBox="0 0 24 24"><path d="M8 7a4 4 0 0 1 8 0 M7 9h10v6a5 5 0 0 1-10 0z M12 9v11 M3 10l4 2 M21 10l-4 2 M3 18l4-2 M21 18l-4-2 M4 14h3 M17 14h3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter"/></symbol>
+<symbol id="i-love" viewBox="0 0 24 24"><path d="M12 20l-7.5-7.5a4.6 4.6 0 0 1 6.5-6.5l1 1 1-1a4.6 4.6 0 0 1 6.5 6.5z M12 8v5 M10 11l2 2 2-2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter"/></symbol>
+<symbol id="i-pkg" viewBox="0 0 24 24"><path d="M12 2l9 5v10l-9 5-9-5V7z M3 7l9 5 9-5 M12 12v10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter"/></symbol>
+<symbol id="i-doc" viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z M15 3v4h4 M9 12h7 M9 15h7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter"/></symbol>
+<symbol id="i-coffee" viewBox="0 0 24 24"><path d="M4 9h12v6a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z M16 11h2a2 2 0 0 1 0 4h-2 M8 3c-1 1.5 1 2 0 3.5 M12 3c-1 1.5 1 2 0 3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter"/></symbol>
+<symbol id="i-wallet" viewBox="0 0 24 24"><path d="M3 7h16v12H3z M3 7l12-4 1 4 M15 11h6v4h-6z M17.5 13h.01" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter"/></symbol>
+<symbol id="i-lang" viewBox="0 0 24 24"><path d="M4 5h9 M8.5 3v2 M6 5c0 4 3 7 6 8 M11 5c0 4-3 7-6 8 M13 21l4-9 4 9 M14.5 18h5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter"/></symbol>
+</svg>
 <header class="hud">
   <div class="wrap">
     <a class="logo" href="#top">CORE:HACK</a>
@@ -432,26 +470,26 @@ details.more .tw { background: var(--bg); }
     <!-- 01 -->
     <section class="ch" id="features">
       <div class="chnum">01</div>
-      <h2><span data-l="it">Caratteristiche</span><span data-l="en">Features</span></h2>
+      <h2><svg class="ic" aria-hidden="true"><use href="#i-features"/></svg><span data-l="it">Caratteristiche</span><span data-l="en">Features</span></h2>
       <div class="rule"></div>
       <div class="fgroups">
         <article class="fg" style="--fc:var(--cyan)">
-          <h4><span data-l="it">Il lavoro</span><span data-l="en">The job</span></h4>
+          <h4><svg class="ic" aria-hidden="true"><use href="#i-job"/></svg><span data-l="it">Il lavoro</span><span data-l="en">The job</span></h4>
           <ul data-l="it"><li>Ogni intrusione avviene in tempo reale: mentre scansioni e forzi le barriere, il trace di NetGuard risale la tua connessione nodo dopo nodo.</li><li>Lavori dal terminale, digitando i comandi come un vero operatore, oppure dalle finestre del gateway, con pulsanti e scorciatoie.</li><li>Nessuna rete è uguale all'altra: VLAN, host nascosti, backup e monitor cambiano a ogni contratto, mentre le aziende della Rubrica ricordano chi è passato di lì.</li><li>Lavori da red team, entrando per rubare, sabotare o distruggere, e da blue team, difendendo in diretta la rete di un cliente sotto attacco.</li></ul>
           <ul data-l="en"><li>Every intrusion happens in real time: while you scan and break the barriers, NetGuard's trace climbs back up your connection, node by node.</li><li>You work from the terminal, typing commands like a real operator, or from the gateway's windows, with buttons and shortcuts.</li><li>No two networks are alike: VLANs, hidden hosts, backups and monitors change with every contract, while the companies in the Directory remember who came through.</li><li>You work red team, breaking in to steal, sabotage or destroy, and blue team, defending a client's network live while it is under attack.</li></ul>
         </article>
         <article class="fg" style="--fc:var(--magenta)">
-          <h4><span data-l="it">La tua parte</span><span data-l="en">Your side</span></h4>
+          <h4><svg class="ic" aria-hidden="true"><use href="#i-side"/></svg><span data-l="it">La tua parte</span><span data-l="en">Your side</span></h4>
           <ul data-l="it"><li>Quattro fazioni si contendono la Rete, e ognuna ricorda chi l'ha servita e chi l'ha tradita.</li><li>La tua coscienza si muove su due assi, legalità ed etica, e il modo in cui lavori finisce per dire chi sei.</li><li>NetGuard osserva: ogni traccia che lasci alza la sorveglianza, fino alla perquisizione o all'arresto.</li><li>Sotto i contratti di ogni giorno corre una storia più vecchia del Blackout, che si lascia scoprire un frammento alla volta.</li></ul>
           <ul data-l="en"><li>Four factions fight over the Net, and each remembers who served it and who betrayed it.</li><li>Your conscience moves along two axes, law and ethics, and the way you work ends up saying who you are.</li><li>NetGuard is watching: every trace you leave raises the heat, all the way to a raid or an arrest.</li><li>Beneath everyday contracts runs a story older than the Blackout, one that lets itself be found a fragment at a time.</li></ul>
         </article>
         <article class="fg" style="--fc:var(--green)">
-          <h4><span data-l="it">Il tuo arsenale</span><span data-l="en">Your rig</span></h4>
+          <h4><svg class="ic" aria-hidden="true"><use href="#i-rig"/></svg><span data-l="it">Il tuo arsenale</span><span data-l="en">Your rig</span></h4>
           <ul data-l="it"><li>Il gateway cresce con te: processori, memoria e relay migliori, decine di programmi in più versioni e bollette da pagare ogni settimana.</li><li>Nel Mercato Nero si trovano strumenti che ufficialmente non esistono, come RevShell, KeyWraith, Devour e DarkHole.</li><li>Nella Rete lavorano anche altri operatori: puoi indagare su di loro, seguirne le tracce fino al gateway e aprire fascicoli su persone e aziende.</li></ul>
           <ul data-l="en"><li>Your gateway grows with you: better processors, memory and relays, dozens of programs in several versions, and bills to pay every week.</li><li>The Black Market sells tools that officially don't exist, such as RevShell, KeyWraith, Devour and DarkHole.</li><li>Other operators work the Net too: you can investigate them, follow their trail back to their gateway and open dossiers on people and companies.</li></ul>
         </article>
         <article class="fg" style="--fc:var(--amber)">
-          <h4><span data-l="it">Il terminale</span><span data-l="en">The machine</span></h4>
+          <h4><svg class="ic" aria-hidden="true"><use href="#i-machine"/></svg><span data-l="it">Il terminale</span><span data-l="en">The machine</span></h4>
           <ul data-l="it"><li>Gira su Linux, Windows e macOS senza installazione: estrai l'archivio e sei già in linea.</li><li>Parla italiano, inglese e francese, e cambia aspetto con cinque temi grafici, da Core a Tensor.</li><li>Un server dedicato porta la Rete ad altri operatori, in LAN o in Internet, per sfide, assedi e scambi.</li><li>I tutorial integrati ti accompagnano nelle prime intrusioni, senza toglierti il gusto di scoprire il resto da solo.</li></ul>
           <ul data-l="en"><li>It runs on Linux, Windows and macOS with nothing to install: extract the archive and you are already online.</li><li>It speaks Italian, English and French, and changes its look with five visual themes, from Core to Tensor.</li><li>A dedicated server brings the Net to other operators, on a LAN or the Internet, for challenges, sieges and trades.</li><li>Built-in tutorials walk you through your first intrusions, without spoiling the pleasure of discovering the rest yourself.</li></ul>
         </article>
@@ -461,7 +499,7 @@ details.more .tw { background: var(--bg); }
     <!-- 02 -->
     <section class="ch" id="world">
       <div class="chnum">02</div>
-      <h2><span data-l="it">Il mondo</span><span data-l="en">The world</span></h2>
+      <h2><svg class="ic" aria-hidden="true"><use href="#i-world"/></svg><span data-l="it">Il mondo</span><span data-l="en">The world</span></h2>
       <div class="rule"></div>
       <div class="two">
         <div>
@@ -483,7 +521,7 @@ details.more .tw { background: var(--bg); }
     <!-- 03 -->
     <section class="ch" id="factions">
       <div class="chnum">03</div>
-      <h2><span data-l="it">Le quattro fazioni</span><span data-l="en">The four factions</span></h2>
+      <h2><svg class="ic" aria-hidden="true"><use href="#i-factions"/></svg><span data-l="it">Le quattro fazioni</span><span data-l="en">The four factions</span></h2>
       <div class="rule"></div>
       <p data-l="it">La reputazione con ciascuna, da -100 a +100, decide contratti, gateway e mercati. Servirne una spesso significa tradirne un'altra. Apri una fazione per conoscerne la storia e le persone con cui lavorerai.</p>
       <p data-l="en">Your standing with each, from -100 to +100, decides contracts, gateways and markets. Serving one often means betraying another. Open a faction to read its story and meet the people you will work with.</p>
@@ -682,16 +720,16 @@ details.more .tw { background: var(--bg); }
     <!-- 04 -->
     <section class="ch" id="how-to-play">
       <div class="chnum">04</div>
-      <h2><span data-l="it">Come si gioca</span><span data-l="en">How to play</span></h2>
+      <h2><svg class="ic" aria-hidden="true"><use href="#i-play"/></svg><span data-l="it">Come si gioca</span><span data-l="en">How to play</span></h2>
       <div class="rule"></div>
       <div class="steps">
-        <div class="step"><div class="n">1</div><div class="t"><span data-l="it">Scegli</span><span data-l="en">Pick</span></div>
+        <div class="step"><div class="n">1</div><div class="t"><svg class="ic" aria-hidden="true"><use href="#i-doc"/></svg><span data-l="it">Scegli</span><span data-l="en">Pick</span></div>
           <p data-l="it">Un contratto in bacheca: cliente, obiettivo, compenso, rischio.</p><p data-l="en">A contract on the board: client, goal, pay, risk.</p></div>
-        <div class="step"><div class="n">2</div><div class="t"><span data-l="it">Entra</span><span data-l="en">Get in</span></div>
+        <div class="step"><div class="n">2</div><div class="t"><svg class="ic" aria-hidden="true"><use href="#i-doc"/></svg><span data-l="it">Entra</span><span data-l="en">Get in</span></div>
           <p data-l="it">Scansiona, abbatti le barriere, acceca i monitor.</p><p data-l="en">Scan, break the barriers, blind the monitors.</p></div>
-        <div class="step"><div class="n">3</div><div class="t"><span data-l="it">Colpisci</span><span data-l="en">Strike</span></div>
+        <div class="step"><div class="n">3</div><div class="t"><svg class="ic" aria-hidden="true"><use href="#i-doc"/></svg><span data-l="it">Colpisci</span><span data-l="en">Strike</span></div>
           <p data-l="it">Ruba, cancella, altera, sabota o distruggi.</p><p data-l="en">Steal, delete, alter, sabotage or destroy.</p></div>
-        <div class="step"><div class="n">4</div><div class="t"><span data-l="it">Sparisci</span><span data-l="en">Vanish</span></div>
+        <div class="step"><div class="n">4</div><div class="t"><svg class="ic" aria-hidden="true"><use href="#i-doc"/></svg><span data-l="it">Sparisci</span><span data-l="en">Vanish</span></div>
           <p data-l="it">Cancella i log ed esci prima che il trace arrivi a te.</p><p data-l="en">Wipe the logs and leave before the trace reaches you.</p></div>
       </div>
       <div class="two shots2">
@@ -723,7 +761,7 @@ details.more .tw { background: var(--bg); }
     <!-- 05 -->
     <section class="ch" id="multiplayer">
       <div class="chnum">05</div>
-      <h2><span data-l="it">Multigiocatore</span><span data-l="en">Multiplayer</span></h2>
+      <h2><svg class="ic" aria-hidden="true"><use href="#i-multi"/></svg><span data-l="it">Multigiocatore</span><span data-l="en">Multiplayer</span></h2>
       <div class="rule"></div>
       <div class="two">
         <div>
@@ -746,17 +784,17 @@ listening on :7341</div>
     <!-- 06 -->
     <section class="ch" id="download" data-repo="guidocauli/corehack">
       <div class="chnum">06</div>
-      <h2>Download</h2>
+      <h2><svg class="ic" aria-hidden="true"><use href="#i-download"/></svg>Download</h2>
       <div class="rule"></div>
       <p data-l="it">Non si installa: estrai l'archivio e avvia il gioco dalla cartella. Dentro ci sono anche il server e i manuali.</p>
       <p data-l="en">Nothing to install: extract the archive and start the game from its folder. The server and the manuals are included.</p>
       <div class="dls">
         <a class="dl" data-file="corehack-windows-amd64.zip" href="#download">
-          <span class="os">Windows</span><span class="m"><span data-l="it">10 e 11, 64 bit · .zip</span><span data-l="en">10 and 11, 64-bit · .zip</span></span></a>
+          <span class="os"><svg class="ic" aria-hidden="true"><use href="#i-pkg"/></svg>Windows</span><span class="m"><span data-l="it">10 e 11, 64 bit · .zip</span><span data-l="en">10 and 11, 64-bit · .zip</span></span></a>
         <a class="dl" data-file="corehack-macos-silicon.zip" href="#download">
-          <span class="os">macOS</span><span class="m"><span data-l="it">Apple Silicon, da macOS 12 · .zip</span><span data-l="en">Apple Silicon, macOS 12+ · .zip</span></span></a>
+          <span class="os"><svg class="ic" aria-hidden="true"><use href="#i-pkg"/></svg>macOS</span><span class="m"><span data-l="it">Apple Silicon, da macOS 12 · .zip</span><span data-l="en">Apple Silicon, macOS 12+ · .zip</span></span></a>
         <a class="dl" data-file="corehack-linux-amd64.tar.gz" href="#download">
-          <span class="os">Linux</span><span class="m"><span data-l="it">x86-64 · .tar.gz</span><span data-l="en">x86-64 · .tar.gz</span></span></a>
+          <span class="os"><svg class="ic" aria-hidden="true"><use href="#i-pkg"/></svg>Linux</span><span class="m"><span data-l="it">x86-64 · .tar.gz</span><span data-l="en">x86-64 · .tar.gz</span></span></a>
       </div>
       <p class="small2"><a data-rel="SHA256SUMS" href="#download">SHA256SUMS</a> · <a data-rel="" href="#download"><span data-l="it">tutte le versioni</span><span data-l="en">all releases</span></a></p>
       <div class="two">
@@ -799,24 +837,24 @@ listening on :7341</div>
     <!-- 07 -->
     <section class="ch" id="manuals">
       <div class="chnum">07</div>
-      <h2><span data-l="it">Manuali</span><span data-l="en">Manuals</span></h2>
+      <h2><svg class="ic" aria-hidden="true"><use href="#i-manuals"/></svg><span data-l="it">Manuali</span><span data-l="en">Manuals</span></h2>
       <div class="rule"></div>
       <p data-l="it">In PDF, aggiornati alla versione 2.10.2.</p>
       <p data-l="en">PDF manuals for version 2.10.2.</p>
       <div class="docs">
-        <a class="doc" href="CoreHack-Manual.pdf" target="_blank" rel="noopener"><div class="t">Player's Manual</div><div class="m">English</div></a>
-        <a class="doc" href="CoreHack-Advanced-Manual.pdf" target="_blank" rel="noopener"><div class="t">Advanced Manual</div><div class="m">English</div></a>
-        <a class="doc" href="CoreHack-Manuale.pdf" target="_blank" rel="noopener"><div class="t">Manuale del giocatore</div><div class="m">Italiano</div></a>
-        <a class="doc" href="CoreHack-Manuale-Avanzato.pdf" target="_blank" rel="noopener"><div class="t">Manuale avanzato</div><div class="m">Italiano</div></a>
-        <a class="doc" href="CoreHack-Manuel.pdf" target="_blank" rel="noopener"><div class="t">Manuel du joueur</div><div class="m">Français</div></a>
-        <a class="doc" href="CoreHack-Manuale-Server.pdf" target="_blank" rel="noopener"><div class="t">Manuale del server</div><div class="m">Italiano</div></a>
+        <a class="doc" href="CoreHack-Manual.pdf" target="_blank" rel="noopener"><div class="t"><svg class="ic" aria-hidden="true"><use href="#i-doc"/></svg>Player's Manual</div><div class="m">English</div></a>
+        <a class="doc" href="CoreHack-Advanced-Manual.pdf" target="_blank" rel="noopener"><div class="t"><svg class="ic" aria-hidden="true"><use href="#i-doc"/></svg>Advanced Manual</div><div class="m">English</div></a>
+        <a class="doc" href="CoreHack-Manuale.pdf" target="_blank" rel="noopener"><div class="t"><svg class="ic" aria-hidden="true"><use href="#i-doc"/></svg>Manuale del giocatore</div><div class="m">Italiano</div></a>
+        <a class="doc" href="CoreHack-Manuale-Avanzato.pdf" target="_blank" rel="noopener"><div class="t"><svg class="ic" aria-hidden="true"><use href="#i-doc"/></svg>Manuale avanzato</div><div class="m">Italiano</div></a>
+        <a class="doc" href="CoreHack-Manuel.pdf" target="_blank" rel="noopener"><div class="t"><svg class="ic" aria-hidden="true"><use href="#i-doc"/></svg>Manuel du joueur</div><div class="m">Français</div></a>
+        <a class="doc" href="CoreHack-Manuale-Server.pdf" target="_blank" rel="noopener"><div class="t"><svg class="ic" aria-hidden="true"><use href="#i-doc"/></svg>Manuale del server</div><div class="m">Italiano</div></a>
       </div>
     </section>
 
     <!-- 08 -->
     <section class="ch" id="whats-new">
       <div class="chnum">08</div>
-      <h2><span data-l="it">Novità</span><span data-l="en">What's new</span></h2>
+      <h2><svg class="ic" aria-hidden="true"><use href="#i-news"/></svg><span data-l="it">Novità</span><span data-l="en">What's new</span></h2>
       <div class="rule"></div>
       <div class="log">
         <article>
@@ -840,26 +878,26 @@ listening on :7341</div>
     <!-- 09 -->
     <section class="ch" id="about">
       <div class="chnum">09</div>
-      <h2><span data-l="it">Il progetto</span><span data-l="en">About the project</span></h2>
+      <h2><svg class="ic" aria-hidden="true"><use href="#i-about"/></svg><span data-l="it">Il progetto</span><span data-l="en">About the project</span></h2>
       <div class="rule"></div>
       <div class="about">
         <article class="ab" style="--fc:var(--green)">
-          <h4><span data-l="it">Personale, e gratuito per sempre</span><span data-l="en">Personal, and free forever</span></h4>
+          <h4><svg class="ic" aria-hidden="true"><use href="#i-free"/></svg><span data-l="it">Personale, e gratuito per sempre</span><span data-l="en">Personal, and free forever</span></h4>
           <p data-l="it">Core:Hack è un progetto personale, nato e cresciuto nel tempo libero. Non ha un editore né un modello di business: è gratuito e lo resterà sempre, senza pubblicità, acquisti nel gioco o contenuti a pagamento.</p>
           <p data-l="en">Core:Hack is a personal project, born and grown in spare time. It has no publisher and no business model: it is free and will always stay free, with no ads, in-game purchases or paid content.</p>
         </article>
         <article class="ab" style="--fc:var(--cyan)">
-          <h4><span data-l="it">Autore</span><span data-l="en">Author</span></h4>
+          <h4><svg class="ic" aria-hidden="true"><use href="#i-author"/></svg><span data-l="it">Autore</span><span data-l="en">Author</span></h4>
           <p data-l="it">Direzione, narrativa, motore di gioco e musica sono opera di una sola persona, Guido Cauli. Il lavoro tecnico è stato realizzato anche con il contributo di un'intelligenza artificiale, usata come strumento: le idee, le scelte e la visione restano dell'autore.</p>
           <p data-l="en">Direction, narrative, game engine and music are the work of one person, Guido Cauli. The technical work was also done with the help of an artificial intelligence, used as a tool: the ideas, the choices and the vision remain the author's.</p>
         </article>
         <article class="ab" style="--fc:var(--amber)">
-          <h4><span data-l="it">È una beta: aiutami a migliorarlo</span><span data-l="en">It's a beta: help make it better</span></h4>
+          <h4><svg class="ic" aria-hidden="true"><use href="#i-beta"/></svg><span data-l="it">È una beta: aiutami a migliorarlo</span><span data-l="en">It's a beta: help make it better</span></h4>
           <p data-l="it">Il gioco è ancora in sviluppo, e qualcosa può non funzionare come dovrebbe. Se trovi un bug, un malfunzionamento, un testo sbagliato, un contratto impossibile o hai semplicemente un'idea, scrivimi a <a href="mailto:guido.cauli@gmail.com?subject=Core%3AHack%20-%20segnalazione">guido.cauli@gmail.com</a>: indica la versione, il sistema e cosa stavi facendo. Ogni segnalazione conta.</p>
           <p data-l="en">The game is still in development, and some things may not work as they should. If you find a bug, a malfunction, a wrong text, an impossible contract, or simply have an idea, write to <a href="mailto:guido.cauli@gmail.com?subject=Core%3AHack%20-%20report">guido.cauli@gmail.com</a>: include the version, your system and what you were doing. Every report counts.</p>
         </article>
         <article class="ab" style="--fc:var(--magenta)">
-          <h4><span data-l="it">Una lettera d'amore</span><span data-l="en">A love letter</span></h4>
+          <h4><svg class="ic" aria-hidden="true"><use href="#i-love"/></svg><span data-l="it">Una lettera d'amore</span><span data-l="en">A love letter</span></h4>
           <p data-l="it">Core:Hack è un atto d'amore personale verso i giochi di hacking e di strategia, e in particolare verso <i>Uplink</i> di <a href="https://www.introversion.co.uk/" target="_blank" rel="noopener">Introversion Software</a>, che per primo ha fatto sentire tanti di noi operatori davanti a un terminale. Se non lo conosci, recuperalo.</p>
           <p data-l="en">Core:Hack is a personal act of love towards hacking and strategy games, and above all towards <i>Uplink</i> by <a href="https://www.introversion.co.uk/" target="_blank" rel="noopener">Introversion Software</a>, which first made so many of us feel like operators in front of a terminal. If you have never played it, go and find it.</p>
         </article>
@@ -869,19 +907,19 @@ listening on :7341</div>
     <!-- 10 -->
     <section class="ch" id="support">
       <div class="chnum">10</div>
-      <h2><span data-l="it">Sostieni il progetto</span><span data-l="en">Support the project</span></h2>
+      <h2><svg class="ic" aria-hidden="true"><use href="#i-support"/></svg><span data-l="it">Sostieni il progetto</span><span data-l="en">Support the project</span></h2>
       <div class="rule"></div>
       <div class="donate">
         <div class="txt">
-          <h4><span data-l="it">Un bonifico all'operatore</span><span data-l="en">A transfer to the operator</span></h4>
+          <h4><svg class="ic" aria-hidden="true"><use href="#i-love"/></svg><span data-l="it">Un supporto all'autore</span><span data-l="en">Support the author</span></h4>
           <p data-l="it">Se il gioco ti piace e vuoi che continui a crescere, puoi offrire un caffè.</p>
           <p data-l="en">If you enjoy the game and want it to keep growing, you can buy a coffee.</p>
           <p class="credit" data-l="it">Nessun obbligo: il gioco resta lo stesso per tutti.</p>
           <p class="credit" data-l="en">No obligation: the game is the same for everyone.</p>
         </div>
         <div class="pay">
-          <a class="btn" href="https://ko-fi.com/guidocauli" target="_blank" rel="noopener">Ko-fi <small><span data-l="it">un caffè o una donazione mensile</span><span data-l="en">a coffee or a monthly tip</span></small></a>
-          <a class="btn alt" href="https://paypal.me/guidocauli" target="_blank" rel="noopener">PayPal <small><span data-l="it">una donazione libera</span><span data-l="en">any amount</span></small></a>
+          <a class="btn" href="https://ko-fi.com/guidocauli" target="_blank" rel="noopener"><span class="bl"><svg class="ic" aria-hidden="true"><use href="#i-coffee"/></svg>Ko-fi</span> <small><span data-l="it">un caffè o una donazione mensile</span><span data-l="en">a coffee or a monthly tip</span></small></a>
+          <a class="btn alt" href="https://paypal.me/guidocauli" target="_blank" rel="noopener"><span class="bl"><svg class="ic" aria-hidden="true"><use href="#i-wallet"/></svg>PayPal</span> <small><span data-l="it">una donazione libera</span><span data-l="en">any amount</span></small></a>
         </div>
       </div>
     </section>
