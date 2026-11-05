@@ -347,6 +347,26 @@ details.more .tw { background: var(--bg); }
 .lead2 .ph img { aspect-ratio: 1; }
 .lead2 p { margin: 0; font-size: 15px; max-width: none; }
 .lead2 .lk { font-family: var(--f-mono); color: var(--fc); text-transform: uppercase; font-size: 13px; letter-spacing: 0.06em; }
+/* ---- Finestre in stile IONic (come nel tema del gioco): nero con velo ciano, doppio filo neon, angoli smussati
+   in alto a sinistra e in basso a destra, titolo senza barra, sottolineato da un filo. */
+.win { position: relative; isolation: isolate; --c: 24px; background: none; border: 0; padding: 7px; min-width: 0;
+  filter: drop-shadow(0 0 5px rgba(0,229,255,0.35)); }
+.win::before { content: ""; position: absolute; inset: 0; z-index: -3; background: #00e5ff; clip-path: polygon(var(--c) 0, 100% 0, 100% calc(100% - var(--c)), calc(100% - var(--c)) 100%, 0 100%, 0 var(--c)); }
+.win::after { content: ""; position: absolute; inset: 1px; z-index: -2; background: linear-gradient(to bottom, #001012, #000203);
+  clip-path: polygon(calc(var(--c) - 0.6px) 0, 100% 0, 100% calc(100% - calc(var(--c) - 0.6px)), calc(100% - calc(var(--c) - 0.6px)) 100%, 0 100%, 0 calc(var(--c) - 0.6px)); }
+.win > .ion-l { position: absolute; inset: 3px; z-index: -1; pointer-events: none; background: rgba(0,229,255,0.42);
+  clip-path: polygon(calc(var(--c) - 1.8px) 0, 100% 0, 100% calc(100% - calc(var(--c) - 1.8px)), calc(100% - calc(var(--c) - 1.8px)) 100%, 0 100%, 0 calc(var(--c) - 1.8px)); }
+.win > .ion-l::after { content: ""; position: absolute; inset: 1px; background: linear-gradient(to bottom, #001113, #000203);
+  clip-path: polygon(calc(var(--c) - 2.4px) 0, 100% 0, 100% calc(100% - calc(var(--c) - 2.4px)), calc(100% - calc(var(--c) - 2.4px)) 100%, 0 100%, 0 calc(var(--c) - 2.4px)); }
+.win > .bar { background: none; border-bottom: 1px solid rgba(0,229,255,0.3); padding: 3px 8px 6px calc(var(--c) - 2px);
+  margin-bottom: 7px; color: #00e5ff; }
+.win > .bar span:last-child { color: #007c92; }
+.win > :last-child { clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--c) + 4px), calc(100% - var(--c) + 4px) 100%, 0 100%); }
+.win .term { background: rgba(0,0,0,0.35); border: 0; color: #28ffa4; }
+.win .term .p { color: #82eeff; }
+.win .term .d { color: #007c92; }
+.win .shot img, .shot.win img { border: 0; }
+.shot.win figcaption { border-top: 1px solid rgba(0,229,255,0.25); color: #54c4d8; padding: 8px 10px 10px; }
 </style>
 </head>
 <body>
@@ -391,6 +411,7 @@ details.more .tw { background: var(--bg); }
         <p class="ver"><span data-l="it">Versione</span><span data-l="en">Version</span> 2.10.2 <span class="beta">BETA</span> · Linux · Windows · macOS · IT EN FR</p>
       </div>
       <div class="win">
+          <i class="ion-l" aria-hidden="true"></i>
         <div class="bar"><span><span data-l="it">Terminale</span><span data-l="en">Terminal</span></span><span>nyx $&gt;</span></div>
         <div class="term" id="term" aria-hidden="true"></div>
       </div>
@@ -445,6 +466,7 @@ details.more .tw { background: var(--bg); }
           <p class="quote" data-l="en">Getting in is easy. Choosing a side is the hard part.</p>
         </div>
         <figure class="shot win">
+          <i class="ion-l" aria-hidden="true"></i>
           <div class="bar"><span>CORE:HACK</span><span>2091</span></div>
           <img src="img/title.jpg" alt="Core:Hack Blackout title screen" loading="lazy" width="1440" height="810">
         </figure>
@@ -669,12 +691,14 @@ details.more .tw { background: var(--bg); }
       </div>
       <div class="two shots2">
         <figure class="shot win">
+          <i class="ion-l" aria-hidden="true"></i>
           <div class="bar"><span>Red team</span><span><span data-l="it">intrusione</span><span data-l="en">intrusion</span></span></div>
           <img src="img/red.jpg" alt="An intrusion: the network map with open and locked hosts" loading="lazy" width="1440" height="810">
           <figcaption data-l="it">Intrusione: la mappa della rete, le barriere, il trace.</figcaption>
           <figcaption data-l="en">Intrusion: the network map, the barriers, the trace.</figcaption>
         </figure>
         <figure class="shot win">
+          <i class="ion-l" aria-hidden="true"></i>
           <div class="bar"><span>Blue team</span><span><span data-l="it">difesa</span><span data-l="en">defence</span></span></div>
           <img src="img/blue.jpg" alt="A defence contract: an attack in progress on the client's network" loading="lazy" width="1440" height="810">
           <figcaption data-l="it">Difesa: segui l'attaccante e ripara la rete in diretta.</figcaption>
@@ -705,6 +729,7 @@ details.more .tw { background: var(--bg); }
           <p data-l="en">All traffic is encrypted with TLS.</p>
         </div>
         <div class="win">
+          <i class="ion-l" aria-hidden="true"></i>
           <div class="bar"><span>corehack-server</span><span>:7341</span></div>
           <div class="term small">$ ./corehack-server
 <span class="d">corehack-server 2.10.2 - Guido Cauli</span>
