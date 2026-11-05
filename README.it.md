@@ -110,6 +110,8 @@ In PDF, inclusi in ogni pacchetto:
 ## Novità 2.10.2
 
 - La sorveglianza di NetGuard presa con un contratto non si perde più nei giorni del lavoro; il resoconto mostra l'aumento reale.
+- Ogni contratto ha un'icona per il tipo di lavoro, in bacheca, nei dettagli e nel rapporto.
+- Il manuale del giocatore e quello avanzato ora esistono anche in inglese.
 
 **2.10.1:** tutorial nuovi *Operatori e indagini* e *Fascicoli e persone*; Devour e DarkHole corrodono l'host in glitch fino a farlo sparire; gli operatori arrestati tornano con un nome nuovo.
 

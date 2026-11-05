@@ -110,6 +110,8 @@ PDF manuals, included in every package:
 ## What's new in 2.10.2
 
 - NetGuard surveillance earned on a contract is no longer lost over the days the job takes; the report shows the actual increase.
+- Every contract now has an icon for the kind of job, on the board, in the details and in the report.
+- The player's manual and the advanced manual are now available in English too.
 
 **2.10.1:** new *Operators and investigations* and *Dossiers and people* tutorials; Devour and DarkHole corrode the host in glitches until it vanishes; arrested operators come back under a new name.
 
