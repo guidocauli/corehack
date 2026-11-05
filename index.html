@@ -399,6 +399,29 @@ h2 .ic { width: 0.78em; height: 0.78em; color: var(--cyan); margin-right: 0.38em
 .mtypes ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 6px 10px; }
 .mtypes li { display: flex; align-items: center; gap: 9px; font-family: var(--f-mono); font-size: 13.5px; color: var(--white); padding: 4px 0; }
 .mtypes .mi { width: 22px; height: 22px; flex: none; color: var(--mc); filter: drop-shadow(0 0 3px var(--mc)); }
+/* ---- Carosello delle schermate (tema IONic del gioco): dissolvenza incrociata ogni 7,5 s */
+.gallery { margin: 56px 0 8px; }
+.car { outline: none; }
+.car:focus-visible { filter: drop-shadow(0 0 9px rgba(0,229,255,0.8)); }
+.car .car-n { font-variant-numeric: tabular-nums; }
+.car-v { position: relative; display: grid; overflow: hidden; background: #000203; }
+.car .slide { grid-area: 1 / 1; margin: 0; opacity: 0; transition: opacity 1.4s ease; pointer-events: none; }
+.car .slide.on { opacity: 1; pointer-events: auto; }
+.car .slide .scan img { aspect-ratio: 16 / 9; object-fit: cover; }
+.car .slide figcaption { font-family: var(--f-mono); font-size: 13.5px; color: #54c4d8; padding: 9px 12px 0; letter-spacing: 0.04em; }
+.car-b { position: absolute; top: calc(50% - 40px); width: 44px; height: 64px; display: grid; place-items: center; cursor: pointer;
+  color: #00e5ff; background: rgba(0,10,12,0.72); border: 1px solid rgba(0,229,255,0.55); --cut: 10px;
+  clip-path: polygon(var(--cut) 0, 100% 0, 100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%, 0 100%, 0 var(--cut));
+  opacity: 0.75; transition: opacity 0.2s, background 0.2s; }
+.car-b:hover, .car-b:focus-visible { opacity: 1; background: rgba(0,229,255,0.18); outline: none; }
+.car-b svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2.2; filter: drop-shadow(0 0 3px currentColor); }
+.car-b.prev { left: 10px; } .car-b.next { right: 10px; }
+.car-d { display: flex; justify-content: center; gap: 8px; padding: 10px 0 4px; }
+.car-d button { width: 22px; height: 6px; padding: 0; border: 1px solid rgba(0,229,255,0.5); background: transparent; cursor: pointer;
+  clip-path: polygon(3px 0, 100% 0, 100% calc(100% - 3px), calc(100% - 3px) 100%, 0 100%, 0 3px); }
+.car-d button[aria-selected="true"] { background: #00e5ff; box-shadow: 0 0 6px #00e5ff; }
+@media (max-width: 640px) { .car-b { width: 34px; height: 48px; top: calc(50% - 32px); } .car .slide figcaption { font-size: 12.5px; } }
+@media (prefers-reduced-motion: reduce) { .car .slide { transition: none; } }
 </style>
 </head>
 <body>
@@ -468,7 +491,7 @@ h2 .ic { width: 0.78em; height: 0.78em; color: var(--cyan); margin-right: 0.38em
           <a class="btn alt" href="#manuals"><span data-l="it">Manuali</span><span data-l="en">Manuals</span></a>
           <a class="btn" href="#support"><span data-l="it">Sostieni</span><span data-l="en">Support</span></a>
         </div>
-        <p class="ver"><span data-l="it">Versione</span><span data-l="en">Version</span> 2.10.2 <span class="beta">BETA</span> · Linux · Windows · macOS · IT EN FR</p>
+        <p class="ver"><span data-l="it">Versione</span><span data-l="en">Version</span> 2.11.1 <span class="beta">BETA</span> · Linux · Windows · macOS · IT EN FR</p>
       </div>
       <div class="win">
           <i class="ion-l" aria-hidden="true"></i>
@@ -479,6 +502,51 @@ h2 .ic { width: 0.78em; height: 0.78em; color: var(--cyan); margin-right: 0.38em
   </section>
 
   <div class="wrap">
+
+    <!-- Schermate: carosello in dissolvenza incrociata (7,5 s), frecce e tastiera -->
+    <section class="gallery" id="screens" aria-roledescription="carousel" aria-label="Schermate / Screenshots">
+      <div class="win car" tabindex="0">
+        <i class="ion-l" aria-hidden="true"></i>
+        <div class="bar"><span><span data-l="it">Schermate</span><span data-l="en">Screenshots</span></span><span class="car-n" aria-live="polite">01 / 08</span></div>
+        <div class="car-v">
+        <figure class="slide on" aria-roledescription="slide" aria-label="1 / 8">
+          <span class="scan"><img data-l="it" src="img/shots/it/01.jpg" alt="La schermata iniziale" width="1600" height="900"><img data-l="en" src="img/shots/en/01.jpg" alt="The title screen" width="1600" height="900"></span>
+          <figcaption><span data-l="it">La schermata iniziale</span><span data-l="en">The title screen</span></figcaption>
+        </figure>
+        <figure class="slide" aria-roledescription="slide" aria-label="2 / 8">
+          <span class="scan"><img data-l="it" src="img/shots/it/02.jpg" alt="La bacheca dei contratti" width="1600" height="900" loading="lazy"><img data-l="en" src="img/shots/en/02.jpg" alt="The contract board" width="1600" height="900" loading="lazy"></span>
+          <figcaption><span data-l="it">La bacheca dei contratti</span><span data-l="en">The contract board</span></figcaption>
+        </figure>
+        <figure class="slide" aria-roledescription="slide" aria-label="3 / 8">
+          <span class="scan"><img data-l="it" src="img/shots/it/03.jpg" alt="Il profilo: reputazione e coscienza" width="1600" height="900" loading="lazy"><img data-l="en" src="img/shots/en/03.jpg" alt="Profile: reputation and conscience" width="1600" height="900" loading="lazy"></span>
+          <figcaption><span data-l="it">Il profilo: reputazione e coscienza</span><span data-l="en">Profile: reputation and conscience</span></figcaption>
+        </figure>
+        <figure class="slide" aria-roledescription="slide" aria-label="4 / 8">
+          <span class="scan"><img data-l="it" src="img/shots/it/04.jpg" alt="Il gateway e i suoi componenti" width="1600" height="900" loading="lazy"><img data-l="en" src="img/shots/en/04.jpg" alt="The gateway and its parts" width="1600" height="900" loading="lazy"></span>
+          <figcaption><span data-l="it">Il gateway e i suoi componenti</span><span data-l="en">The gateway and its parts</span></figcaption>
+        </figure>
+        <figure class="slide" aria-roledescription="slide" aria-label="5 / 8">
+          <span class="scan"><img data-l="it" src="img/shots/it/05.jpg" alt="Un'intrusione in tempo reale" width="1600" height="900" loading="lazy"><img data-l="en" src="img/shots/en/05.jpg" alt="A real-time intrusion" width="1600" height="900" loading="lazy"></span>
+          <figcaption><span data-l="it">Un'intrusione in tempo reale</span><span data-l="en">A real-time intrusion</span></figcaption>
+        </figure>
+        <figure class="slide" aria-roledescription="slide" aria-label="6 / 8">
+          <span class="scan"><img data-l="it" src="img/shots/it/06.jpg" alt="Il rapporto di fine missione" width="1600" height="900" loading="lazy"><img data-l="en" src="img/shots/en/06.jpg" alt="The mission report" width="1600" height="900" loading="lazy"></span>
+          <figcaption><span data-l="it">Il rapporto di fine missione</span><span data-l="en">The mission report</span></figcaption>
+        </figure>
+        <figure class="slide" aria-roledescription="slide" aria-label="7 / 8">
+          <span class="scan"><img data-l="it" src="img/shots/it/07.jpg" alt="Una difesa in diretta" width="1600" height="900" loading="lazy"><img data-l="en" src="img/shots/en/07.jpg" alt="A live defence" width="1600" height="900" loading="lazy"></span>
+          <figcaption><span data-l="it">Una difesa in diretta</span><span data-l="en">A live defence</span></figcaption>
+        </figure>
+        <figure class="slide" aria-roledescription="slide" aria-label="8 / 8">
+          <span class="scan"><img data-l="it" src="img/shots/it/08.jpg" alt="Un assedio al tuo gateway" width="1600" height="900" loading="lazy"><img data-l="en" src="img/shots/en/08.jpg" alt="A siege on your gateway" width="1600" height="900" loading="lazy"></span>
+          <figcaption><span data-l="it">Un assedio al tuo gateway</span><span data-l="en">A siege on your gateway</span></figcaption>
+        </figure>
+          <button type="button" class="car-b prev" aria-label="Indietro / Previous"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4 7 12l8 8"/></svg></button>
+          <button type="button" class="car-b next" aria-label="Avanti / Next"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 4 8 8-8 8"/></svg></button>
+        </div>
+        <div class="car-d" role="tablist"><button type="button" role="tab" aria-label="1" aria-selected="true"></button><button type="button" role="tab" aria-label="2"></button><button type="button" role="tab" aria-label="3"></button><button type="button" role="tab" aria-label="4"></button><button type="button" role="tab" aria-label="5"></button><button type="button" role="tab" aria-label="6"></button><button type="button" role="tab" aria-label="7"></button><button type="button" role="tab" aria-label="8"></button></div>
+      </div>
+    </section>
 
     <!-- 01 -->
     <section class="ch" id="features">
@@ -910,8 +978,8 @@ listening on :7341</div>
       <div class="log">
         <article>
           <h4>2.10.2</h4>
-          <ul data-l="it"><li>La sorveglianza presa con un contratto non si perde più nei giorni del lavoro.</li><li>Il resoconto mostra l'aumento di sorveglianza reale.</li><li>Ogni contratto ha un'icona per il tipo di lavoro.</li><li>Manuale del giocatore e manuale avanzato anche in inglese.</li></ul>
-          <ul data-l="en"><li>Surveillance earned on a contract is no longer lost over the days it takes.</li><li>The report shows the actual surveillance increase.</li><li>Every contract has an icon for the kind of job.</li><li>Player's and advanced manuals now in English too.</li></ul>
+          <ul data-l="it"><li>La sorveglianza presa con un contratto non si perde più nei giorni del lavoro.</li><li>Il resoconto mostra l'aumento di sorveglianza reale.</li><li>Ogni contratto ha un'icona per il tipo di lavoro.</li><li>Manuale del giocatore e manuale avanzato anche in inglese.</li><li>Banche: il titolare derubato se ne accorge entro 24 ore, e c'è qualche ora di grazia per cancellare il movimento.</li><li>Bollette e scadenze passano fra le 2 e le 6 del mattino.</li></ul>
+          <ul data-l="en"><li>Surveillance earned on a contract is no longer lost over the days it takes.</li><li>The report shows the actual surveillance increase.</li><li>Every contract has an icon for the kind of job.</li><li>Player's and advanced manuals now in English too.</li><li>Banks: a robbed holder notices within 24 hours, with a few hours' grace to wipe the transaction.</li><li>Bills and deadlines fall between 2 and 6 in the morning.</li></ul>
         </article>
         <article>
           <h4>2.10.1</h4>
@@ -1121,6 +1189,41 @@ listening on :7341</div>
     function done() { btn.textContent = lang === "en" ? "copied" : "copiato"; setTimeout(function () { btn.textContent = btn.dataset[lang]; }, 1500); }
     try { navigator.clipboard.writeText(txt).then(done, sel); } catch (e) { sel(); }
   });
+})();
+// Carosello delle schermate: dissolvenza incrociata ogni 7,5 s; frecce, punti e tastiera (sinistra/destra)
+(function () {
+  var car = document.querySelector(".car");
+  if (!car) return;
+  var slides = car.querySelectorAll(".slide"), dots = car.querySelectorAll(".car-d button"), num = car.querySelector(".car-n");
+  var cur = 0, timer = null, n = slides.length, DELAY = 7500;
+  function pad(x) { return (x < 10 ? "0" : "") + x; }
+  function show(i) {
+    cur = (i + n) % n;
+    for (var k = 0; k < n; k++) {
+      slides[k].classList.toggle("on", k === cur);
+      dots[k].setAttribute("aria-selected", k === cur ? "true" : "false");
+    }
+    num.textContent = pad(cur + 1) + " / " + pad(n);
+  }
+  function restart() { if (timer) clearInterval(timer); timer = setInterval(function () { if (!document.hidden) show(cur + 1); }, DELAY); }
+  function go(d) { show(cur + d); restart(); }
+  car.querySelector(".prev").addEventListener("click", function () { go(-1); });
+  car.querySelector(".next").addEventListener("click", function () { go(1); });
+  for (var k = 0; k < n; k++) (function (k) { dots[k].addEventListener("click", function () { show(k); restart(); }); })(k);
+  document.addEventListener("keydown", function (e) {
+    if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+    var t = e.target, tag = t && t.tagName;
+    if (tag === "INPUT" || tag === "TEXTAREA" || (t && t.isContentEditable)) return;
+    var r = car.getBoundingClientRect();
+    if (!car.contains(t) && (r.bottom < 0 || r.top > window.innerHeight)) return; // solo se il carosello e' in vista
+    e.preventDefault();
+    go(e.key === "ArrowLeft" ? -1 : 1);
+  });
+  var x0 = null; // scorrimento con il dito
+  car.addEventListener("touchstart", function (e) { x0 = e.touches[0].clientX; }, { passive: true });
+  car.addEventListener("touchend", function (e) { if (x0 === null) return; var dx = e.changedTouches[0].clientX - x0; x0 = null; if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1); });
+  show(0);
+  restart();
 })();
 </script>
 </body>
