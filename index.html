@@ -73,11 +73,11 @@ code { color: var(--green); font-size: 0.95em; }
   background: rgba(0,229,255,0.08);
 }
 .logo:hover { text-decoration: none; }
-nav.tabs { display: flex; gap: 2px; overflow-x: auto; scrollbar-width: none; flex: 1; min-width: 0; }
+nav.tabs { display: flex; gap: 0; overflow-x: auto; scrollbar-width: none; flex: 1; min-width: 0; }
 nav.tabs::-webkit-scrollbar { display: none; }
 nav.tabs a {
-  font-family: var(--f-mono); font-size: 14px; color: var(--dim); white-space: nowrap;
-  padding: 12px 7px 10px; border-bottom: 2px solid transparent;
+  font-family: var(--f-mono); font-size: 13.5px; color: var(--dim); white-space: nowrap;
+  padding: 12px 6px 10px; border-bottom: 2px solid transparent;
 }
 nav.tabs a:hover, nav.tabs a.on { color: var(--cyan); border-bottom-color: var(--cyan); text-decoration: none; }
 
@@ -302,6 +302,13 @@ details.more .tw { background: var(--bg); }
 .doc { --bc: var(--border); --fill: var(--panel); padding: 15px 17px; }
 .doc:hover { background: var(--cyan); }
 .logo { --bc: var(--cyan); --fill: linear-gradient(rgba(0,229,255,0.08), rgba(0,229,255,0.08)), #0c1424; padding: 4px 11px; }
+/* ---- Il progetto */
+.about { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+@media (max-width: 760px) { .about { grid-template-columns: 1fr; } }
+.ab { padding: 16px 18px 6px; background: var(--panel); border: 1px solid var(--border); border-left: 2px solid var(--fc); min-width: 0; }
+.ab h4 { margin: 0 0 8px; font-family: var(--f-mono); font-weight: 400; font-size: 16.5px; color: var(--fc); letter-spacing: 0.03em; }
+.ab p { font-size: 14.5px; }
+.beta { font-family: var(--f-mono); font-size: 12px; color: var(--bg); background: var(--amber); padding: 1px 6px; margin-left: 4px; letter-spacing: 0.06em; }
 </style>
 </head>
 <body>
@@ -318,6 +325,7 @@ details.more .tw { background: var(--bg); }
       <a href="#download">Download</a>
       <a href="#manuals"><span data-l="it">Manuali</span><span data-l="en">Manuals</span></a>
       <a href="#whats-new"><span data-l="it">Novità</span><span data-l="en">What's new</span></a>
+      <a href="#about"><span data-l="it">Progetto</span><span data-l="en">About</span></a>
       <a href="#support"><span data-l="it">Sostieni</span><span data-l="en">Support</span></a>
     </nav>
     <div class="lang" role="group" aria-label="Lingua / Language">
@@ -342,7 +350,7 @@ details.more .tw { background: var(--bg); }
           <a class="btn alt" href="#manuals"><span data-l="it">Manuali</span><span data-l="en">Manuals</span></a>
           <a class="btn" href="#support"><span data-l="it">Sostieni</span><span data-l="en">Support</span></a>
         </div>
-        <p class="ver"><span data-l="it">Versione</span><span data-l="en">Version</span> 2.10.2 · Linux · Windows · macOS · IT EN FR</p>
+        <p class="ver"><span data-l="it">Versione</span><span data-l="en">Version</span> 2.10.2 <span class="beta">BETA</span> · Linux · Windows · macOS · IT EN FR</p>
       </div>
       <div class="win">
         <div class="bar"><span><span data-l="it">Terminale</span><span data-l="en">Terminal</span></span><span>nyx $&gt;</span></div>
@@ -647,15 +655,44 @@ listening on :7341</div>
     </section>
 
     <!-- 09 -->
-    <section class="ch" id="support">
+    <section class="ch" id="about">
       <div class="chnum">09</div>
+      <h2><span data-l="it">Il progetto</span><span data-l="en">About the project</span></h2>
+      <div class="rule"></div>
+      <div class="about">
+        <article class="ab" style="--fc:var(--green)">
+          <h4><span data-l="it">Personale, e gratuito per sempre</span><span data-l="en">Personal, and free forever</span></h4>
+          <p data-l="it">Core:Hack è un progetto personale, nato e cresciuto nel tempo libero. Non ha un editore né un modello di business: è gratuito e lo resterà sempre, senza pubblicità, acquisti nel gioco o contenuti a pagamento.</p>
+          <p data-l="en">Core:Hack is a personal project, born and grown in spare time. It has no publisher and no business model: it is free and will always stay free, with no ads, in-game purchases or paid content.</p>
+        </article>
+        <article class="ab" style="--fc:var(--cyan)">
+          <h4><span data-l="it">Chi lo fa</span><span data-l="en">Who makes it</span></h4>
+          <p data-l="it">Direzione, narrativa, motore di gioco e musica sono opera di una sola persona, Guido Cauli. Il lavoro tecnico è stato realizzato anche con il contributo di un'intelligenza artificiale, usata come strumento: le idee, le scelte e la visione restano dell'autore.</p>
+          <p data-l="en">Direction, narrative, game engine and music are the work of one person, Guido Cauli. The technical work was also done with the help of an artificial intelligence, used as a tool: the ideas, the choices and the vision remain the author's.</p>
+        </article>
+        <article class="ab" style="--fc:var(--amber)">
+          <h4><span data-l="it">È una beta: aiutami a migliorarlo</span><span data-l="en">It's a beta: help make it better</span></h4>
+          <p data-l="it">Il gioco è ancora in sviluppo, e qualcosa può non funzionare come dovrebbe. Se trovi un bug, un malfunzionamento, un testo sbagliato, un contratto impossibile o hai semplicemente un'idea, scrivimi a <a href="mailto:guido.cauli@gmail.com?subject=Core%3AHack%20-%20segnalazione">guido.cauli@gmail.com</a>: indica la versione, il sistema e cosa stavi facendo. Ogni segnalazione conta.</p>
+          <p data-l="en">The game is still in development, and some things may not work as they should. If you find a bug, a malfunction, a wrong text, an impossible contract, or simply have an idea, write to <a href="mailto:guido.cauli@gmail.com?subject=Core%3AHack%20-%20report">guido.cauli@gmail.com</a>: include the version, your system and what you were doing. Every report counts.</p>
+        </article>
+        <article class="ab" style="--fc:var(--magenta)">
+          <h4><span data-l="it">Una lettera d'amore</span><span data-l="en">A love letter</span></h4>
+          <p data-l="it">Core:Hack è un atto d'amore personale verso i giochi di hacking e di strategia, e in particolare verso <i>Uplink</i> di <a href="https://www.introversion.co.uk/" target="_blank" rel="noopener">Introversion Software</a>, che per primo ha fatto sentire tanti di noi operatori davanti a un terminale. Se non lo conosci, recuperalo.</p>
+          <p data-l="en">Core:Hack is a personal act of love towards hacking and strategy games, and above all towards <i>Uplink</i> by <a href="https://www.introversion.co.uk/" target="_blank" rel="noopener">Introversion Software</a>, which first made so many of us feel like operators in front of a terminal. If you have never played it, go and find it.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- 10 -->
+    <section class="ch" id="support">
+      <div class="chnum">10</div>
       <h2><span data-l="it">Sostieni il progetto</span><span data-l="en">Support the project</span></h2>
       <div class="rule"></div>
       <div class="donate">
         <div class="txt">
           <h4><span data-l="it">Un bonifico all'operatore</span><span data-l="en">A transfer to the operator</span></h4>
-          <p data-l="it">Core:Hack è il lavoro di una persona sola, nel tempo libero. Se ti piace, puoi offrire un caffè.</p>
-          <p data-l="en">Core:Hack is one person's work, in their spare time. If you enjoy it, you can buy a coffee.</p>
+          <p data-l="it">Se il gioco ti piace e vuoi che continui a crescere, puoi offrire un caffè.</p>
+          <p data-l="en">If you enjoy the game and want it to keep growing, you can buy a coffee.</p>
           <p class="credit" data-l="it">Nessun obbligo: il gioco resta lo stesso per tutti.</p>
           <p class="credit" data-l="en">No obligation: the game is the same for everyone.</p>
         </div>
