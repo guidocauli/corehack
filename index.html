@@ -367,6 +367,15 @@ details.more .tw { background: var(--bg); }
 .win .term .d { color: #007c92; }
 .win .shot img, .shot.win img { border: 0; }
 .shot.win figcaption { border-top: 1px solid rgba(0,229,255,0.25); color: #54c4d8; padding: 8px 10px 10px; }
+.progs-t td.pn { font-family: var(--f-mono); color: var(--white); font-size: 13.5px; width: 34%; }
+.progs-t td { vertical-align: top; }
+@media (max-width: 640px) {
+  .progs-t, .progs-t tbody, .progs-t tr, .progs-t td { display: block; width: auto !important; }
+  .progs-t tr:first-child { display: none; }
+  .progs-t tr { border-top: 1px solid var(--border); padding: 8px 0; }
+  .progs-t tr:nth-child(2) { border-top: 0; }
+  .progs-t td { border: 0; padding: 3px 12px; }
+}
 </style>
 </head>
 <body>
@@ -706,14 +715,15 @@ details.more .tw { background: var(--bg); }
         </figure>
       </div>
       <h3><span data-l="it">Programmi</span><span data-l="en">Programs</span></h3>
-      <div class="tw"><table>
-        <tr><th><span data-l="it">Famiglia</span><span data-l="en">Family</span></th><th><span data-l="it">Esempi</span><span data-l="en">Examples</span></th></tr>
-        <tr><td class="k"><span data-l="it">Intrusione</span><span data-l="en">Intrusion</span></td><td>NetSonar, WallBreaker, ProxyMask, HashRipper, CurveBreaker, CipherKey</td></tr>
-        <tr><td class="k"><span data-l="it">Furtività</span><span data-l="en">Stealth</span></td><td>GhostShell, TraceVeil, ArpScan, XMapper, LANScan</td></tr>
-        <tr><td class="k"><span data-l="it">Speciali</span><span data-l="en">Special</span></td><td>RevShell, DeepRoot, KeyWraith, ByteRot, LockJaw, TimeBomb, Devour</td></tr>
-        <tr><td class="k"><span data-l="it">Difesa</span><span data-l="en">Defence</span></td><td>TraceHound, ScrubDaemon, AegisLock, BastionWall, CoreVault</td></tr>
-        <tr><td class="k"><span data-l="it">Utilità</span><span data-l="en">Utilities</span></td><td>DBEdit, LogParser, LogRewrite, Ping, Whois, Traceroute</td></tr>
+      <div class="tw"><table class="progs-t">
+        <tr><th><span data-l="it">Categoria</span><span data-l="en">Category</span></th><th><span data-l="it">Programmi di base</span><span data-l="en">Basic programs</span></th><th><span data-l="it">A cosa servono</span><span data-l="en">What they are for</span></th></tr>
+        <tr><td class="k"><span data-l="it">Red team</span><span data-l="en">Red team</span></td><td class="pn">NetSonar, WallBreaker, ProxyMask, HashRipper, CurveBreaker, CipherKey, GhostShell</td><td><span data-l="it">Gli strumenti dell'intrusione: scansionano la rete, abbattono una barriera dopo l'altra, decifrano i file e cancellano le tracce del tuo passaggio.</span><span data-l="en">The tools of intrusion: they scan the network, bring down one barrier after another, decrypt files and wipe the traces you leave behind.</span></td></tr>
+        <tr><td class="k"><span data-l="it">Blue team</span><span data-l="en">Blue team</span></td><td class="pn">TraceHound, ScrubDaemon, AegisLock</td><td><span data-l="it">Gli strumenti della difesa: seguono l'attaccante fino alla sua origine e ripuliscono i nodi colpiti da malware e cryptolocker.</span><span data-l="en">The tools of defence: they follow the attacker back to the source and clean up nodes hit by malware and cryptolockers.</span></td></tr>
+        <tr><td class="k"><span data-l="it">Exploit</span><span data-l="en">Exploits</span></td><td class="pn">ByteRot, LockJaw</td><td><span data-l="it">Carichi da lasciare su un sistema aperto: lo corrompono fino a metterlo fuori uso, o lo cifrano e lo bloccano.</span><span data-l="en">Payloads to leave on an open system: they corrupt it until it fails, or encrypt and lock it.</span></td></tr>
+        <tr><td class="k"><span data-l="it">Utilità</span><span data-l="en">Utilities</span></td><td class="pn">DBEdit, DBDiag, DBRebuild</td><td><span data-l="it">Per mettere le mani nei database: leggere e modificare i registri, diagnosticare le tabelle danneggiate e ricostruirle.</span><span data-l="en">For getting your hands into databases: reading and editing records, diagnosing damaged tables and rebuilding them.</span></td></tr>
       </table></div>
+      <p class="note2" data-l="it">Andando avanti si sbloccano versioni più potenti, moduli aggiuntivi e programmi speciali che qui non sveliamo.</p>
+      <p class="note2" data-l="en">As you progress you unlock stronger versions, add-on modules and special programs we won't reveal here.</p>
     </section>
 
     <!-- 05 -->
