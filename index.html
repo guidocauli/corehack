@@ -491,7 +491,7 @@ h2 .ic { width: 0.78em; height: 0.78em; color: var(--cyan); margin-right: 0.38em
           <a class="btn alt" href="#manuals"><span data-l="it">Manuali</span><span data-l="en">Manuals</span></a>
           <a class="btn" href="#support"><span data-l="it">Sostieni</span><span data-l="en">Support</span></a>
         </div>
-        <p class="ver"><span data-l="it">Versione</span><span data-l="en">Version</span> 2.11.1 <span class="beta">BETA</span> · Linux · Windows · macOS · IT EN FR</p>
+        <p class="ver"><span data-l="it">Versione</span><span data-l="en">Version</span> <span class="vnum">2.11.1</span> <span class="beta">BETA</span> · Linux · Windows · macOS · IT EN FR</p>
       </div>
       <div class="win">
           <i class="ion-l" aria-hidden="true"></i>
@@ -975,7 +975,17 @@ listening on :7341</div>
       <div class="chnum">09</div>
       <h2><svg class="ic" aria-hidden="true"><use href="#i-news"/></svg><span data-l="it">Novità</span><span data-l="en">What's new</span></h2>
       <div class="rule"></div>
-      <div class="log">
+      <div class="log" id="news-log" aria-live="polite">
+        <article>
+          <h4>2.11.1</h4>
+          <ul data-l="it"><li>Fuori dalle missioni, i log gialli e rossi compaiono come notifiche in alto a destra quando la finestra Eventi è chiusa; entrano ed escono in dissolvenza, nella forma del tema.</li></ul>
+          <ul data-l="en"><li>Outside missions, yellow and red log lines appear as notifications at the top right when the Events window is closed; they fade in and out, in the theme's shape.</li></ul>
+        </article>
+        <article>
+          <h4>2.11.0</h4>
+          <ul data-l="it"><li>Cerbero, i Frammenti e ION ora fanno parte di una sola storia: al capitolo 4 di ogni arco tieni l'originale della parte di Cerbero e consegni una copia.</li><li>Dopo il blocco delle alleanze arrivano il Recupero, l'Attacco e una nuova missione segreta sulle orme di Orfeo; le IA delle fazioni si fanno vive più avanti, una alla volta.</li><li>Una barra viola sotto il nodo mostra quanto resta dell'accecamento dell'IDS; in bacheca due icone sostituiscono RED e BLUE.</li></ul>
+          <ul data-l="en"><li>Cerberus, the Shards and ION are now one story: in chapter 4 of every arc you keep the original part of Cerberus and hand over a copy.</li><li>After the alliances lock come the Recovery, the Attack and a new secret mission in Orfeo's footsteps; the faction AIs show up later, one at a time.</li><li>A violet bar under the node shows how much IDS blinding is left; on the board two icons replace RED and BLUE.</li></ul>
+        </article>
         <article>
           <h4>2.10.2</h4>
           <ul data-l="it"><li>La sorveglianza presa con un contratto non si perde più nei giorni del lavoro.</li><li>Il resoconto mostra l'aumento di sorveglianza reale.</li><li>Ogni contratto ha un'icona per il tipo di lavoro.</li><li>Manuale del giocatore e manuale avanzato anche in inglese.</li><li>Banche: il titolare derubato se ne accorge entro 24 ore, e c'è qualche ora di grazia per cancellare il movimento.</li><li>Bollette e scadenze passano fra le 2 e le 6 del mattino.</li></ul>
@@ -985,11 +995,6 @@ listening on :7341</div>
           <h4>2.10.1</h4>
           <ul data-l="it"><li>Tutorial nuovi: Operatori e indagini, Fascicoli e persone.</li><li>Devour e DarkHole corrodono l'host in glitch fino a farlo sparire.</li><li>Gli operatori arrestati tornano con un nome nuovo.</li></ul>
           <ul data-l="en"><li>New tutorials: Operators and investigations, Dossiers and people.</li><li>Devour and DarkHole corrode the host in glitches until it vanishes.</li><li>Arrested operators come back under a new name.</li></ul>
-        </article>
-        <article>
-          <h4>2.10.0</h4>
-          <ul data-l="it"><li>Contratti a host ignoto e di consegna.</li><li>Devour e DarkHole: distruggono un host per sempre. Nuovi contratti di distruzione.</li></ul>
-          <ul data-l="en"><li>Unknown-host and delivery contracts.</li><li>Devour and DarkHole destroy a host for good. New destruction contracts.</li></ul>
         </article>
       </div>
     </section>
@@ -1224,6 +1229,77 @@ listening on :7341</div>
   car.addEventListener("touchend", function (e) { if (x0 === null) return; var dx = e.changedTouches[0].clientX - x0; x0 = null; if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1); });
   show(0);
   restart();
+})();
+// Novità: prese dalle ultime release pubblicate su GitHub (le note IT/EN delle release). Se GitHub non risponde,
+// resta l'elenco scritto nella pagina. Le risposte restano in memoria nel browser per un'ora.
+(function () {
+  var log = document.getElementById("news-log");
+  var dl = document.getElementById("download");
+  if (!log || !dl) return;
+  var repo = dl.getAttribute("data-repo"), KEY = "ch-news:" + repo, TTL = 3600 * 1000;
+  function esc(s) { return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
+  function inline(s) { // markdown minimo: link, grassetto, corsivo, codice
+    s = esc(s);
+    s = s.replace(/\[([^\]]+)\]\((https?:[^)\s]+)\)/g, '<a href="$2" rel="noopener">$1</a>');
+    s = s.replace(/\*\*([^*]+)\*\*/g, "<b>$1</b>").replace(/\*([^*]+)\*/g, "<i>$1</i>").replace(/`([^`]+)`/g, "<code>$1</code>");
+    return s;
+  }
+  // notes estrae dalla nota di una release la sezione "Novità / What's new", divisa per lingua: le righe "**IT:**" e
+  // "**EN:**" vanno alla loro lingua, le altre a tutte e due
+  function notes(body) {
+    var lines = (body || "").replace(/\r/g, "").split("\n"), on = false, it = [], en = [];
+    for (var i = 0; i < lines.length; i++) {
+      var l = lines[i];
+      if (/^#{1,4}\s/.test(l)) {
+        if (on) break;
+        var h = l.toLowerCase();
+        on = h.indexOf("novit") >= 0 || h.indexOf("what's new") >= 0 || h.indexOf("whats new") >= 0 || h.indexOf("nouveaut") >= 0;
+        continue;
+      }
+      if (!on) continue;
+      var m = l.match(/^\s*[-*]\s+(.*)$/);
+      if (!m) continue;
+      var t = m[1], lm = t.match(/^\*\*(IT|EN|FR)\s*:?\*\*\s*:?\s*(.*)$/i);
+      if (lm) {
+        var lg = lm[1].toUpperCase();
+        if (lg === "IT") it.push(lm[2]); else if (lg === "EN") en.push(lm[2]);
+      } else { it.push(t); en.push(t); }
+    }
+    return { it: it, en: en };
+  }
+  function cap(x) { return x.charAt(0).toUpperCase() + x.slice(1); }
+  function li(a) { return a.map(function (x) { return "<li>" + inline(cap(x)) + "</li>"; }).join(""); }
+  function render(list) {
+    var html = "";
+    for (var i = 0; i < list.length; i++) {
+      var n = notes(list[i].body);
+      if (!n.it.length && !n.en.length) continue;
+      html += "<article><h4>" + esc(list[i].tag) + "</h4>" +
+        '<ul data-l="it">' + li(n.it.length ? n.it : n.en) + "</ul>" +
+        '<ul data-l="en">' + li(n.en.length ? n.en : n.it) + "</ul></article>";
+    }
+    if (!html) return;
+    log.innerHTML = html;
+    var ver = document.querySelector(".ver .vnum"); // la versione in testata segue l'ultima release
+    if (ver && list.length && list[0].tag) ver.textContent = list[0].tag;
+  }
+  var cached = null;
+  try { cached = JSON.parse(localStorage.getItem(KEY) || "null"); } catch (e) { cached = null; }
+  if (cached && cached.list && Date.now() - cached.at < TTL) { render(cached.list); return; }
+  if (!window.fetch) return;
+  fetch("https://api.github.com/repos/" + repo + "/releases?per_page=6", { headers: { "Accept": "application/vnd.github+json" } })
+    .then(function (r) { if (!r.ok) throw new Error(String(r.status)); return r.json(); })
+    .then(function (rs) {
+      var list = [];
+      for (var i = 0; i < rs.length && list.length < 3; i++) {
+        if (rs[i].draft) continue;
+        list.push({ tag: String(rs[i].tag_name || rs[i].name || "").replace(/^v/i, ""), body: rs[i].body || "" });
+      }
+      if (!list.length) return;
+      try { localStorage.setItem(KEY, JSON.stringify({ at: Date.now(), list: list })); } catch (e) {}
+      render(list);
+    })
+    .catch(function () { if (cached && cached.list) render(cached.list); });
 })();
 </script>
 </body>
