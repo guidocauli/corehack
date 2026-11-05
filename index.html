@@ -1,0 +1,971 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Core:Hack: Blackout, simulazione di hacking cyberpunk: mondo, fazioni, contratti, programmi, manuali.">
+<title>Core:Hack Blackout</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Poppins:ital,wght@0,300;0,500;1,300&display=swap">
+<style>
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+/* Layout: la barra in alto ricalca l'HUD del gioco; sotto, i capitoli dei manuali come finestre del sistema, con
+   numerazione del manuale, pannelli smussati alla IONic e tabelle come quelle stampate. Un solo tema: la Rete e' notte. */
+:root {
+  color-scheme: dark;
+  --bg: #0b0f1a;        /* fondo dei manuali e del gioco */
+  --panel: #0e1422;
+  --panel2: #111a2c;
+  --head: #122846;      /* intestazione delle tabelle */
+  --border: #223454;
+  --text: #c6d3e3;
+  --dim: #6e7f9c;
+  --white: #f0f6ff;
+  --cyan: #00e5ff;      /* accento: la luce dello schermo */
+  --magenta: #ff2e97;   /* secondo accento: il Blackout */
+  --green: #39ff82;
+  --amber: #ffc13b;
+  --red: #ff4d5e;
+  --violet: #966eff;
+  --blue: #5096ff;
+  --orange: #ff8c28;
+  --f-mono: "Share Tech Mono", "DejaVu Sans Mono", "Consolas", monospace;
+  --f-body: "Poppins", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --cut: 10px;          /* smusso degli angoli dei pannelli */
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 64px; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 300 15.5px/1.7 var(--f-body);
+  -webkit-font-smoothing: antialiased;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--bg); }
+/* reticolo e scanline: il "vetro" del monitor */
+body::after {
+  content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 40;
+  background: repeating-linear-gradient(to bottom, rgba(255,255,255,0.018) 0 1px, transparent 1px 3px);
+}
+a { color: var(--cyan); text-decoration: none; }
+a:hover { text-decoration: underline; }
+:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
+b, strong { font-weight: 500; color: var(--white); }
+code, .mono { font-family: var(--f-mono); }
+code { color: var(--green); font-size: 0.95em; }
+.wrap { max-width: 1120px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+
+/* ---- HUD */
+.hud {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20;
+  background: linear-gradient(to bottom, #0d1526, #0a101d);
+  border-bottom: 1px solid var(--border);
+}
+.hud .wrap { display: flex; align-items: center; gap: 14px; height: 48px; }
+.logo {
+  font-family: var(--f-mono); font-size: 17px; color: var(--cyan); white-space: nowrap;
+  padding: 3px 10px; border: 1px solid var(--cyan);
+  clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+  background: rgba(0,229,255,0.08);
+}
+.logo:hover { text-decoration: none; }
+nav.tabs { display: flex; gap: 2px; overflow-x: auto; scrollbar-width: none; flex: 1; min-width: 0; }
+nav.tabs::-webkit-scrollbar { display: none; }
+nav.tabs a {
+  font-family: var(--f-mono); font-size: 15px; color: var(--dim); white-space: nowrap;
+  padding: 12px 9px 10px; border-bottom: 2px solid transparent;
+}
+nav.tabs a:hover, nav.tabs a.on { color: var(--cyan); border-bottom-color: var(--cyan); text-decoration: none; }
+.clock { font-family: var(--f-mono); font-size: 14px; color: var(--green); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.clock .d { color: var(--text); }
+@media (max-width: 760px) { .clock { display: none; } }
+
+/* ---- Titolo */
+.hero { position: relative; overflow: hidden; border-bottom: 1px solid var(--border); }
+.hero canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.hero::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(to right, rgba(11,15,26,0.85), rgba(11,15,26,0.35) 60%, rgba(11,15,26,0.1)); }
+.hero .wrap { z-index: 1; }
+.hero .wrap { position: relative; padding-block: 72px 56px; display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 40px; align-items: center; }
+@media (max-width: 880px) { .hero .wrap { grid-template-columns: 1fr; padding-block: 48px 40px; } }
+.brand { font-family: var(--f-mono); color: var(--white); line-height: 0.95; margin: 0; font-weight: 400;
+  font-size: clamp(48px, 9vw, 96px); letter-spacing: 0.02em; text-shadow: 0 0 18px rgba(0,229,255,0.35); }
+.brand .colon { color: var(--cyan); }
+.blackout { font-family: var(--f-mono); color: var(--magenta); letter-spacing: 0.62em; font-size: clamp(16px, 2.4vw, 24px); margin: 10px 0 0; padding-left: 0.2em; }
+.tag { font-style: italic; color: var(--magenta); margin: 26px 0 0; font-size: 17px; }
+.lead { font-size: 17px; color: var(--text); max-width: 56ch; margin: 18px 0 0; }
+.cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+.btn {
+  font-family: var(--f-mono); font-size: 15px; display: inline-flex; align-items: center; gap: 8px;
+  padding: 9px 18px; color: var(--cyan); border: 1px solid var(--cyan); background: rgba(0,229,255,0.07);
+  clip-path: polygon(var(--cut) 0, 100% 0, 100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%, 0 100%, 0 var(--cut));
+}
+.btn:hover { background: rgba(0,229,255,0.18); text-decoration: none; }
+.btn.alt { color: var(--magenta); border-color: var(--magenta); background: rgba(255,46,151,0.07); }
+.btn.alt:hover { background: rgba(255,46,151,0.18); }
+.ver { font-family: var(--f-mono); color: var(--dim); font-size: 13px; margin-top: 18px; }
+
+/* ---- Finestre e schermate */
+.win { background: var(--panel); border: 1px solid var(--border); min-width: 0; }
+.win > .bar { display: flex; justify-content: space-between; font-family: var(--f-mono); font-size: 13px; color: var(--cyan);
+  background: var(--head); padding: 3px 9px; border-bottom: 1px solid var(--border); }
+.win > .bar span:last-child { color: var(--dim); }
+.shot { margin: 0; }
+.shot img { display: block; width: 100%; height: auto; }
+.shot figcaption { font-size: 13px; color: var(--dim); padding: 7px 10px 9px; border-top: 1px solid var(--border); }
+
+/* ---- Capitoli */
+section.ch { padding-block: 64px 8px; }
+.chnum { font-family: var(--f-mono); color: var(--dim); font-size: 15px; letter-spacing: 0.08em; }
+h2 { font-family: var(--f-mono); font-weight: 400; color: var(--white); font-size: clamp(28px, 4vw, 38px); line-height: 1.15; margin: 2px 0 0; text-wrap: balance; }
+.rule { height: 2px; margin: 14px 0 26px; background: linear-gradient(to right, var(--cyan), var(--magenta) 55%, transparent); }
+h3 { font-family: var(--f-mono); font-weight: 400; color: var(--cyan); font-size: 20px; margin: 34px 0 8px; letter-spacing: 0.02em; }
+p { margin: 0 0 14px; max-width: 70ch; }
+.leadp { font-size: 17px; color: var(--white); font-weight: 300; }
+.quote { font-style: italic; color: var(--magenta); font-size: 17px; border-left: 2px solid var(--magenta); padding-left: 14px; margin: 18px 0 22px; }
+.two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; align-items: start; }
+.two > * { min-width: 0; }
+@media (max-width: 880px) { .two { grid-template-columns: 1fr; } }
+
+/* ---- Tabelle (come nei manuali) */
+.tw { overflow-x: auto; margin: 8px 0 18px; border: 1px solid var(--border); background: var(--panel); }
+table { border-collapse: collapse; width: 100%; font-size: 14.5px; }
+th { text-align: left; font-family: var(--f-mono); font-weight: 400; color: var(--white); background: var(--head); padding: 8px 12px; border-bottom: 1px solid var(--cyan); white-space: nowrap; }
+td { padding: 8px 12px; border-top: 1px solid var(--border); vertical-align: top; }
+tr:first-child td { border-top: 0; }
+td.k { font-family: var(--f-mono); white-space: nowrap; color: var(--cyan); }
+td.k.g { color: var(--green); }
+
+/* ---- Fazioni */
+.facs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+@media (max-width: 880px) { .facs { grid-template-columns: 1fr; } }
+.fac { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 16px; padding: 18px 18px 16px; background: var(--panel); border: 1px solid var(--border); border-left: 3px solid var(--fc); }
+.fac img { width: 96px; height: 96px; object-fit: contain; filter: drop-shadow(0 0 10px rgba(0,0,0,0.6)); }
+.fac h4 { margin: 0; font-family: var(--f-mono); font-weight: 400; font-size: 18px; color: var(--fc); letter-spacing: 0.03em; }
+.fac .motto { font-style: italic; color: var(--dim); font-size: 13.5px; margin: 0 0 8px; }
+.fac p { font-size: 14.5px; margin-bottom: 10px; }
+.fac .hid { font-size: 14px; }
+.fac .hid b { color: var(--magenta); }
+@media (max-width: 480px) { .fac { grid-template-columns: 1fr; } .fac img { width: 72px; height: 72px; } }
+
+/* ---- Classi e chip */
+.chip { font-family: var(--f-mono); font-size: 13.5px; padding: 1px 8px; border: 1px solid currentColor; white-space: nowrap; }
+.c-blue { color: var(--blue); } .c-green { color: var(--green); } .c-orange { color: var(--orange); } .c-red { color: var(--red); }
+.c-violet { color: var(--violet); } .c-amber { color: var(--amber); } .c-white { color: var(--white); } .c-grey { color: #9aa6b8; }
+.c-cyan { color: var(--cyan); } .c-magenta { color: var(--magenta); }
+
+/* ---- Passi della partita (sequenza vera: hub, missione, rapporto) */
+.steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border: 1px solid var(--border); background: var(--panel); }
+@media (max-width: 880px) { .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 480px) { .steps { grid-template-columns: 1fr; } }
+.step { padding: 16px 16px 14px; border-left: 1px solid var(--border); }
+.step:first-child { border-left: 0; }
+@media (max-width: 880px) { .step:nth-child(3) { border-left: 0; } .step:nth-child(n+3) { border-top: 1px solid var(--border); } }
+@media (max-width: 480px) { .step { border-left: 0; border-top: 1px solid var(--border); } .step:first-child { border-top: 0; } }
+.step .n { font-family: var(--f-mono); color: var(--cyan); font-size: 28px; line-height: 1; }
+.step .t { font-family: var(--f-mono); color: var(--magenta); margin: 6px 0 4px; }
+.step p { font-size: 14px; margin: 0; }
+
+/* ---- Catalogo dei programmi */
+.cat-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 6px 0 14px; }
+.cat-tabs button {
+  font-family: var(--f-mono); font-size: 14px; color: var(--dim); background: transparent; cursor: pointer;
+  border: 1px solid var(--border); padding: 5px 12px;
+}
+.cat-tabs button[aria-pressed="true"] { color: var(--bg); background: var(--cy, var(--cyan)); border-color: var(--cy, var(--cyan)); }
+.cat-tabs button:hover { color: var(--white); }
+.progs { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: 10px; }
+.prog { background: var(--panel); border: 1px solid var(--border); padding: 12px 14px; min-width: 0; }
+.prog .nm { font-family: var(--f-mono); color: var(--white); font-size: 16px; display: flex; justify-content: space-between; gap: 8px; }
+.prog .nm span { color: var(--pc); font-size: 12.5px; }
+.prog p { font-size: 13.5px; margin: 6px 0 0; color: var(--text); }
+.spec { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 18px; }
+@media (max-width: 700px) { .spec { grid-template-columns: 1fr; } }
+.spec > div { padding: 14px 16px; border: 1px solid var(--border); }
+.spec .prim { background: linear-gradient(to bottom, #fafafa, #a0a2a8); color: #111; border-color: #d0d4dc; box-shadow: 0 0 14px rgba(225,228,234,0.25); }
+.spec .prim h4 { color: #000; }
+.spec .blk { background: #000; color: #e6e6f0; border-color: #58228c; box-shadow: 0 0 14px rgba(150,110,220,0.25); }
+.spec .blk h4 { color: #fff; }
+.spec h4 { margin: 0 0 6px; font-family: var(--f-mono); font-weight: 400; font-size: 17px; }
+.spec p { font-size: 14px; margin: 0; }
+
+/* ---- Terminale */
+.term { font-family: var(--f-mono); font-size: 14px; line-height: 1.5; color: var(--green); background: #05080f; border: 1px solid var(--border); padding: 12px 14px; min-height: 230px; white-space: pre-wrap; word-break: break-word; }
+.term .p { color: var(--cyan); }
+.term .w { color: var(--amber); }
+.term .r { color: var(--red); }
+.term .d { color: var(--dim); }
+.caret { display: inline-block; width: 0.6em; background: var(--green); animation: blink 1s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .caret { animation: none; } }
+
+/* ---- Glossario */
+dl.gl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2px 28px; margin: 0; }
+@media (max-width: 700px) { dl.gl { grid-template-columns: 1fr; } }
+dl.gl div { padding: 10px 0; border-top: 1px solid var(--border); }
+dl.gl dt { font-family: var(--f-mono); color: var(--cyan); font-size: 15.5px; }
+dl.gl dd { margin: 2px 0 0; font-size: 14.5px; }
+
+/* ---- Download dei manuali */
+.feats { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: 14px; }
+.feat { padding: 16px 18px 14px; background: var(--panel); border: 1px solid var(--border); border-top: 2px solid var(--fc, var(--cyan)); min-width: 0; }
+.feat h4 { margin: 0 0 6px; font-family: var(--f-mono); font-weight: 400; font-size: 16.5px; color: var(--fc, var(--cyan)); letter-spacing: 0.03em; }
+.feat p { font-size: 14.5px; margin: 0; }
+.req td:first-child { white-space: nowrap; }
+.docs { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); gap: 12px; }
+.doc { display: block; padding: 14px 16px; background: var(--panel); border: 1px solid var(--border); color: var(--text);
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%); }
+.doc:hover { border-color: var(--cyan); text-decoration: none; }
+.doc .t { font-family: var(--f-mono); color: var(--white); font-size: 16px; }
+.doc .m { font-size: 13px; color: var(--dim); }
+
+/* ---- Novita' */
+.log { border-left: 1px solid var(--border); padding-left: 18px; }
+.log article { margin-bottom: 22px; }
+.log h4 { font-family: var(--f-mono); font-weight: 400; color: var(--magenta); font-size: 17px; margin: 0 0 4px; }
+.log ul { margin: 0; padding-left: 18px; }
+.log li { margin: 4px 0; font-size: 14.5px; max-width: 80ch; }
+
+/* ---- Donazioni: un terminale di pagamento del Mercato nero */
+.donate { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 0; border: 1px solid var(--magenta); background: linear-gradient(135deg, rgba(255,46,151,0.08), rgba(0,229,255,0.05)); }
+@media (max-width: 760px) { .donate { grid-template-columns: 1fr; } }
+.donate .txt { padding: 22px 24px; min-width: 0; }
+.donate .txt h4 { margin: 0 0 8px; font-family: var(--f-mono); font-weight: 400; color: var(--magenta); font-size: 20px; }
+.donate .txt p { font-size: 15px; margin: 0 0 10px; }
+.donate .pay { padding: 22px 24px; border-left: 1px solid var(--border); display: flex; flex-direction: column; gap: 12px; justify-content: center; min-width: 0; }
+@media (max-width: 760px) { .donate .pay { border-left: 0; border-top: 1px solid var(--border); } }
+.donate .pay .btn { justify-content: space-between; }
+.donate .pay .btn small { color: var(--dim); font-size: 12px; }
+.donate .credit { font-family: var(--f-mono); color: var(--green); font-size: 14px; }
+
+footer { margin-top: 72px; border-top: 1px solid var(--border); background: #080c15; }
+footer .wrap { padding-block: 26px 34px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 14px; font-family: var(--f-mono); font-size: 13.5px; color: var(--dim); }
+footer .bye { color: var(--cyan); }
+.copy { cursor: pointer; background: none; border: 1px solid var(--border); color: var(--dim); font-family: var(--f-mono); font-size: 12px; padding: 1px 7px; margin-left: 6px; }
+.copy:hover { color: var(--cyan); border-color: var(--cyan); }
+</style>
+</head>
+<body>
+
+<header class="hud">
+  <div class="wrap">
+    <a class="logo" href="#top">CORE:HACK</a>
+    <nav class="tabs" aria-label="Sezioni">
+      <a href="#caratteristiche">Caratteristiche</a>
+      <a href="#mondo">Mondo</a>
+      <a href="#fazioni">Fazioni</a>
+      <a href="#contratti">Contratti</a>
+      <a href="#intrusione">Intrusione</a>
+      <a href="#difesa">Difesa</a>
+      <a href="#programmi">Programmi</a>
+      <a href="#comandi">Comandi</a>
+      <a href="#multigiocatore">Multigiocatore</a>
+      <a href="#installa">Installa</a>
+      <a href="#requisiti">Requisiti</a>
+      <a href="#manuali">Manuali</a>
+      <a href="#novita">Novità</a>
+      <a href="#sostieni">Sostieni</a>
+    </nav>
+    <div class="clock" aria-hidden="true"><span class="d" id="day">g1</span> <span id="tm">00:00</span></div>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <canvas id="glyphs" aria-hidden="true"></canvas>
+    <div class="wrap">
+      <div>
+        <h1 class="brand">CORE<span class="colon">:</span>HACK</h1>
+        <p class="blackout">BLACKOUT</p>
+        <p class="tag">Pianeta Terra, 2091. La Rete è di chi può permettersela.</p>
+        <p class="lead">Una simulazione di hacking cyberpunk in tempo reale. Sei un operatore indipendente con un vecchio gateway e un terminale: accetti contratti di intrusione e di difesa, costruisci una reputazione presso quattro fazioni e decidi, lavoro dopo lavoro, da che parte stare.</p>
+        <div class="cta">
+          <a class="btn" href="#manuali">Leggi i manuali</a>
+          <a class="btn alt" href="#installa">Installa il gioco</a>
+          <a class="btn" href="#sostieni">Sostieni</a>
+        </div>
+        <p class="ver">Versione 2.10.2 · Linux, Windows, macOS · italiano, english, français</p>
+      </div>
+      <div class="win">
+        <div class="bar"><span>Terminale</span><span>nyx $&gt;</span></div>
+        <div class="term" id="term" aria-label="Esempio di sessione nel terminale del gioco"></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+
+    <!-- 00 -->
+    <section class="ch" id="caratteristiche">
+      <div class="chnum">00</div>
+      <h2>Caratteristiche</h2>
+      <div class="rule"></div>
+      <p class="leadp">Una simulazione di hacking cyberpunk completa, gratuita e senza contenuti a pagamento.</p>
+      <div class="feats">
+        <article class="feat" style="--fc:#00e5ff"><h4>Hacking in tempo reale</h4><p>Scansioni, barriere da abbattere, file da scaricare: tutto avviene mentre il trace sale. Ogni secondo di troppo ti avvicina a NetGuard.</p></article>
+        <article class="feat" style="--fc:#ff2e97"><h4>Terminale e interfaccia</h4><p>Gioca dal terminale con i comandi veri o dalle finestre con i pulsanti e le scorciatoie: sono due vie per le stesse azioni.</p></article>
+        <article class="feat" style="--fc:#39ff82"><h4>Reti sempre diverse</h4><p>Ogni contratto genera una rete nuova: VLAN, host nascosti, backup, monitor, portali. Le aziende della Rubrica invece restano, e ricordano.</p></article>
+        <article class="feat" style="--fc:#ffc13b"><h4>Red team e blue team</h4><p>Intrusioni, furti, sabotaggi, distruzioni, consegne; oppure difendi una rete sotto attacco in diretta.</p></article>
+        <article class="feat" style="--fc:#966eff"><h4>Quattro fazioni</h4><p>Concordato, NetGuard, Collettivo Lumen e Rete Nera: la reputazione con ognuna apre contratti, gateway e mercati diversi.</p></article>
+        <article class="feat" style="--fc:#ff4d5e"><h4>Coscienza</h4><p>Ogni lavoro ha un peso morale. Le scelte cambiano le offerte, le email, le notizie e il corso della tua storia.</p></article>
+        <article class="feat" style="--fc:#5096ff"><h4>Programmi e mercati</h4><p>Decine di programmi in più livelli, un albero tecnologico, il Mercato Nero e programmi speciali come RevShell, KeyWraith, Devour e DarkHole.</p></article>
+        <article class="feat" style="--fc:#ff8c28"><h4>Operatori e indagini</h4><p>Nove operatori rivali che si muovono nella Rete: indaga, scopri chi sono, costruisci fascicoli su persone e aziende.</p></article>
+        <article class="feat" style="--fc:#d6dae2"><h4>Una storia tra le ombre</h4><p>Una trama che emerge lentamente da email, contratti e frammenti, fino a chi muove i fili da prima del Blackout.</p></article>
+        <article class="feat" style="--fc:#00e5ff"><h4>Multigiocatore</h4><p>Un server leggero per giocare con altri, in LAN o in Internet: messaggi, bonifici, intrusioni tra giocatori, audit, assedi e gare, tutto cifrato con TLS.</p></article>
+        <article class="feat" style="--fc:#39ff82"><h4>Tutorial integrati</h4><p>Tutorial guidati per ogni parte del gioco: interfaccia, intrusione, difesa, Rubrica, operatori e fascicoli.</p></article>
+        <article class="feat" style="--fc:#ff2e97"><h4>Tre lingue, cinque temi</h4><p>Italiano, inglese e francese. Temi grafici Core, Introvert, Ami, IONic e Tensor, effetti schermo e animazioni regolabili.</p></article>
+      </div>
+    </section>
+
+    <!-- 01 -->
+    <section class="ch" id="mondo">
+      <div class="chnum">01</div>
+      <h2>Il mondo</h2>
+      <div class="rule"></div>
+      <div class="two">
+        <div>
+          <p class="leadp">Trent'anni dopo il Grande Blackout che spense la vecchia Internet, la Rete è un bene privato. Cavi, nodi e dati appartengono al Concordato Aziendale, che affitta l'accesso ai cittadini al metro.</p>
+          <p class="leadp">NetGuard la sorveglia in nome dell'ordine. Il Collettivo Lumen la vuole libera e pubblica. La Rete Nera ci vive ai margini e ci fa affari. In mezzo ci sono quelli come te: un vecchio gateway, un terminale e nessun padrone.</p>
+          <p class="quote">Ogni contratto è una scelta. Entrare è facile. Decidere da che parte stare, quando nessuno guarda, è la parte difficile.</p>
+          <p>Accetti contratti di intrusione (<b>red team</b>) e di difesa (<b>blue team</b>), migliori il gateway, compri programmi sempre più potenti. Ogni lavoro ha un prezzo, in crediti (¢) e in coscienza. Non esiste una strada giusta: puoi essere un professionista rispettato, un mercenario, un idealista o un criminale. Le fazioni ricordano quello che fai, e la Rete dimentica poco.</p>
+        </div>
+        <figure class="shot win">
+          <div class="bar"><span>Titolo</span><span>CORE:HACK</span></div>
+          <img src="img/title.jpg" alt="La schermata del titolo di Core:Hack Blackout, con i codici esadecimali che scorrono sullo sfondo" loading="lazy" width="1440" height="810">
+          <figcaption>La schermata iniziale: scegli un nome in codice e comincia.</figcaption>
+        </figure>
+      </div>
+      <h3>Tra le ombre</h3>
+      <p>Sotto i contratti di ogni giorno scorre qualcos'altro. Non ha un nome, e chi lo conosce ha smesso di pronunciarlo. Qualcuno, da molto prima del Blackout, muove i fili. Di tanto in tanto la Rete lascia cadere un frammento: un contratto che non dovrebbe esistere, un nome che nessun archivio ricorda. Se ti fai trovare dalla persona giusta, forse ti verrà offerto di guardare.</p>
+    </section>
+
+    <!-- 02 -->
+    <section class="ch" id="fazioni">
+      <div class="chnum">02</div>
+      <h2>Le quattro fazioni</h2>
+      <div class="rule"></div>
+      <p class="leadp">Quattro poteri si spartiscono la Rete. La tua reputazione con ciascuno, da -100 a +100, decide quali contratti ti vengono offerti, quali gateway si aprono e quanto vale il tuo nome.</p>
+      <p class="quote">Servire l'una significa quasi sempre tradire l'altra.</p>
+      <div class="facs">
+        <article class="fac" style="--fc:#d6dae2">
+          <img src="img/netguard_nf.png" alt="Emblema di NetGuard: scudo alato" loading="lazy" width="320" height="320">
+          <div>
+            <h4>PRESIDIO NETGUARD</h4>
+            <p class="motto">«Ordine, prima di tutto.»</p>
+            <p>La polizia della Rete non bussa mai alla porta, ma prende nota di tutto. Per chi collabora è un alleato paziente: contratti ufficiali, pagamenti puntuali, una perquisizione che diventa un semplice avvertimento. Per tutti gli altri è un occhio che non si chiude mai.</p>
+            <p class="hid"><b>Cosa non dicono:</b> dentro NetGuard circola un ordine mai scritto che dice di guardare altrove, ma solo in certi momenti e per certi clienti.</p>
+          </div>
+        </article>
+        <article class="fac" style="--fc:var(--green)">
+          <img src="img/corps_nf.png" alt="Emblema del Concordato Aziendale: ingranaggio verde" loading="lazy" width="320" height="320">
+          <div>
+            <h4>CONCORDATO AZIENDALE</h4>
+            <p class="motto">«Il mercato si regola da solo.»</p>
+            <p>Il consorzio delle megacorporazioni possiede i cavi, i nodi e i dati. È il cliente più ricco che troverai: test di penetrazione, audit e spionaggio industriale, con la stessa cortesia glaciale. Paga bene il lavoro e meglio il silenzio.</p>
+            <p class="hid"><b>Cosa non dicono:</b> qualcuno nelle sale del consiglio ha già deciso quanto costa tenere in vita la Rete.</p>
+          </div>
+        </article>
+        <article class="fac" style="--fc:var(--amber)">
+          <img src="img/lumen_nf.png" alt="Emblema del Collettivo Lumen: sole con i raggi verso il basso" loading="lazy" width="320" height="320">
+          <div>
+            <h4>COLLETTIVO LUMEN</h4>
+            <p class="motto">«La Rete è di tutti.»</p>
+            <p>Hacktivisti, giornalisti, ex dipendenti e ragazzi con un'idea. Ti chiedono fughe di notizie, debiti da cancellare e dati da liberare, in cambio di compensi modesti e di una gratitudine sincera.</p>
+            <p class="hid"><b>Cosa non dicono:</b> le persone di Lumen hanno debiti, paure e punti deboli, e qualcuno fuori dal collettivo lo ha già notato.</p>
+          </div>
+        </article>
+        <article class="fac" style="--fc:var(--violet)">
+          <img src="img/under_nf.png" alt="Emblema della Rete Nera: falce di luna e lacrima viola" loading="lazy" width="320" height="320">
+          <div>
+            <h4>LA RETE NERA</h4>
+            <p class="motto">«Qui non si fanno domande.»</p>
+            <p>Il mercato sommerso dei ricatti, dei sabotaggi e dei furti su commissione. I compensi sono i più alti della Rete e le conseguenze le peggiori. La parola data viene mantenuta con una puntualità che dovrebbe spaventarti.</p>
+            <p class="hid"><b>Cosa non dicono:</b> ti tratteranno con rispetto finché servirai, poi dipende.</p>
+          </div>
+        </article>
+      </div>
+      <h3>I luogotenenti</h3>
+      <p>Le fazioni non mandano subito i loro capi. All'inizio i lavori arrivano da sportelli, uffici e bacheche; con la reputazione (verso 25, 32 e 40 punti) si presentano i luogotenenti, tre per fazione, ognuno con il suo modo di lavorare. Alcuni sono rivali: lavorare bene per uno irrita l'altro. Da 50 punti il luogotenente di cui ti fidi di più ti presenta al capo, e partono le storie di fazione.</p>
+    </section>
+
+    <!-- 03 -->
+    <section class="ch" id="coscienza">
+      <div class="chnum">03</div>
+      <h2>La tua coscienza</h2>
+      <div class="rule"></div>
+      <p>Le scelte morali si misurano su due assi: <b>Legalità</b> (dentro o fuori la legge) ed <b>Etica</b> (dalla parte degli esposti o di chi li sfrutta). Possono tirare in direzioni opposte. La tua posizione sul piano morale decide il tuo cappello.</p>
+      <div class="tw"><table>
+        <tr><th>Cappello</th><th>Chi sei</th></tr>
+        <tr><td class="k"><span class="c-white">White Hat</span></td><td>Operi nella legge e dalla parte di chi è esposto. Ti danno fiducia, ma i guadagni sono modesti.</td></tr>
+        <tr><td class="k"><span class="c-grey">Grey Hat</span></td><td>Infrangi regole quando serve, o taci quando conviene. Nessuna etichetta ti sta stretta.</td></tr>
+        <tr><td class="k"><span class="c-red">Black Hat</span></td><td>Violi la legge e chi ci si trova in mezzo. Paga bene, finché dura.</td></tr>
+        <tr><td class="k"><span class="c-amber">Mercenary</span></td><td>La legge è dalla tua parte, la coscienza forse no. Esegui ordini che altri non vorrebbero firmare.</td></tr>
+      </table></div>
+      <div class="two">
+        <div>
+          <h3>Sorveglianza</h3>
+          <p>Da 0 a 100, misura quanto NetGuard ti tiene d'occhio. Ogni operazione non autorizzata e ogni traccia lasciata la fanno salire; scende piano con i giorni. Quando è alta arriva la perquisizione: multa, sequestro di un programma o di un componente, perfino l'arresto.</p>
+        </div>
+        <div>
+          <h3>I soldi</h3>
+          <p>Il gateway costa: ogni settimana si pagano connessione e affitto. Se i debiti superano una soglia il gateway viene ripreso e la partita finisce. Scegli i contratti anche in base a quanto puoi permetterti di rischiare.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 -->
+    <section class="ch" id="contratti">
+      <div class="chnum">04</div>
+      <h2>I contratti</h2>
+      <div class="rule"></div>
+      <div class="two">
+        <div>
+          <p>I lavori compaiono nella finestra <b>Gateway</b> (F1). Ogni contratto ha un cliente, una scadenza, un grado di difficoltà da 1 a 20 e una classe che ne descrive la legalità.</p>
+          <div class="tw"><table>
+            <tr><th>Classe</th><th>Significato</th></tr>
+            <tr><td><span class="chip c-blue">Ufficiale</span></td><td>Lavoro legale, contrattato apertamente.</td></tr>
+            <tr><td><span class="chip c-green">Regolare</span></td><td>Autorizzato, con risvolti ambigui.</td></tr>
+            <tr><td><span class="chip c-orange">Irregolare</span></td><td>Senza autorizzazione, ma non dannoso.</td></tr>
+            <tr><td><span class="chip c-red">Pericolosa</span></td><td>Senza autorizzazione e dannoso.</td></tr>
+            <tr><td><span class="chip c-violet">Segreta</span></td><td>Mai in bacheca: solo su invito, guadagnato con la reputazione.</td></tr>
+          </table></div>
+        </div>
+        <figure class="shot win">
+          <div class="bar"><span>Gateway · Contratti</span><span>F1</span></div>
+          <img src="img/jobs.jpg" alt="La finestra Gateway con la bacheca dei contratti, classe, difficoltà e compenso" loading="lazy" width="1440" height="810">
+          <figcaption>La bacheca: classe, grado, cliente e compenso. Sotto, il dettaglio e «Accetta contratto».</figcaption>
+        </figure>
+      </div>
+      <h3>Che lavori ci sono</h3>
+      <div class="tw"><table>
+        <tr><th>Tipo</th><th>Cosa chiede il cliente</th></tr>
+        <tr><td class="k">Furto</td><td>Portare via uno o più file, a volte enormi e su un archivio di backup.</td></tr>
+        <tr><td class="k">Cancellazione / alterazione</td><td>Far sparire o correggere un file. Se in un archivio resta una copia, il file torna e il cliente paga meno.</td></tr>
+        <tr><td class="k">Database</td><td>Lavorare sui record di una tabella DBT: alterarli, ripulirli o ripristinarli.</td></tr>
+        <tr><td class="k">Host ignoto</td><td>Il cliente conosce il file ma non l'host: sta sugli host più profondi o su un host segreto. Un grado in più, e uno per ogni VLAN.</td></tr>
+        <tr><td class="k">Consegna</td><td>Caricare sull'host indicato l'allegato del contratto, aggiungendolo o sostituendo un file con lo stesso nome.</td></tr>
+        <tr><td class="k">Corruzione / blocco</td><td>Mettere fuori uso uno o più sistemi con un malware o un cryptolocker.</td></tr>
+        <tr><td class="k">Distruzione</td><td>Cancellare per sempre uno o più host con Devour, insieme ai loro collegamenti.</td></tr>
+        <tr><td class="k">Difesa</td><td>Tenere in piedi la rete di un'azienda sotto attacco, leggendo i log e bloccando gli attaccanti.</td></tr>
+      </table></div>
+      <h3>Condizioni speciali</h3>
+      <p>Prima di accettare puoi prendere il contratto con una variante: una maggiorazione del compenso in cambio di una condizione in più, oppure metà o tutto il compenso in anticipo. Se fallisci, la reputazione persa si somma, e l'anticipo va restituito entro tre giorni.</p>
+      <h3>Indizi e piste</h3>
+      <p>I contratti Irregolari e superiori nascondono file extra (in ciano) e cose da fare durante l'intrusione: ripulire i log di un host, lasciare una RevShell, chiudere senza allarmi. Non servono al successo, ma ognuna paga un extra. Più avanti compaiono honeypot, piste in conflitto, amministratori automatici, collegamenti e host segreti.</p>
+
+      <h3>Come funziona una partita</h3>
+      <div class="steps">
+        <div class="step"><div class="n">1</div><div class="t">Hub</div><p>Scegli un contratto, compri componenti e programmi, lasci passare il tempo.</p></div>
+        <div class="step"><div class="n">2</div><div class="t">Accetta e connetti</div><p>Accetti un contratto, scegli quanti relay usare e premi Connetti.</p></div>
+        <div class="step"><div class="n">3</div><div class="t">Missione</div><p>Intrusione o difesa, in tempo reale: 30 secondi di gioco per ogni secondo vero.</p></div>
+        <div class="step"><div class="n">4</div><div class="t">Rapporto</div><p>Compenso, reputazione, sorveglianza e conseguenze morali. Il gioco salva da solo.</p></div>
+      </div>
+    </section>
+
+    <!-- 05 -->
+    <section class="ch" id="intrusione">
+      <div class="chnum">05</div>
+      <h2>L'intrusione</h2>
+      <div class="rule"></div>
+      <figure class="shot win" style="margin-bottom:22px">
+        <div class="bar"><span>Rete · Lumina Labs</span><span>F2</span></div>
+        <img src="img/red.jpg" alt="Una rete da violare: la mappa dei nodi, il pannello del nodo selezionato, il registro e il terminale" loading="lazy" width="1440" height="810">
+        <figcaption>La mappa dei nodi, il pannello del nodo selezionato con le sue barriere, il registro e il terminale.</figcaption>
+      </figure>
+      <div class="two">
+        <div>
+          <p>Una rete è un grafo di host: server di file, posta, database, workstation, caveau. Ogni host ha una o più barriere e si raggiunge solo da un host vicino già aperto. Gli Switch collegano più host e, nelle missioni VLAN, sono l'unico portale verso la rete sottostante.</p>
+          <h3>Il metodo</h3>
+          <div class="tw"><table>
+            <tr><th>Passo</th><th>Cosa fai</th></tr>
+            <tr><td class="k">1 Scansiona</td><td>NetSonar rivela barriere, file e il programma che serve contro ciascuna.</td></tr>
+            <tr><td class="k">2 Apri</td><td>Firewall e proxy si disabilitano, password e curve ellittiche si forzano. Il programma deve avere almeno il livello della barriera.</td></tr>
+            <tr><td class="k">3 Prendi</td><td>Decifra, scarica, cancella o altera i file.</td></tr>
+            <tr><td class="k">4 Esci pulito</td><td>Cancella i log che hai lasciato e disconnettiti.</td></tr>
+          </table></div>
+        </div>
+        <div>
+          <h3>Tenere basso il trace</h3>
+          <p>Ogni azione fa rumore e il <b>trace</b> sale; non si raffredda da solo. A <span class="c-red mono">100%</span> sei tracciato: la missione fallisce e ne paghi le conseguenze.</p>
+          <div class="tw"><table>
+            <tr><th>Mossa</th><th>Perché</th></tr>
+            <tr><td class="k">Relay</td><td>Host intermedi che rallentano il trace, ma aggiungono latenza.</td></tr>
+            <tr><td class="k">Blind</td><td>Acceca per un po' i monitor IDS prima di attaccare un host osservato.</td></tr>
+            <tr><td class="k">Wipe</td><td>Cancella le tracce lasciate su un host, dopo l'obiettivo.</td></tr>
+            <tr><td class="k">Calma</td><td>Più programmi in parallelo vuol dire meno velocità ciascuno.</td></tr>
+          </table></div>
+        </div>
+      </div>
+      <h3>Oltre la rete visibile</h3>
+      <p>Una <b>RevShell</b> lasciata su un host ti fa rientrare da lì: la rete conserva il suo stato e il trace riparte da un quarto. Sulle reti permanenti delle aziende resta anche dopo che sei uscito, finché gli amministratori non la trovano. Alcune reti ne nascondono un'altra sotto: con <b>LANScan</b> e <b>LANTraverse</b> si passa da uno Switch portale alla VLAN sottostante. Dal grado 8 compaiono collegamenti e host segreti, che solo <b>XMapper</b> rivela.</p>
+    </section>
+
+    <!-- 06 -->
+    <section class="ch" id="difesa">
+      <div class="chnum">06</div>
+      <h2>Dall'altra parte</h2>
+      <div class="rule"></div>
+      <div class="two">
+        <figure class="shot win">
+          <div class="bar"><span>Console difesa</span><span>F8</span></div>
+          <img src="img/blue.jpg" alt="Un contratto di difesa: la rete da proteggere, l'uptime dell'azienda e la console con i log di sicurezza" loading="lazy" width="1440" height="810">
+          <figcaption>La rete da proteggere, l'uptime dell'azienda e i log di sicurezza.</figcaption>
+        </figure>
+        <div>
+          <p>Nei contratti di difesa leggi i log di sicurezza, scegli un indirizzo sospetto e lo <b>blocchi</b> (gli attaccanti cambiano indirizzo dopo un po'), isoli o ripristini host, ne sorvegli alcuni e, contro malware e ransomware, ripulisci e proteggi i sistemi. Al posto del trace c'è l'<b>uptime</b> dell'azienda: tienilo alto. Un difensore passivo perde sempre.</p>
+          <h3>L'assedio</h3>
+          <p>Chi attira troppa attenzione viene attaccato a casa sua. Durante un Controllo Sicurezza il gateway si difende con quattro anelli, che giri come programmi: <b>BastionWall</b>, <b>DecoyProxy</b>, <b>WatchTower</b> e <b>CoreVault</b>. Se il nucleo cade, perdi parte dell'archivio.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07 -->
+    <section class="ch" id="programmi">
+      <div class="chnum">07</div>
+      <h2>Gateway, hardware e programmi</h2>
+      <div class="rule"></div>
+      <div class="two">
+        <div>
+          <p>Il gateway è la tua base. Nella finestra <b>Sistema</b> (F4) vedi hardware, programmi, Microcode, relay e archiviazione; nel <b>Mercato nero</b> (F5) li migliori. Un upgrade hardware richiede 8 ore di gioco e un reboot del gateway.</p>
+          <div class="tw"><table>
+            <tr><th>Componente</th><th>Effetto</th></tr>
+            <tr><td class="k">Processore</td><td>Velocità di esecuzione dei programmi.</td></tr>
+            <tr><td class="k">Memoria</td><td>Quanti programmi girano in parallelo.</td></tr>
+            <tr><td class="k">Scheda di Rete</td><td>Velocità di trasferimento di file e programmi.</td></tr>
+            <tr><td class="k">Archiviazione</td><td>Spazio per i dati scaricati.</td></tr>
+            <tr><td class="k">Cloak</td><td>Quanti relay puoi concatenare e quanto rallenta il trace.</td></tr>
+          </table></div>
+        </div>
+        <figure class="shot win">
+          <div class="bar"><span>Mercato nero</span><span>F5</span></div>
+          <img src="img/market.jpg" alt="Il Mercato nero: hardware del gateway e programmi in vendita con il livello da acquistare" loading="lazy" width="1440" height="810">
+          <figcaption>Il Mercato nero: si può saltare di livello pagando quelli intermedi.</figcaption>
+        </figure>
+      </div>
+
+      <h3>Il catalogo</h3>
+      <p>Si parte con NetSonar, WallBreaker, ProxyMask e HashRipper al livello 1. Gli altri si sbloccano facendo crescere quelli che hai.</p>
+      <div class="cat-tabs" role="group" aria-label="Categoria dei programmi">
+        <button type="button" id="cat-red" data-cat="red" style="--cy:var(--red)" aria-pressed="true">Attacco</button>
+        <button type="button" id="cat-exp" data-cat="exp" style="--cy:var(--magenta)" aria-pressed="false">Exploit</button>
+        <button type="button" id="cat-blue" data-cat="blue" style="--cy:var(--blue)" aria-pressed="false">Difesa</button>
+        <button type="button" id="cat-util" data-cat="util" style="--cy:var(--green)" aria-pressed="false">Utilità</button>
+      </div>
+      <div class="progs" id="progs"></div>
+
+      <div class="spec">
+        <div class="prim">
+          <h4>Programmi Primari</h4>
+          <p>Software militare dell'era prima del Blackout, recuperato nelle missioni di alto livello: Argus, Bastion, Archangel, Excalibur. Livello 10, leggeri e silenziosi.</p>
+        </div>
+        <div class="blk">
+          <h4>Programmi Neri</h4>
+          <p>Software della Rete Nera, in vendita nel suo Bazaar: veloci e distruttivi, ma pesanti e instabili. DarkHole, il Devour nero, distrugge in silenzio e si allarga all'host vicino.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 08 -->
+    <section class="ch" id="comandi">
+      <div class="chnum">08</div>
+      <h2>Comandi e scorciatoie</h2>
+      <div class="rule"></div>
+      <p>Tutto si fa col mouse, ma il terminale (F3 o Ctrl+T) accetta le stesse azioni dei pulsanti. <code>help</code> elenca ciò che il contesto ti permette; Tab completa comandi, nodi e file.</p>
+      <div class="two">
+        <div>
+          <h3>Terminale</h3>
+          <div class="tw"><table>
+            <tr><th>Comando</th><th>Cosa fa</th></tr>
+            <tr><td class="k g">scan &lt;nodo&gt;</td><td>rivela barriere e file</td></tr>
+            <tr><td class="k g">break &lt;nodo&gt; [n]</td><td>abbatte una barriera</td></tr>
+            <tr><td class="k g">decrypt &lt;nodo&gt; &lt;n&gt;</td><td>decifra un file</td></tr>
+            <tr><td class="k g">get / rm / edit</td><td>scarica, elimina, altera</td></tr>
+            <tr><td class="k g">blind / wipe &lt;nodo&gt;</td><td>acceca il monitor, cancella i log</td></tr>
+            <tr><td class="k g">put &lt;nodo&gt; &lt;n&gt;</td><td>carica un file dallo storage</td></tr>
+            <tr><td class="k g">revshell &lt;nodo&gt;</td><td>lascia una porta aperta</td></tr>
+            <tr><td class="k g">lanscan / traverse</td><td>trova e attraversa una VLAN</td></tr>
+            <tr><td class="k g">corrupt / lock</td><td>corrompe o blocca un sistema</td></tr>
+            <tr><td class="k g">devour &lt;nodo&gt;</td><td>distrugge l'host per sempre</td></tr>
+            <tr><td class="k g">veil</td><td>avvia o ferma TraceVeil</td></tr>
+            <tr><td class="k g">tasks / cancel &lt;id&gt;</td><td>compiti in corso, annulla</td></tr>
+            <tr><td class="k g">connect shell [host]</td><td>rientra da una RevShell</td></tr>
+            <tr><td class="k g">attach</td><td>riscarica l'allegato di una consegna</td></tr>
+          </table></div>
+        </div>
+        <div>
+          <h3>Tasti</h3>
+          <div class="tw"><table>
+            <tr><th>Tasto</th><th>Azione</th></tr>
+            <tr><td class="k">F1 … F8</td><td>Gateway, Rete, Terminale, Sistema, Mercato, Messaggi, Eventi, Difesa</td></tr>
+            <tr><td class="k">F9 / F10 / F11</td><td>salvataggi, musica, schermo intero</td></tr>
+            <tr><td class="k">Esc</td><td>Opzioni; chiude finestre e dialoghi</td></tr>
+            <tr><td class="k">Spazio</td><td>pausa (in missione)</td></tr>
+            <tr><td class="k">1 / 2 / 3</td><td>velocità x1, x2, x4</td></tr>
+          </table></div>
+          <h3>In missione</h3>
+          <p style="font-size:14px">Con la finestra Rete in primo piano le lettere agiscono sul nodo selezionato, come i pulsanti.</p>
+          <div class="tw"><table>
+            <tr><th>Tasto</th><th>Azione</th></tr>
+            <tr><td class="k">s</td><td>scansione</td></tr>
+            <tr><td class="k">b</td><td>barriera più esterna</td></tr>
+            <tr><td class="k">f p c e</td><td>Firewall, Proxy, Password, Curva ellittica</td></tr>
+            <tr><td class="k">m · l</td><td>acceca il monitor · cancella i log</td></tr>
+            <tr><td class="k">d · r</td><td>scarica un file · RevShell</td></tr>
+            <tr><td class="k">k a n t i u</td><td>KeyWraith, ArpScan, LANScan, LANTraverse, Inspect, FileUndeleter</td></tr>
+            <tr><td class="k">v</td><td>TraceVeil</td></tr>
+            <tr><td class="k">Tab · Canc</td><td>nodo successivo · annulla l'ultima operazione</td></tr>
+          </table></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 09 -->
+    <section class="ch" id="glossario">
+      <div class="chnum">09</div>
+      <h2>Glossario</h2>
+      <div class="rule"></div>
+      <dl class="gl">
+        <div><dt>Trace</dt><dd>Quanto il difensore è vicino a rintracciarti. A 100% sei tracciato e la sessione si chiude dall'esterno.</dd></div>
+        <div><dt>Sorveglianza</dt><dd>L'attenzione di NetGuard su di te, da 0 a 100. Sale con le tracce, scende con i giorni.</dd></div>
+        <div><dt>Relay</dt><dd>Host di rimbalzo fra te e la rete: rallentano il trace, ma aggiungono latenza.</dd></div>
+        <div><dt>Gateway</dt><dd>La tua macchina: hardware, programmi, archivio. Ce ne sono altri, delle fazioni, da sbloccare.</dd></div>
+        <div><dt>IDS</dt><dd>Monitor di sorveglianza su un host: vede le tue azioni finché non lo accechi.</dd></div>
+        <div><dt>RevShell</dt><dd>Porta di servizio lasciata su un host violato, per rientrare da lì.</dd></div>
+        <div><dt>VLAN</dt><dd>Una rete sovrapposta sotto quella principale, raggiungibile solo da uno Switch portale.</dd></div>
+        <div><dt>Honeypot</dt><dd>Un host esca: alla prima barriera fa scattare un impulso di trace e alza l'allerta.</dd></div>
+        <div><dt>Microcode</dt><dd>Schede che riscrivono il comportamento del processore: un vantaggio in cambio di un costo.</dd></div>
+        <div><dt>Luogotenente</dt><dd>Il volto di una fazione per chi ha abbastanza reputazione: propone lavori e si ricorda di come sono andati.</dd></div>
+        <div><dt>Operatore</dt><dd>Un altro hacker del mondo di gioco. Ha un nick, una classifica e una catena di relay da scoprire.</dd></div>
+        <div><dt>Rubrica</dt><dd>Le aziende permanenti del mondo, con gli host che hai scoperto e l'accesso libero.</dd></div>
+      </dl>
+    </section>
+
+    <!-- 10 -->
+    <section class="ch" id="multigiocatore">
+      <div class="chnum">10</div>
+      <h2>Multigiocatore</h2>
+      <div class="rule"></div>
+      <div class="two">
+        <div>
+          <p><code>corehack-server</code> tiene gli account, i messaggi, i bonifici tra giocatori e le azioni competitive: intrusioni, audit delle banche, assedi e gare. È un solo programma senza dipendenze, che gira anche su un Raspberry Pi. In LAN e in Internet si usa allo stesso modo.</p>
+          <p>Tutto il traffico è cifrato con TLS. Al primo avvio il server crea un certificato autofirmato e ne stampa l'impronta: il gioco la mostra al primo collegamento, da confrontare con quella del server. Per un server pubblico va bene anche un certificato di un'autorità, come Let's Encrypt.</p>
+          <p>Negli assedi tra giocatori chi attacca ha una carica che si riempie nel tempo: lancia gli attacchi dal vivo dalla console oppure prepara un piano, lo prova contro un difensore automatico e lo manda.</p>
+        </div>
+        <div class="win">
+          <div class="bar"><span>corehack-server</span><span>:7341</span></div>
+          <div class="term" style="min-height:0"><span class="p">$</span> ./corehack-server
+<span class="d">corehack-server 2.10.2 - Guido Cauli</span>
+data in /home/core/.config/corehack-server
+certificate fingerprint: 04:0E:E8:57:…:7A
+admin console: corehack-server admin -data … &lt;command&gt;
+listening on :7341</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11 -->
+    <section class="ch" id="installa">
+      <div class="chnum">11</div>
+      <h2>Installazione</h2>
+      <div class="rule"></div>
+      <p>Il pacchetto contiene il binario per il tuo sistema, già con tutti i dati. Su Linux servono le librerie grafiche e audio di sistema; se OpenGL non parte, il gioco ripiega da solo su un renderer software.</p>
+      <h3 id="requisiti">Requisiti minimi</h3>
+      <div class="tw"><table class="req">
+        <tr><th></th><th>Linux</th><th>Windows</th><th>macOS</th></tr>
+        <tr><td class="k">Sistema</td><td>64 bit, X11 o Wayland (XWayland), con le librerie qui sotto</td><td>Windows 10 o 11, 64 bit</td><td>macOS 12 Monterey o successivo</td></tr>
+        <tr><td class="k">Processore</td><td>x86-64 dual core (pacchetto ARM64 disponibile)</td><td>x86-64 dual core (pacchetto ARM64 disponibile)</td><td>Apple Silicon (pacchetto Intel disponibile)</td></tr>
+        <tr><td class="k">Memoria</td><td colspan="3">4 GB di RAM</td></tr>
+        <tr><td class="k">Grafica</td><td>OpenGL 3.2 (altrimenti renderer software)</td><td>DirectX 11 o OpenGL 3.2</td><td>Metal</td></tr>
+        <tr><td class="k">Schermo</td><td colspan="3">1280×720 o superiore (consigliato 1600×900)</td></tr>
+        <tr><td class="k">Disco</td><td colspan="3">150 MB liberi, più lo spazio dei salvataggi</td></tr>
+        <tr><td class="k">Rete</td><td colspan="3">non serve per giocare da soli; solo per il multigiocatore</td></tr>
+      </table></div>
+      <h3>Linux: per giocare</h3>
+      <div class="tw"><table>
+        <tr><th>Distribuzione</th><th>Pacchetti</th></tr>
+        <tr><td class="k">Debian / Ubuntu</td><td><code>sudo apt install libgl1 libglx-mesa0 libgl1-mesa-dri libx11-6 libxcursor1 libxrandr2 libxi6 libxinerama1 libxxf86vm1 libasound2</code> (da Ubuntu 24.04: <code>libasound2t64</code>)</td></tr>
+        <tr><td class="k">Fedora / Rocky / Alma</td><td><code>sudo dnf install mesa-libGL mesa-dri-drivers libX11 libXcursor libXrandr libXi libXinerama libXxf86vm alsa-lib</code></td></tr>
+        <tr><td class="k">Arch / Manjaro</td><td><code>sudo pacman -S mesa libglvnd libx11 libxcursor libxrandr libxi libxinerama libxxf86vm alsa-lib</code></td></tr>
+      </table></div>
+      <h3>Dai sorgenti</h3>
+      <p>Serve Go 1.25 o successivo; le dipendenze sono incluse, quindi non serve la rete. <code>./build_all.sh</code> compila gioco e server per ogni piattaforma; <code>./build.sh host</code> solo per il sistema in uso. Su Linux servono anche i pacchetti di sviluppo:</p>
+      <div class="tw"><table>
+        <tr><th>Distribuzione</th><th>Pacchetti</th></tr>
+        <tr><td class="k">Debian / Ubuntu</td><td><code>sudo apt install build-essential pkg-config libgl1-mesa-dev xorg-dev libasound2-dev</code></td></tr>
+        <tr><td class="k">Fedora / Rocky / Alma</td><td><code>sudo dnf install gcc pkgconf-pkg-config mesa-libGL-devel libX11-devel libXcursor-devel libXrandr-devel libXi-devel libXinerama-devel libXxf86vm-devel alsa-lib-devel</code></td></tr>
+        <tr><td class="k">Arch / Manjaro</td><td><code>sudo pacman -S base-devel pkgconf</code></td></tr>
+      </table></div>
+      <h3>Lingue e opzioni</h3>
+      <p>Il gioco è in italiano, inglese e francese; la lingua si sceglie alla prima configurazione o dalle Opzioni. Dalle Opzioni (Esc) regoli audio, luminosità, tonalità dell'interfaccia, effetto schermo, animazioni, difficoltà del trace e tema grafico: Core, Introvert, Ami, IONic e Tensor.</p>
+    </section>
+
+    <!-- 12 -->
+    <section class="ch" id="manuali">
+      <div class="chnum">12</div>
+      <h2>Manuali</h2>
+      <div class="rule"></div>
+      <p>I manuali completi, in PDF, aggiornati alla versione 2.10.2.</p>
+      <div class="docs">
+        <a class="doc" href="CoreHack-Manuale.pdf" target="_blank" rel="noopener"><div class="t">Manuale del giocatore</div><div class="m">Italiano · il mondo, le fazioni, le basi</div></a>
+        <a class="doc" href="CoreHack-Manuel.pdf" target="_blank" rel="noopener"><div class="t">Manuel du joueur</div><div class="m">Français · le monde, les factions, les bases</div></a>
+        <a class="doc" href="CoreHack-Manuale-Avanzato.pdf" target="_blank" rel="noopener"><div class="t">Manuale avanzato</div><div class="m">Italiano · programmi, tecniche, scheda rapida</div></a>
+        <a class="doc" href="CoreHack-Manuale-Server.pdf" target="_blank" rel="noopener"><div class="t">Manuale del server</div><div class="m">Italiano · multigiocatore e amministrazione</div></a>
+      </div>
+      <h3>Per cominciare</h3>
+      <div class="tw"><table>
+        <tr><th>#</th><th>Consiglio</th></tr>
+        <tr><td class="k">1</td><td>Comincia dal contratto di addestramento: è legale, autorizzato e senza rischi.</td></tr>
+        <tr><td class="k">2</td><td>Scansiona sempre prima di agire: NetSonar rivela barriere e file di un nodo.</td></tr>
+        <tr><td class="k">3</td><td>Un programma deve avere livello almeno pari a quello della barriera che affronta.</td></tr>
+        <tr><td class="k">4</td><td>Dopo l'obiettivo cancella i log: ogni traccia lasciata aumenta l'attenzione di NetGuard.</td></tr>
+        <tr><td class="k">5</td><td>Tieni da parte i soldi per le bollette settimanali prima di spenderli in upgrade.</td></tr>
+      </table></div>
+    </section>
+
+    <!-- 13 -->
+    <section class="ch" id="novita">
+      <div class="chnum">13</div>
+      <h2>Novità</h2>
+      <div class="rule"></div>
+      <div class="log">
+        <article>
+          <h4>2.10.2</h4>
+          <ul>
+            <li><b>Sorveglianza NetGuard</b>: i giorni di un contratto smaltiscono solo l'attenzione che avevi già; quella presa col contratto resta intera.</li>
+            <li>Il resoconto mostra l'aumento di sorveglianza effettivo.</li>
+          </ul>
+        </article>
+        <article>
+          <h4>2.10.1</h4>
+          <ul>
+            <li>Nuovi tutorial: <b>Operatori e indagini</b> e <b>Fascicoli e persone</b>; la Rubrica spiega RevShell e fascicoli.</li>
+            <li>Devour e DarkHole corrodono l'host in glitch fino a farlo sparire.</li>
+            <li>Un operatore arrestato torna con un nome nuovo, senza annunci.</li>
+            <li>Icone dei programmi Primari ridisegnate; schermate dei manuali aggiornate.</li>
+          </ul>
+        </article>
+        <article>
+          <h4>2.10.0</h4>
+          <ul>
+            <li><b>Contratti a host ignoto</b>: il cliente conosce il file ma non l'host. Su qualche host meno profondo resta un registro dei trasferimenti che lo rivela.</li>
+            <li><b>Contratti di consegna</b>: l'allegato del cliente arriva nello storage e va caricato sull'host indicato, aggiungendolo o sostituendo un file.</li>
+            <li><b>Devour</b> distrugge per sempre un host e i suoi collegamenti; la rete può spezzarsi. <b>DarkHole</b>, la sua versione Nera, è quasi silenzioso e si allarga a un host vicino.</li>
+            <li>Nuovi contratti di distruzione.</li>
+          </ul>
+        </article>
+        <article>
+          <h4>2.9.6</h4>
+          <ul>
+            <li><b>Scorciatoie in missione</b>: le lettere agiscono sul nodo selezionato come i pulsanti. La pausa è solo su Spazio.</li>
+            <li>Mercato nero più leggibile: righe dei programmi più alte, nomi staccati dal bordo.</li>
+          </ul>
+        </article>
+        <article>
+          <h4>2.9.5</h4>
+          <ul>
+            <li><b>RevShell sulle reti permanenti</b>: una RevShell lasciata su un'azienda della Rubrica resta attiva dopo l'uscita, e si rientra da quell'host.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- sostieni -->
+    <section class="ch" id="sostieni">
+      <div class="chnum">14</div>
+      <h2>Sostieni il progetto</h2>
+      <div class="rule"></div>
+      <div class="donate">
+        <div class="txt">
+          <h4>Un bonifico all'operatore</h4>
+          <p>Core:Hack è il lavoro di una persona sola, nelle ore libere: codice, storia, musica e manuali. Se il gioco ti piace e vuoi che continui a crescere, puoi offrire un caffè o lasciare quello che ritieni giusto.</p>
+          <p class="credit">Nessun obbligo, nessun contenuto a pagamento: il gioco resta lo stesso per tutti.</p>
+        </div>
+        <div class="pay">
+          <a class="btn" href="https://ko-fi.com/guidocauli" target="_blank" rel="noopener">Ko-fi <small>un caffè, o una donazione mensile</small></a>
+          <a class="btn alt" href="https://paypal.me/guidocauli" target="_blank" rel="noopener">PayPal <small>una donazione libera</small></a>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span class="bye">Buona fortuna, operatore. In questa Rete nessuno ti salverà.</span>
+    <span>Core:Hack: Blackout 2.10.2 - Guido Cauli &lt;<span id="mail">guido.cauli@gmail.com</span>&gt;<button class="copy" type="button" id="copymail">copia</button></span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // ---- orologio dell'HUD: 30 secondi di gioco per ogni secondo vero, come in missione
+  var t0 = Date.now(), dayEl = document.getElementById("day"), tmEl = document.getElementById("tm");
+  function tick() {
+    var gs = Math.floor((Date.now() - t0) / 1000 * 30), m = Math.floor(gs / 60), d = 1 + Math.floor(m / 1440);
+    m = m % 1440;
+    dayEl.textContent = "g" + d;
+    tmEl.textContent = String(Math.floor(m / 60)).padStart(2, "0") + ":" + String(m % 60).padStart(2, "0");
+  }
+  tick(); setInterval(tick, 1000);
+
+  // ---- sezione in vista evidenziata nella barra
+  var links = Array.prototype.slice.call(document.querySelectorAll("nav.tabs a"));
+  var secs = links.map(function (a) { return document.querySelector(a.getAttribute("href")); });
+  function spy() {
+    var y = window.scrollY + 90, on = -1;
+    secs.forEach(function (s, i) { if (s && s.offsetTop <= y) on = i; });
+    links.forEach(function (a, i) { a.classList.toggle("on", i === on); });
+  }
+  window.addEventListener("scroll", spy, { passive: true }); spy();
+
+  // ---- terminale del titolo: una sessione d'esempio che si scrive da sola
+  var lines = [
+    ["p", "CONNESSIONE A LUMINA LABS - SYDNEY HARBOUR"],
+    ["", "Nodo GW-01: punto d'ingresso. Selezionalo e scansiona."],
+    ["d", "> scan GW-01"],
+    ["", "Scansione GW-01 completa. Barriere: 1, file: 2."],
+    ["d", "> break GW-01"],
+    ["", "Firewall v2 disabilitato. GW-01 aperto."],
+    ["d", "> scan FS-01"],
+    ["w", "IDS livello 2 su FS-01: accecalo prima di forzarlo."],
+    ["d", "> blind FS-01"],
+    ["", "Monitor di FS-01 accecato (40 s)."],
+    ["d", "> break FS-01 2"],
+    ["", "Password forzata: d3lt4_c0br4"],
+    ["d", "> get FS-01 3"],
+    ["", "research_vault_59.dat (12 GB) scaricato."],
+    ["d", "> wipe FS-01"],
+    ["", "Log di FS-01 cancellati. Trace 31%."],
+    ["r", "Obiettivo raggiunto. Disconnettiti prima che ti trovino."]
+  ];
+  var term = document.getElementById("term");
+  function cls(c) { return c === "p" ? "p" : c === "w" ? "w" : c === "r" ? "r" : c === "d" ? "d" : ""; }
+  function render(n, part) {
+    var html = "";
+    for (var i = 0; i < n; i++) html += '<span class="' + cls(lines[i][0]) + '">' + esc(lines[i][1]) + "</span>\n";
+    if (part != null && n < lines.length) html += '<span class="' + cls(lines[n][0]) + '">' + esc(lines[n][1].slice(0, part)) + "</span>";
+    term.innerHTML = html + '<span class="caret">&nbsp;</span>';
+  }
+  function esc(s) { return s.replace(/&/g, "&amp;").replace(/</g, "&lt;"); }
+  if (reduce) { render(lines.length); }
+  else {
+    var li = 0, ch = 0;
+    render(0, 0);
+    (function step() {
+      if (li >= lines.length) { setTimeout(function () { li = 0; ch = 0; step(); }, 4200); return; }
+      var full = lines[li][1], typed = lines[li][0] === "d";
+      if (typed && ch < full.length) { ch++; render(li, ch); setTimeout(step, 38); return; }
+      li++; ch = 0; render(li, 0);
+      setTimeout(step, typed ? 260 : 520);
+    })();
+  }
+
+  // ---- sfondo del titolo: indirizzi e istruzioni che affiorano e si spengono, come nel gioco
+  var cv = document.getElementById("glyphs"), cx = cv.getContext("2d");
+  var ops = ["mov rax, 0x1f", "call 0x401933", "nop dword ptr", "xor r8, rbx", "lea r11, [rbp]", "jmp 0x40be2a", "push r12", "test rsi, rsi", "and r10d, 0xd11", "rep movsb"];
+  var items = [];
+  function size() {
+    var r = cv.getBoundingClientRect(), k = Math.min(window.devicePixelRatio || 1, 2);
+    cv.width = Math.max(1, r.width * k); cv.height = Math.max(1, r.height * k); cx.setTransform(k, 0, 0, k, 0, 0);
+  }
+  function spawn(w, h) {
+    var hex = "0x" + (0x401000 + Math.floor(Math.random() * 0xffff)).toString(16);
+    return { x: Math.random() * w, y: Math.random() * h, s: hex + "   " + ops[Math.floor(Math.random() * ops.length)], a: 0, life: 0, max: 4 + Math.random() * 5, f: 14 + Math.random() * 14 };
+  }
+  function draw(dt) {
+    var w = cv.clientWidth, h = cv.clientHeight;
+    cx.clearRect(0, 0, w, h);
+    while (items.length < Math.max(10, Math.floor(w * h / 26000))) items.push(spawn(w, h));
+    items.forEach(function (it, i) {
+      it.life += dt;
+      var k = it.life / it.max, a = Math.sin(Math.min(1, k) * Math.PI) * 0.13;
+      cx.font = it.f + "px 'Share Tech Mono', monospace";
+      cx.fillStyle = "rgba(0,229,255," + a.toFixed(3) + ")";
+      cx.fillText(it.s, it.x, it.y);
+      if (k >= 1) items[i] = spawn(w, h);
+    });
+  }
+  size(); window.addEventListener("resize", size);
+  if (reduce) { draw(2); }
+  else {
+    var last = performance.now();
+    (function loop(now) { draw(Math.min(0.1, (now - last) / 1000)); last = now; requestAnimationFrame(loop); })(last);
+  }
+
+  // ---- catalogo dei programmi
+  var P = {
+    red: [
+      ["NetSonar", "scansione", "Sonda di rete a impulsi: mappa nodi e difese e porta alla luce i file di ogni host. Quattro livelli: più alto, più veloce e silenzioso."],
+      ["WallBreaker", "firewall", "Trova la falla nelle regole di filtraggio e apre un varco nel muro."],
+      ["ProxyMask", "proxy", "Maschera i tuoi pacchetti e passa i proxy d'accesso come un utente qualunque."],
+      ["HashRipper", "password", "Ricostruisce le password a partire dalle impronte che l'host custodisce."],
+      ["CurveBreaker", "curva ellittica", "Rompe l'autenticazione a curva ellittica degli host più blindati."],
+      ["CipherKey", "file cifrati", "Un file cifrato non si scarica, non si cancella e non si altera finché non l'hai decifrato."],
+      ["GhostShell", "furtività", "Acceca i monitor IDS e cancella i log che lasci dietro di te."],
+      ["TraceVeil", "furtività", "Un velo sul tuo traffico: abbassa il rumore dei compiti e oscura una parte dell'IDS."],
+      ["ArpScan", "ricognizione", "Ascolta il traffico ARP di un host aperto e rivela nodi e difese vicini."],
+      ["LANScan / LANTraverse", "VLAN", "Da uno Switch rivelano il portale di una VLAN e ci passano dentro, senza lasciare log."],
+      ["XMapper", "segreti", "Addon di NetSonar: la scansione scopre collegamenti segreti e host nascosti."]
+    ],
+    exp: [
+      ["DeepRoot", "relay", "Si annida in un host dormiente e lo trasforma in un tuo relay permanente."],
+      ["RevShell", "rientro", "Una porta lasciata aperta su un host violato, per rientrare da lì con la rete com'era."],
+      ["Inspect", "firme", "Rivela file segreti e file marcati da un tracciante, e i Microcode nascosti."],
+      ["FileUndeleter", "recupero", "Recupera i file cancellati, anche quelli ripuliti prima del tuo arrivo."],
+      ["KeyWraith", "registratore", "Un registratore di battute che resta dopo il contratto e ti scrive quello che raccoglie."],
+      ["ByteRot", "malware", "Carico distruttivo su un sistema aperto: lo corrompe fino a metterlo fuori uso."],
+      ["LockJaw", "cryptolocker", "Cifra e blocca un sistema aperto finché qualcuno non lo sblocca."],
+      ["TimeBomb", "a tempo", "Una corruzione dormiente, innescata dal gateway con detonate."],
+      ["Devour", "distruzione", "Distrugge per sempre un host aperto, con i suoi file e i suoi collegamenti."]
+    ],
+    blue: [
+      ["TraceHound", "tracciamento", "Il segugio del blue team: segue la pista dell'attaccante pacchetto dopo pacchetto."],
+      ["ScrubDaemon", "malware", "Un demone di bonifica che ripulisce i nodi infetti."],
+      ["AegisLock", "ransomware", "Corazza i nodi contro i cryptolocker e libera quelli già bloccati."],
+      ["BastionWall", "anello", "Anello perimetrale del gateway: assorbe flood e violazioni."],
+      ["DecoyProxy", "anello", "Anello filtro: devia sessioni e sonde prima che arrivino al nucleo."],
+      ["WatchTower", "anello", "Anello d'allarme: rivela attacchi e attaccanti prima che colpiscano."],
+      ["CoreVault", "anello", "La camera blindata dell'archivio: più è alto, meno perdi se il nucleo cade."],
+      ["Intercept", "assedio", "Un colpo mirato dal nucleo: distrugge o dimezza gli attacchi in arrivo."]
+    ],
+    util: [
+      ["DBEdit / DBDiag / DBRebuild", "database", "Leggono, modificano, diagnosticano e ricostruiscono le tabelle DBT."],
+      ["LogParser", "operatori", "Segue le tracce degli altri operatori attraverso i loro relay, fino al gateway."],
+      ["LogRewrite", "depistaggio", "Riscrive il log che hai lasciato e lo indirizza altrove, magari verso un operatore."],
+      ["Ping / NSLookup / Whois", "rete", "Sondano indirizzi, risolvono host e schedano le aziende, fuori missione."],
+      ["Traceroute / Top", "rete", "Percorso fino a un host pubblico; monitor di CPU, calore, RAM e banda."]
+    ]
+  };
+  var colors = { red: "var(--red)", exp: "var(--magenta)", blue: "var(--blue)", util: "var(--green)" };
+  var box = document.getElementById("progs");
+  function show(cat) {
+    box.innerHTML = P[cat].map(function (p) {
+      return '<div class="prog" style="--pc:' + colors[cat] + '"><div class="nm">' + esc(p[0]) + "<span>" + esc(p[1]) + "</span></div><p>" + esc(p[2]) + "</p></div>";
+    }).join("");
+    document.querySelectorAll(".cat-tabs button").forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.cat === cat ? "true" : "false"); });
+    try { localStorage.setItem("ch-cat", cat); } catch (e) {}
+  }
+  document.querySelectorAll(".cat-tabs button").forEach(function (b) { b.addEventListener("click", function () { show(b.dataset.cat); }); });
+  var saved = "red";
+  try { saved = localStorage.getItem("ch-cat") || "red"; } catch (e) {}
+  show(P[saved] ? saved : "red");
+
+  // ---- copia dell'indirizzo
+  document.getElementById("copymail").addEventListener("click", function () {
+    var btn = this, txt = document.getElementById("mail").textContent;
+    function done() { btn.textContent = "copiato"; setTimeout(function () { btn.textContent = "copia"; }, 1500); }
+    try {
+      navigator.clipboard.writeText(txt).then(done, sel);
+    } catch (e) { sel(); }
+    function sel() { var r = document.createRange(); r.selectNodeContents(document.getElementById("mail")); var s = getSelection(); s.removeAllRanges(); s.addRange(r); }
+  });
+})();
+</script>
+</body>
+</html>
