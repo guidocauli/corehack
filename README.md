@@ -85,8 +85,6 @@ Start with the training contract: it is legal, authorised and risk-free. Always 
 | Display | 1280×720 | 1280×720 | 1280×720 |
 | Disk | 150 MB | 150 MB | 150 MB |
 
-Linux ARM64, Windows ARM64 and Intel Mac builds are made from source with `build_all.sh -t`.
-
 Linux system libraries:
 
 ```
@@ -100,8 +98,10 @@ sudo pacman -S mesa libglvnd libx11 libxcursor libxrandr libxi libxinerama libxx
 
 ## Manuals
 
-PDF manuals, included in every package (Italian and French):
+PDF manuals, included in every package:
 
+- [Player's Manual](CoreHack-Manual.pdf) (English)
+- [Advanced Manual](CoreHack-Advanced-Manual.pdf) (English)
 - [Manuale del giocatore](CoreHack-Manuale.pdf) (Italian)
 - [Manuel du joueur](CoreHack-Manuel.pdf) (French)
 - [Manuale avanzato](CoreHack-Manuale-Avanzato.pdf) (Italian)

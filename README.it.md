@@ -85,8 +85,6 @@ Comincia dal contratto di addestramento: è legale, autorizzato e senza rischi. 
 | Schermo | 1280×720 | 1280×720 | 1280×720 |
 | Disco | 150 MB | 150 MB | 150 MB |
 
-Linux ARM64, Windows ARM64 e Mac Intel si compilano dai sorgenti con `build_all.sh -t`.
-
 Librerie di sistema su Linux:
 
 ```
@@ -102,6 +100,8 @@ sudo pacman -S mesa libglvnd libx11 libxcursor libxrandr libxi libxinerama libxx
 
 In PDF, inclusi in ogni pacchetto:
 
+- [Player's Manual](CoreHack-Manual.pdf) (inglese)
+- [Advanced Manual](CoreHack-Advanced-Manual.pdf) (inglese)
 - [Manuale del giocatore](CoreHack-Manuale.pdf)
 - [Manuel du joueur](CoreHack-Manuel.pdf) (francese)
 - [Manuale avanzato](CoreHack-Manuale-Avanzato.pdf)
