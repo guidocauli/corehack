@@ -61,7 +61,7 @@ code { color: var(--green); font-size: 0.95em; }
   background: linear-gradient(to bottom, #0d1526, #0a101d);
   border-bottom: 1px solid var(--border);
 }
-.hud .wrap { display: flex; align-items: center; gap: 14px; height: 48px; }
+.hud .wrap { display: flex; align-items: center; gap: 10px; height: 48px; }
 .logo {
   font-family: var(--f-mono); font-size: 17px; color: var(--cyan); white-space: nowrap;
   padding: 3px 10px; border: 1px solid var(--cyan);
@@ -72,8 +72,8 @@ code { color: var(--green); font-size: 0.95em; }
 nav.tabs { display: flex; gap: 0; overflow-x: auto; scrollbar-width: none; flex: 1; min-width: 0; }
 nav.tabs::-webkit-scrollbar { display: none; }
 nav.tabs a {
-  font-family: var(--f-mono); font-size: 13.5px; color: var(--dim); white-space: nowrap;
-  padding: 12px 6px 10px; border-bottom: 2px solid transparent;
+  font-family: var(--f-mono); font-size: 13px; color: var(--dim); white-space: nowrap;
+  padding: 12px 5px 10px; border-bottom: 2px solid transparent;
 }
 nav.tabs a:hover, nav.tabs a.on { color: var(--cyan); border-bottom-color: var(--cyan); text-decoration: none; }
 
@@ -186,7 +186,7 @@ td.k.g { color: var(--green); }
 .spec p { font-size: 14px; margin: 0; }
 
 /* ---- Terminale */
-.term { font-family: var(--f-mono); font-size: 14px; line-height: 1.5; color: var(--green); background: #05080f; border: 1px solid var(--border); padding: 12px 14px; min-height: 230px; white-space: pre-wrap; word-break: break-word; }
+.term { font-family: var(--f-mono); font-size: 14px; line-height: 1.5; color: var(--green); background: #05080f; border: 1px solid var(--border); padding: 12px 14px; height: 252px; overflow: hidden; white-space: pre-wrap; word-break: break-word; }
 .term .p { color: var(--cyan); }
 .term .w { color: var(--amber); }
 .term .r { color: var(--red); }
@@ -275,7 +275,7 @@ details.more { margin: 14px 0 0; border: 1px solid var(--border); background: va
 details.more summary { cursor: pointer; font-family: var(--f-mono); color: var(--cyan); padding: 10px 0; }
 details.more[open] { padding-bottom: 6px; }
 details.more .tw { background: var(--bg); }
-.term.small { min-height: 0; }
+.term.small { height: auto; }
 /* ---- Bordi smussati: il bordo segue anche gli angoli tagliati. L'elemento ha il colore del bordo e il
    clip-path; un livello interno, 1px piu' dentro e con lo stesso taglio, porta il riempimento. */
 .btn, .dl, .doc, .logo { position: relative; isolation: isolate; border: 0; background: var(--bc); }
@@ -418,6 +418,7 @@ h2 .ic { width: 0.78em; height: 0.78em; color: var(--cyan); margin-right: 0.38em
 <symbol id="i-coffee" viewBox="0 0 24 24"><path d="M4 9h12v6a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z M16 11h2a2 2 0 0 1 0 4h-2 M8 3c-1 1.5 1 2 0 3.5 M12 3c-1 1.5 1 2 0 3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter"/></symbol>
 <symbol id="i-wallet" viewBox="0 0 24 24"><path d="M3 7h16v12H3z M3 7l12-4 1 4 M15 11h6v4h-6z M17.5 13h.01" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter"/></symbol>
 <symbol id="i-lang" viewBox="0 0 24 24"><path d="M4 5h9 M8.5 3v2 M6 5c0 4 3 7 6 8 M11 5c0 4-3 7-6 8 M13 21l4-9 4 9 M14.5 18h5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter"/></symbol>
+<symbol id="i-siege" viewBox="0 0 24 24"><path d="M12 2l8.7 5v10L12 22l-8.7-5V7z M12 6l5.2 3v6L12 18l-5.2-3V9z M12 10.5a1.5 1.5 0 1 0 0.01 0 M21 3l-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter"/></symbol>
 </svg>
 <header class="hud">
   <div class="wrap">
@@ -427,6 +428,7 @@ h2 .ic { width: 0.78em; height: 0.78em; color: var(--cyan); margin-right: 0.38em
       <a href="#world"><span data-l="it">Mondo</span><span data-l="en">World</span></a>
       <a href="#factions"><span data-l="it">Fazioni</span><span data-l="en">Factions</span></a>
       <a href="#how-to-play"><span data-l="it">Come si gioca</span><span data-l="en">How to play</span></a>
+      <a href="#siege"><span data-l="it">Assedio</span><span data-l="en">Siege</span></a>
       <a href="#multiplayer"><span data-l="it">Multigiocatore</span><span data-l="en">Multiplayer</span></a>
       <a href="#download">Download</a>
       <a href="#manuals"><span data-l="it">Manuali</span><span data-l="en">Manuals</span></a>
@@ -759,9 +761,42 @@ h2 .ic { width: 0.78em; height: 0.78em; color: var(--cyan); margin-right: 0.38em
       </table></div>
     </section>
 
+    <!-- assedio -->
+    <section class="ch" id="siege">
+      <div class="chnum">05</div>
+      <h2><svg class="ic" aria-hidden="true"><use href="#i-siege"/></svg><span data-l="it">L'assedio</span><span data-l="en">The siege</span></h2>
+      <div class="rule"></div>
+      <p class="leadp" data-l="it">Prima o poi qualcuno viene a bussare. Una fazione che hai tradito, un'azienda che hai derubato, un operatore che ti porta rancore: quando qualcuno decide di prendersi il tuo gateway, si accende il Controllo Sicurezza e hai pochi minuti per resistere.</p>
+      <p class="leadp" data-l="en">Sooner or later someone comes knocking. A faction you betrayed, a company you robbed, an operator holding a grudge: when someone decides to take your gateway, Security Control lights up and you have a few minutes to hold out.</p>
+      <div class="two">
+        <div>
+          <p data-l="it">Il gateway è protetto da quattro anelli. Il <b>Perimetro</b> incassa i colpi, il <b>Filtro</b> devia le sonde e le sessioni, l'<b>Allarme</b> ti mostra gli attacchi prima che arrivino e il <b>Caveau</b> custodisce l'archivio se il nucleo cede. Ogni anello vuole la sua parte di memoria, e la memoria non basta mai per tutti.</p>
+          <p data-l="en">Your gateway is guarded by four rings. The <b>Perimeter</b> takes the hits, the <b>Filter</b> deflects probes and sessions, the <b>Alarm</b> shows you strikes before they land and the <b>Vault</b> keeps your archive safe if the core gives way. Each ring wants its share of memory, and there is never enough memory for all of them.</p>
+          <p data-l="it">Nel registro leggi chi ti sta colpendo e da dove. Blocchi gli indirizzi, ripari gli anelli che cedono, ripulisci il nucleo dal malware prima che si diffonda. Se reggi fino alla fine l'attacco si ritira; se il nucleo cade, perdi quello che custodivi.</p>
+          <p data-l="en">The log tells you who is hitting you and from where. You block addresses, repair the rings that falter, scrub malware off the core before it spreads. Hold out to the end and the attack withdraws; if the core falls, you lose what you were keeping.</p>
+          <p data-l="it">In multigiocatore l'assedio puoi portarlo tu: accumuli la carica, attacchi dal vivo dalla console oppure prepari un piano, lo provi contro un difensore automatico e lo mandi.</p>
+          <p data-l="en">In multiplayer you can bring the siege yourself: build up your charge, strike live from the console, or draw up a plan, rehearse it against an automatic defender and send it.</p>
+        </div>
+        <figure class="shot win">
+          <i class="ion-l" aria-hidden="true"></i>
+          <div class="bar"><span><span data-l="it">Controllo Sicurezza</span><span data-l="en">Security Control</span></span><span><span data-l="it">assedio</span><span data-l="en">siege</span></span></div>
+          <span class="scan"><img data-l="it" src="img/siege.jpg" alt="Controllo Sicurezza: i quattro anelli attorno al gateway e il registro degli attacchi" loading="lazy" width="1440" height="810"><img data-l="en" src="img/siege_en.jpg" alt="Security Control: the four rings around the gateway and the attack log" loading="lazy" width="1440" height="810"></span>
+          <figcaption data-l="it">I quattro anelli attorno al gateway, gli attacchi in arrivo e il registro.</figcaption>
+          <figcaption data-l="en">The four rings around the gateway, incoming strikes and the log.</figcaption>
+        </figure>
+      </div>
+      <figure class="shot win shots2">
+        <i class="ion-l" aria-hidden="true"></i>
+        <div class="bar"><span><span data-l="it">Il Perimetro cede</span><span data-l="en">The Perimeter gives way</span></span><span>t 0:24</span></div>
+        <span class="scan"><img data-l="it" src="img/siege_hit.jpg" alt="Un anello distrutto e nuovi attacchi in arrivo" loading="lazy" width="1440" height="810"><img data-l="en" src="img/siege_hit_en.jpg" alt="A destroyed ring and new strikes incoming" loading="lazy" width="1440" height="810"></span>
+        <figcaption data-l="it">Il malware ha consumato il Perimetro: va ripristinato, mentre altri due attacchi stanno arrivando.</figcaption>
+        <figcaption data-l="en">Malware has eaten through the Perimeter: it needs restoring while two more strikes are on their way.</figcaption>
+      </figure>
+    </section>
+
     <!-- 05 -->
     <section class="ch" id="multiplayer">
-      <div class="chnum">05</div>
+      <div class="chnum">06</div>
       <h2><svg class="ic" aria-hidden="true"><use href="#i-multi"/></svg><span data-l="it">Multigiocatore</span><span data-l="en">Multiplayer</span></h2>
       <div class="rule"></div>
       <div class="two">
@@ -784,7 +819,7 @@ listening on :7341</div>
 
     <!-- 06 -->
     <section class="ch" id="download" data-repo="guidocauli/corehack">
-      <div class="chnum">06</div>
+      <div class="chnum">07</div>
       <h2><svg class="ic" aria-hidden="true"><use href="#i-download"/></svg>Download</h2>
       <div class="rule"></div>
       <p data-l="it">Non si installa: estrai l'archivio e avvia il gioco dalla cartella. Dentro ci sono anche il server e i manuali.</p>
@@ -837,7 +872,7 @@ listening on :7341</div>
 
     <!-- 07 -->
     <section class="ch" id="manuals">
-      <div class="chnum">07</div>
+      <div class="chnum">08</div>
       <h2><svg class="ic" aria-hidden="true"><use href="#i-manuals"/></svg><span data-l="it">Manuali</span><span data-l="en">Manuals</span></h2>
       <div class="rule"></div>
       <p data-l="it">In PDF, aggiornati alla versione 2.10.2.</p>
@@ -854,7 +889,7 @@ listening on :7341</div>
 
     <!-- 08 -->
     <section class="ch" id="whats-new">
-      <div class="chnum">08</div>
+      <div class="chnum">09</div>
       <h2><svg class="ic" aria-hidden="true"><use href="#i-news"/></svg><span data-l="it">Novità</span><span data-l="en">What's new</span></h2>
       <div class="rule"></div>
       <div class="log">
@@ -878,7 +913,7 @@ listening on :7341</div>
 
     <!-- 09 -->
     <section class="ch" id="about">
-      <div class="chnum">09</div>
+      <div class="chnum">10</div>
       <h2><svg class="ic" aria-hidden="true"><use href="#i-about"/></svg><span data-l="it">Il progetto</span><span data-l="en">About the project</span></h2>
       <div class="rule"></div>
       <div class="about">
@@ -907,7 +942,7 @@ listening on :7341</div>
 
     <!-- 10 -->
     <section class="ch" id="support">
-      <div class="chnum">10</div>
+      <div class="chnum">11</div>
       <h2><svg class="ic" aria-hidden="true"><use href="#i-support"/></svg><span data-l="it">Sostieni il progetto</span><span data-l="en">Support the project</span></h2>
       <div class="rule"></div>
       <div class="donate">
@@ -958,7 +993,9 @@ listening on :7341</div>
       ["d", "> get FS-01 3"],
       ["", "research_vault_59.dat scaricato."],
       ["d", "> wipe FS-01"],
-      ["r", "Obiettivo raggiunto. Disconnettiti prima che ti trovino."]
+      ["r", "Obiettivo raggiunto. Disconnettiti prima che ti trovino."],
+      ["d", "> disconnect"],
+      ["", "Connessione chiusa. Nessuna traccia su FS-01."]
     ],
     en: [
       ["p", "CONNECTING TO LUMINA LABS - SYDNEY HARBOUR"],
@@ -973,7 +1010,9 @@ listening on :7341</div>
       ["d", "> get FS-01 3"],
       ["", "research_vault_59.dat downloaded."],
       ["d", "> wipe FS-01"],
-      ["r", "Objective complete. Disconnect before they find you."]
+      ["r", "Objective complete. Disconnect before they find you."],
+      ["d", "> disconnect"],
+      ["", "Connection closed. No trace left on FS-01."]
     ]
   };
   var term = document.getElementById("term"), timer = 0;
@@ -986,6 +1025,7 @@ listening on :7341</div>
       for (var i = 0; i < n; i++) html += '<span class="' + lines[i][0] + '">' + esc(lines[i][1]) + "</span>\n";
       if (part != null && n < lines.length) html += '<span class="' + lines[n][0] + '">' + esc(lines[n][1].slice(0, part)) + "</span>";
       term.innerHTML = html + '<span class="caret">&nbsp;</span>';
+      term.scrollTop = term.scrollHeight;
     }
     if (reduce) { render(lines.length); return; }
     var li = 0, ch = 0;
