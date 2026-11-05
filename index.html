@@ -281,6 +281,27 @@ details.more summary { cursor: pointer; font-family: var(--f-mono); color: var(-
 details.more[open] { padding-bottom: 6px; }
 details.more .tw { background: var(--bg); }
 .term.small { min-height: 0; }
+/* ---- Bordi smussati: il bordo segue anche gli angoli tagliati. L'elemento ha il colore del bordo e il
+   clip-path; un livello interno, 1px piu' dentro e con lo stesso taglio, porta il riempimento. */
+.btn, .dl, .doc, .logo { position: relative; isolation: isolate; border: 0; background: var(--bc); }
+.btn::before, .dl::before, .doc::before, .logo::before { content: ""; position: absolute; inset: 1px; z-index: -1; background: var(--fill); }
+.btn, .dl { --c: var(--cut); }
+.logo { --c: 8px; }
+.btn, .dl, .logo { clip-path: polygon(var(--c) 0, 100% 0, 100% calc(100% - var(--c)), calc(100% - var(--c)) 100%, 0 100%, 0 var(--c)); }
+.btn::before, .dl::before, .logo::before { --ci: calc(var(--c) - 0.4px);
+  clip-path: polygon(var(--ci) 0, 100% 0, 100% calc(100% - var(--ci)), calc(100% - var(--ci)) 100%, 0 100%, 0 var(--ci)); }
+.doc { clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%); }
+.doc::before { clip-path: polygon(0 0, calc(100% - 13.6px) 0, 100% 13.6px, 100% 100%, 0 100%); }
+
+.btn { --bc: var(--cyan); --fill: linear-gradient(rgba(0,229,255,0.07), rgba(0,229,255,0.07)), var(--bg); padding: 10px 19px; }
+.btn:hover { background: var(--bc); --fill: linear-gradient(rgba(0,229,255,0.18), rgba(0,229,255,0.18)), var(--bg); }
+.btn.alt { background: var(--bc); --bc: var(--magenta); --fill: linear-gradient(rgba(255,46,151,0.07), rgba(255,46,151,0.07)), var(--bg); }
+.btn.alt:hover { background: var(--bc); --fill: linear-gradient(rgba(255,46,151,0.18), rgba(255,46,151,0.18)), var(--bg); }
+.dl { --bc: var(--cyan); --fill: linear-gradient(rgba(0,229,255,0.06), rgba(0,229,255,0.06)), var(--bg); padding: 15px 19px; }
+.dl:hover { background: var(--bc); --fill: linear-gradient(rgba(0,229,255,0.16), rgba(0,229,255,0.16)), var(--bg); }
+.doc { --bc: var(--border); --fill: var(--panel); padding: 15px 17px; }
+.doc:hover { background: var(--cyan); }
+.logo { --bc: var(--cyan); --fill: linear-gradient(rgba(0,229,255,0.08), rgba(0,229,255,0.08)), #0c1424; padding: 4px 11px; }
 </style>
 </head>
 <body>
@@ -583,11 +604,6 @@ listening on :7341</div>
         </table></div>
         <p data-l="it">Se OpenGL non parte, il gioco ripiega da solo su un renderer software.</p>
         <p data-l="en">If OpenGL fails to start, the game falls back to a software renderer on its own.</p>
-      </details>
-      <details class="more">
-        <summary><span data-l="it">Altre piattaforme</span><span data-l="en">Other platforms</span></summary>
-        <p data-l="it">Linux ARM64, Windows ARM64 e Mac Intel si compilano con <code>build_all.sh -t</code>.</p>
-        <p data-l="en">Linux ARM64, Windows ARM64 and Intel Mac builds are made with <code>build_all.sh -t</code>.</p>
       </details>
     </section>
 
