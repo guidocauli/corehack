@@ -47,10 +47,6 @@ body {
 }
 body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--bg); }
 /* reticolo e scanline: il "vetro" del monitor */
-body::after {
-  content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 40;
-  background: repeating-linear-gradient(to bottom, rgba(255,255,255,0.018) 0 1px, transparent 1px 3px);
-}
 a { color: var(--cyan); text-decoration: none; }
 a:hover { text-decoration: underline; }
 :focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
@@ -389,6 +385,11 @@ h2 .ic { width: 0.78em; height: 0.78em; color: var(--cyan); margin-right: 0.38em
 .donate .pay .btn .ic { width: 20px; height: 20px; }
 .donate .txt h4 .ic { margin-right: 8px; }
 .lang .ic { width: 16px; height: 16px; color: var(--dim); margin: 0 6px 0 4px; align-self: center; filter: none; }
+/* ---- Scanline solo sulle immagini */
+.scan { position: relative; display: block; overflow: hidden; }
+.scan img { display: block; width: 100%; height: auto; }
+.scan::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: repeating-linear-gradient(to bottom, rgba(0,0,0,0.22) 0 1px, transparent 1px 3px); }
 </style>
 </head>
 <body>
@@ -513,7 +514,7 @@ h2 .ic { width: 0.78em; height: 0.78em; color: var(--cyan); margin-right: 0.38em
         <figure class="shot win">
           <i class="ion-l" aria-hidden="true"></i>
           <div class="bar"><span>CORE:HACK</span><span>2091</span></div>
-          <img src="img/title.jpg" alt="Core:Hack Blackout title screen" loading="lazy" width="1440" height="810">
+          <span class="scan"><img src="img/title.jpg" alt="Core:Hack Blackout title screen" loading="lazy" width="1440" height="810"></span>
         </figure>
       </div>
     </section>
@@ -736,14 +737,14 @@ h2 .ic { width: 0.78em; height: 0.78em; color: var(--cyan); margin-right: 0.38em
         <figure class="shot win">
           <i class="ion-l" aria-hidden="true"></i>
           <div class="bar"><span>Red team</span><span><span data-l="it">intrusione</span><span data-l="en">intrusion</span></span></div>
-          <img src="img/red.jpg" alt="An intrusion: the network map with open and locked hosts" loading="lazy" width="1440" height="810">
+          <span class="scan"><img src="img/red.jpg" alt="An intrusion: the network map with open and locked hosts" loading="lazy" width="1440" height="810"></span>
           <figcaption data-l="it">Intrusione: la mappa della rete, le barriere, il trace.</figcaption>
           <figcaption data-l="en">Intrusion: the network map, the barriers, the trace.</figcaption>
         </figure>
         <figure class="shot win">
           <i class="ion-l" aria-hidden="true"></i>
           <div class="bar"><span>Blue team</span><span><span data-l="it">difesa</span><span data-l="en">defence</span></span></div>
-          <img src="img/blue.jpg" alt="A defence contract: an attack in progress on the client's network" loading="lazy" width="1440" height="810">
+          <span class="scan"><img src="img/blue.jpg" alt="A defence contract: an attack in progress on the client's network" loading="lazy" width="1440" height="810"></span>
           <figcaption data-l="it">Difesa: segui l'attaccante e ripara la rete in diretta.</figcaption>
           <figcaption data-l="en">Defence: track the attacker and repair the network live.</figcaption>
         </figure>
