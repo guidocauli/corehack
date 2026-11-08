@@ -53,6 +53,8 @@ Nothing to install: extract the archive and start the game from its folder. Mult
 - **EN:** Interface: the Archive is its own window in the top bar, right of the Directory; the mission report reveals its lines one at a time; the contacts that lead to a secret gateway sit at the top of the Directory and can be searched by address, by words or by name; warnings about networks well above your level speak in the conditional; protocol restrictions are shown on the contract.
 - **IT:** L'accesso libero a un'azienda non fa più passare un giorno.
 - **EN:** Free access to a company no longer makes a day go by.
+- **IT:** Documentazione: nuovo manuale avanzato in francese; i manuali parlano di città ad anelli, contratti speculari, WebLens e file chiave.
+- **EN:** Documentation: new French advanced manual; the manuals cover the ring cities, mirror contracts, WebLens and key files.
 
 ## Requisiti minimi / Minimum requirements
 

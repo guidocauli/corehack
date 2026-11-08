@@ -108,6 +108,7 @@ PDF manuals, included in every package:
 - [Manuale del giocatore](CoreHack-Manuale.pdf) (Italian)
 - [Manuel du joueur](CoreHack-Manuel.pdf) (French)
 - [Manuale avanzato](CoreHack-Manuale-Avanzato.pdf) (Italian)
+- [Manuel avancé](CoreHack-Manuel-Avance.pdf) (French)
 - [Manuale del server](CoreHack-Manuale-Server.pdf) (Italian)
 
 ## What's new in 2.13.0
@@ -126,6 +127,7 @@ PDF manuals, included in every package:
 - Music: three new radio tracks, Paper Lanterns (koto and shakuhachi), Causeway Mist (Celtic harp and low whistle) and Tidewater (electric piano and cello); the radio starts from a truly random track; a soft piano layer in Guardian Protocol; a faint murmur when text decodes.
 - Interface: the Archive is its own window in the top bar, right of the Directory; the mission report reveals its lines one at a time; the contacts that lead to a secret gateway sit at the top of the Directory and can be searched by address, by words or by name; warnings about networks well above your level speak in the conditional; protocol restrictions are shown on the contract.
 - Free access to a company no longer makes a day go by.
+- Documentation: new French advanced manual; the manuals cover the ring cities, mirror contracts, WebLens and key files.
 
 ### What's new in 2.12.0
 
