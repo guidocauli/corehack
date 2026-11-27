@@ -88,9 +88,11 @@ nav.tabs a:hover, nav.tabs a.on { color: var(--cyan); border-bottom-color: var(-
   /* il titolo riempie tutta la larghezza utile della pagina (cqw); la prima riga è per i browser più vecchi */
   font-size: calc(min(100vw - 48px, 1088px) / 5.24); font-size: calc(100cqw / 5.24); letter-spacing: 0.04em; white-space: nowrap; text-shadow: 0 0 24px rgba(0,229,255,0.35); }
 .brand .colon { color: var(--cyan); }
+/* BLACKOUT: largo il 90% del titolo (che occupa 5,18/5,24 della pagina) e centrato sotto di esso */
 .blackout { font-family: var(--f-mono); color: var(--magenta); white-space: nowrap; overflow: hidden; margin: 16px 0 0;
-  font-size: max(15px, calc(min(100vw - 48px, 1088px) / 30)); letter-spacing: calc((min(100vw - 48px, 1088px) - 4.32em) / 7);
-  font-size: max(15px, calc(100cqw / 30)); letter-spacing: calc((100cqw - 4.32em) / 7); }
+  font-size: max(15px, calc(min(100vw - 48px, 1088px) / 30)); letter-spacing: calc((min(100vw - 48px, 1088px) * 0.8897 - 4.32em) / 7);
+  padding-left: calc(min(100vw - 48px, 1088px) * 0.0494);
+  font-size: max(15px, calc(100cqw / 30)); letter-spacing: calc((100cqw * 0.8897 - 4.32em) / 7); padding-left: calc(100cqw * 0.0494); }
 .tag { font-style: italic; color: var(--magenta); margin: 26px 0 0; font-size: 17px; }
 .lead { font-size: 17px; color: var(--text); max-width: none; margin: 18px 0 0; }
 .hero p { max-width: none; }
