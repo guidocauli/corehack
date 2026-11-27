@@ -129,7 +129,7 @@ The first public beta. Everything that changed since 2.13:
 - **The diary.** The protagonist's own voice, a tab in the Archive, written at the turning points of the story: rereading it tells you which way your story is leaning.
 - **The last chapter has grown.** Logic duels against AIs made of sentences instead of defences, Restore to rebuild what was erased, a new epilogue and an arc that stays open after the end.
 - Many fixes and balance changes across the whole game.
-- The manuals have a page on what's new; their screenshots still show the Classic interface.
+- Manuals redone with the Next interface; the advanced manual is now a field guide, free of spoilers.
 
 ### What's new in 2.13.0
 
