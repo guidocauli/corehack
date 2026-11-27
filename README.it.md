@@ -116,6 +116,8 @@ In PDF, inclusi in ogni pacchetto:
 - [Manuale avanzato](CoreHack-Manuale-Avanzato.pdf)
 - [Manuel avancé](CoreHack-Manuel-Avance.pdf) (francese)
 - [Manuale del server](CoreHack-Manuale-Server.pdf)
+- [Server Manual](CoreHack-Server-Manual.pdf) (inglese)
+- [Manuel du serveur](CoreHack-Manuel-Serveur.pdf) (francese)
 
 ## Novità 3.0.0
 

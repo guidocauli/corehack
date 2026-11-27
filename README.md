@@ -115,7 +115,9 @@ PDF manuals, included in every package:
 - [Manuel du joueur](CoreHack-Manuel.pdf) (French)
 - [Manuale avanzato](CoreHack-Manuale-Avanzato.pdf) (Italian)
 - [Manuel avancé](CoreHack-Manuel-Avance.pdf) (French)
+- [Server Manual](CoreHack-Server-Manual.pdf) (English)
 - [Manuale del server](CoreHack-Manuale-Server.pdf) (Italian)
+- [Manuel du serveur](CoreHack-Manuel-Serveur.pdf) (French)
 
 ## What's new in 3.0.0
 

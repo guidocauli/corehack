@@ -92,7 +92,8 @@ nav.tabs a:hover, nav.tabs a.on { color: var(--cyan); border-bottom-color: var(-
   font-size: max(15px, calc(min(100vw - 48px, 1088px) / 30)); letter-spacing: calc((min(100vw - 48px, 1088px) - 4.32em) / 7);
   font-size: max(15px, calc(100cqw / 30)); letter-spacing: calc((100cqw - 4.32em) / 7); }
 .tag { font-style: italic; color: var(--magenta); margin: 26px 0 0; font-size: 17px; }
-.lead { font-size: 17px; color: var(--text); max-width: 64ch; margin: 18px 0 0; }
+.lead { font-size: 17px; color: var(--text); max-width: none; margin: 18px 0 0; }
+.hero p { max-width: none; }
 .cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
 .btn {
   font-family: var(--f-mono); font-size: 15px; display: inline-flex; align-items: center; gap: 8px;
@@ -211,7 +212,8 @@ dl.gl dd { margin: 2px 0 0; font-size: 14.5px; }
 .feat h4 { margin: 0 0 6px; font-family: var(--f-mono); font-weight: 400; font-size: 16.5px; color: var(--fc, var(--cyan)); letter-spacing: 0.03em; }
 .feat p { font-size: 14.5px; margin: 0; }
 .req td:first-child { white-space: nowrap; }
-.docs { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); gap: 12px; }
+.docs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; } /* una lingua per riga */
+@media (max-width: 760px) { .docs { grid-template-columns: 1fr; } }
 .doc { display: block; padding: 14px 16px; background: var(--panel); border: 1px solid var(--border); color: var(--text);
   clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%); }
 .doc:hover { border-color: var(--cyan); text-decoration: none; }
@@ -899,9 +901,9 @@ h2 .ic { width: 0.78em; height: 0.78em; color: var(--cyan); margin-right: 0.38em
       <figure class="shot win shots2">
         <i class="ion-l" aria-hidden="true"></i>
         <div class="bar"><span><span data-l="it">Il Perimetro cede</span><span data-l="en">The Perimeter gives way</span></span><span>t 0:24</span></div>
-        <span class="scan"><img data-l="it" src="img/siege_hit.jpg" alt="Un anello distrutto e nuovi attacchi in arrivo" loading="lazy" width="1440" height="810"><img data-l="en" src="img/siege_hit_en.jpg" alt="A destroyed ring and new strikes incoming" loading="lazy" width="1440" height="810"></span>
-        <figcaption data-l="it">Il malware ha consumato il Perimetro: va ripristinato, mentre altri due attacchi stanno arrivando.</figcaption>
-        <figcaption data-l="en">Malware has eaten through the Perimeter: it needs restoring while two more strikes are on their way.</figcaption>
+        <span class="scan"><img data-l="it" src="img/siege_hit.jpg" alt="Un anello distrutto e un altro intaccato" loading="lazy" width="1440" height="810"><img data-l="en" src="img/siege_hit_en.jpg" alt="One ring destroyed and another damaged" loading="lazy" width="1440" height="810"></span>
+        <figcaption data-l="it">Il malware ha consumato il Perimetro e intaccato il Filtro: vanno ripristinati prima del prossimo colpo.</figcaption>
+        <figcaption data-l="en">Malware has eaten through the Perimeter and bitten into the Filter: restore them before the next strike.</figcaption>
       </figure>
     </section>
 
@@ -995,11 +997,13 @@ listening on :7341</div>
       <div class="docs">
         <a class="doc" href="CoreHack-Manual.pdf" target="_blank" rel="noopener"><div class="t"><svg class="ic" aria-hidden="true"><use href="#i-doc"/></svg>Player's Manual</div><div class="m"><img class="flag" src="img/flags/gb.svg" alt="" width="28" height="14">English</div></a>
         <a class="doc" href="CoreHack-Advanced-Manual.pdf" target="_blank" rel="noopener"><div class="t"><svg class="ic" aria-hidden="true"><use href="#i-doc"/></svg>Advanced Manual</div><div class="m"><img class="flag" src="img/flags/gb.svg" alt="" width="28" height="14">English</div></a>
+        <a class="doc" href="CoreHack-Server-Manual.pdf" target="_blank" rel="noopener"><div class="t"><svg class="ic" aria-hidden="true"><use href="#i-doc"/></svg>Server Manual</div><div class="m"><img class="flag" src="img/flags/gb.svg" alt="" width="28" height="14">English</div></a>
         <a class="doc" href="CoreHack-Manuale.pdf" target="_blank" rel="noopener"><div class="t"><svg class="ic" aria-hidden="true"><use href="#i-doc"/></svg>Manuale del giocatore</div><div class="m"><img class="flag" src="img/flags/it.svg" alt="" width="21" height="14">Italiano</div></a>
         <a class="doc" href="CoreHack-Manuale-Avanzato.pdf" target="_blank" rel="noopener"><div class="t"><svg class="ic" aria-hidden="true"><use href="#i-doc"/></svg>Manuale avanzato</div><div class="m"><img class="flag" src="img/flags/it.svg" alt="" width="21" height="14">Italiano</div></a>
+        <a class="doc" href="CoreHack-Manuale-Server.pdf" target="_blank" rel="noopener"><div class="t"><svg class="ic" aria-hidden="true"><use href="#i-doc"/></svg>Manuale del server</div><div class="m"><img class="flag" src="img/flags/it.svg" alt="" width="21" height="14">Italiano</div></a>
         <a class="doc" href="CoreHack-Manuel.pdf" target="_blank" rel="noopener"><div class="t"><svg class="ic" aria-hidden="true"><use href="#i-doc"/></svg>Manuel du joueur</div><div class="m"><img class="flag" src="img/flags/fr.svg" alt="" width="21" height="14">Français</div></a>
         <a class="doc" href="CoreHack-Manuel-Avance.pdf" target="_blank" rel="noopener"><div class="t"><svg class="ic" aria-hidden="true"><use href="#i-doc"/></svg>Manuel avancé</div><div class="m"><img class="flag" src="img/flags/fr.svg" alt="" width="21" height="14">Français</div></a>
-        <a class="doc" href="CoreHack-Manuale-Server.pdf" target="_blank" rel="noopener"><div class="t"><svg class="ic" aria-hidden="true"><use href="#i-doc"/></svg>Manuale del server</div><div class="m"><img class="flag" src="img/flags/it.svg" alt="" width="21" height="14">Italiano</div></a>
+        <a class="doc" href="CoreHack-Manuel-Serveur.pdf" target="_blank" rel="noopener"><div class="t"><svg class="ic" aria-hidden="true"><use href="#i-doc"/></svg>Manuel du serveur</div><div class="m"><img class="flag" src="img/flags/fr.svg" alt="" width="21" height="14">Français</div></a>
       </div>
     </section>
 
