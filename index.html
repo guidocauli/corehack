@@ -260,8 +260,9 @@ html:not([data-ui="en"]) [data-l="en"], html[data-ui="en"] [data-l="it"] { displ
 .shots2 { margin-top: 22px; }
 
 /* ---- Download */
-.dls { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 6px 0 8px; }
-@media (max-width: 760px) { .dls { grid-template-columns: 1fr; } }
+.dls { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin: 6px 0 8px; }
+@media (max-width: 1000px) { .dls { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .dls { grid-template-columns: 1fr; } }
 .dl { display: flex; flex-direction: column; gap: 2px; padding: 14px 18px; border: 1px solid var(--cyan); background: rgba(0,229,255,0.06); color: var(--text);
   clip-path: polygon(var(--cut) 0, 100% 0, 100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%, 0 100%, 0 var(--cut)); }
 .dl:hover { background: rgba(0,229,255,0.16); text-decoration: none; }
@@ -491,7 +492,7 @@ h2 .ic { width: 0.78em; height: 0.78em; color: var(--cyan); margin-right: 0.38em
           <a class="btn alt" href="#manuals"><span data-l="it">Manuali</span><span data-l="en">Manuals</span></a>
           <a class="btn" href="#support"><span data-l="it">Sostieni</span><span data-l="en">Support</span></a>
         </div>
-        <p class="ver"><span data-l="it">Versione</span><span data-l="en">Version</span> <span class="vnum">2.13.0</span> <span class="beta">BETA</span> · Linux · Windows · macOS · IT EN FR</p>
+        <p class="ver"><span data-l="it">Versione</span><span data-l="en">Version</span> <span class="vnum">3.0.0</span> <span class="beta">BETA</span> · Linux · Windows · macOS · Android · IT EN FR KO</p>
       </div>
       <div class="win">
           <i class="ion-l" aria-hidden="true"></i>
@@ -514,37 +515,46 @@ h2 .ic { width: 0.78em; height: 0.78em; color: var(--cyan); margin-right: 0.38em
           <figcaption><span data-l="it">La schermata iniziale</span><span data-l="en">The title screen</span></figcaption>
         </figure>
         <figure class="slide" aria-roledescription="slide" aria-label="2 / 8">
-          <span class="scan"><img data-l="it" src="img/shots/it/02.jpg" alt="La bacheca dei contratti" width="1600" height="900" loading="lazy"><img data-l="en" src="img/shots/en/02.jpg" alt="The contract board" width="1600" height="900" loading="lazy"></span>
-          <figcaption><span data-l="it">La bacheca dei contratti</span><span data-l="en">The contract board</span></figcaption>
+          <span class="scan"><img data-l="it" src="img/shots/it/02.jpg" alt="Il prologo" width="1600" height="900" loading="lazy"><img data-l="en" src="img/shots/en/02.jpg" alt="The prologue" width="1600" height="900" loading="lazy"></span>
+          <figcaption><span data-l="it">Il prologo</span><span data-l="en">The prologue</span></figcaption>
         </figure>
         <figure class="slide" aria-roledescription="slide" aria-label="3 / 8">
-          <span class="scan"><img data-l="it" src="img/shots/it/03.jpg" alt="Il profilo: reputazione e coscienza" width="1600" height="900" loading="lazy"><img data-l="en" src="img/shots/en/03.jpg" alt="Profile: reputation and conscience" width="1600" height="900" loading="lazy"></span>
-          <figcaption><span data-l="it">Il profilo: reputazione e coscienza</span><span data-l="en">Profile: reputation and conscience</span></figcaption>
+          <span class="scan"><img data-l="it" src="img/shots/it/03.jpg" alt="La bacheca dei contratti, a schede" width="1600" height="900" loading="lazy"><img data-l="en" src="img/shots/en/03.jpg" alt="The contract board, as cards" width="1600" height="900" loading="lazy"></span>
+          <figcaption><span data-l="it">La bacheca dei contratti, a schede</span><span data-l="en">The contract board, as cards</span></figcaption>
         </figure>
         <figure class="slide" aria-roledescription="slide" aria-label="4 / 8">
-          <span class="scan"><img data-l="it" src="img/shots/it/04.jpg" alt="Il gateway e i suoi componenti" width="1600" height="900" loading="lazy"><img data-l="en" src="img/shots/en/04.jpg" alt="The gateway and its parts" width="1600" height="900" loading="lazy"></span>
-          <figcaption><span data-l="it">Il gateway e i suoi componenti</span><span data-l="en">The gateway and its parts</span></figcaption>
-        </figure>
-        <figure class="slide" aria-roledescription="slide" aria-label="5 / 8">
-          <span class="scan"><img data-l="it" src="img/shots/it/05.jpg" alt="Un'intrusione in tempo reale" width="1600" height="900" loading="lazy"><img data-l="en" src="img/shots/en/05.jpg" alt="A real-time intrusion" width="1600" height="900" loading="lazy"></span>
+          <span class="scan"><img data-l="it" src="img/shots/it/04.jpg" alt="Un'intrusione in tempo reale" width="1600" height="900" loading="lazy"><img data-l="en" src="img/shots/en/04.jpg" alt="A real-time intrusion" width="1600" height="900" loading="lazy"></span>
           <figcaption><span data-l="it">Un'intrusione in tempo reale</span><span data-l="en">A real-time intrusion</span></figcaption>
         </figure>
+        <figure class="slide" aria-roledescription="slide" aria-label="5 / 8">
+          <span class="scan"><img data-l="it" src="img/shots/it/05.jpg" alt="La posta: una lettera di G.C." width="1600" height="900" loading="lazy"><img data-l="en" src="img/shots/en/05.jpg" alt="Mail: a letter from G.C." width="1600" height="900" loading="lazy"></span>
+          <figcaption><span data-l="it">La posta: una lettera di G.C.</span><span data-l="en">Mail: a letter from G.C.</span></figcaption>
+        </figure>
         <figure class="slide" aria-roledescription="slide" aria-label="6 / 8">
-          <span class="scan"><img data-l="it" src="img/shots/it/06.jpg" alt="Il rapporto di fine missione" width="1600" height="900" loading="lazy"><img data-l="en" src="img/shots/en/06.jpg" alt="The mission report" width="1600" height="900" loading="lazy"></span>
-          <figcaption><span data-l="it">Il rapporto di fine missione</span><span data-l="en">The mission report</span></figcaption>
+          <span class="scan"><img data-l="it" src="img/shots/it/06.jpg" alt="Un duello logico contro un'IA" width="1600" height="900" loading="lazy"><img data-l="en" src="img/shots/en/06.jpg" alt="A logic duel against an AI" width="1600" height="900" loading="lazy"></span>
+          <figcaption><span data-l="it">Un duello logico contro un'IA</span><span data-l="en">A logic duel against an AI</span></figcaption>
         </figure>
         <figure class="slide" aria-roledescription="slide" aria-label="7 / 8">
-          <span class="scan"><img data-l="it" src="img/shots/it/07.jpg" alt="Una difesa in diretta" width="1600" height="900" loading="lazy"><img data-l="en" src="img/shots/en/07.jpg" alt="A live defence" width="1600" height="900" loading="lazy"></span>
-          <figcaption><span data-l="it">Una difesa in diretta</span><span data-l="en">A live defence</span></figcaption>
+          <span class="scan"><img data-l="it" src="img/shots/it/07.jpg" alt="La difesa di una rete grande" width="1600" height="900" loading="lazy"><img data-l="en" src="img/shots/en/07.jpg" alt="Defending a large network" width="1600" height="900" loading="lazy"></span>
+          <figcaption><span data-l="it">La difesa di una rete grande</span><span data-l="en">Defending a large network</span></figcaption>
         </figure>
         <figure class="slide" aria-roledescription="slide" aria-label="8 / 8">
-          <span class="scan"><img data-l="it" src="img/shots/it/08.jpg" alt="Un assedio al tuo gateway" width="1600" height="900" loading="lazy"><img data-l="en" src="img/shots/en/08.jpg" alt="A siege on your gateway" width="1600" height="900" loading="lazy"></span>
-          <figcaption><span data-l="it">Un assedio al tuo gateway</span><span data-l="en">A siege on your gateway</span></figcaption>
+          <span class="scan"><img data-l="it" src="img/shots/it/08.jpg" alt="Un assedio a potenza 5" width="1600" height="900" loading="lazy"><img data-l="en" src="img/shots/en/08.jpg" alt="A power-5 siege" width="1600" height="900" loading="lazy"></span>
+          <figcaption><span data-l="it">Un assedio a potenza 5</span><span data-l="en">A power-5 siege</span></figcaption>
         </figure>
           <button type="button" class="car-b prev" aria-label="Indietro / Previous"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4 7 12l8 8"/></svg></button>
           <button type="button" class="car-b next" aria-label="Avanti / Next"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 4 8 8-8 8"/></svg></button>
         </div>
         <div class="car-d" role="tablist"><button type="button" role="tab" aria-label="1" aria-selected="true"></button><button type="button" role="tab" aria-label="2"></button><button type="button" role="tab" aria-label="3"></button><button type="button" role="tab" aria-label="4"></button><button type="button" role="tab" aria-label="5"></button><button type="button" role="tab" aria-label="6"></button><button type="button" role="tab" aria-label="7"></button><button type="button" role="tab" aria-label="8"></button></div>
+      </div>
+    </section>
+
+    <!-- Trailer -->
+    <section class="gallery" id="trailer" aria-label="Trailer">
+      <div class="win">
+        <i class="ion-l" aria-hidden="true"></i>
+        <div class="bar"><span>Trailer</span></div>
+        <video src="img/trailer.mp4" poster="img/trailer.jpg" controls preload="none" playsinline width="1280" height="720" style="display:block;width:100%;height:auto;background:#000"></video>
       </div>
     </section>
 
@@ -571,8 +581,8 @@ h2 .ic { width: 0.78em; height: 0.78em; color: var(--cyan); margin-right: 0.38em
         </article>
         <article class="fg" style="--fc:var(--amber)">
           <h4><svg class="ic" aria-hidden="true"><use href="#i-machine"/></svg><span data-l="it">Il terminale</span><span data-l="en">The machine</span></h4>
-          <ul data-l="it"><li>Gira su Linux, Windows e macOS senza installazione: estrai l'archivio e sei già in linea.</li><li>Parla italiano, inglese e francese, e cambia aspetto con cinque temi grafici, da Core a Tensor.</li><li>Un server dedicato porta la Rete ad altri operatori, in LAN o in Internet, per sfide, assedi e scambi.</li><li>I tutorial integrati ti accompagnano nelle prime intrusioni, senza toglierti il gusto di scoprire il resto da solo.</li></ul>
-          <ul data-l="en"><li>It runs on Linux, Windows and macOS with nothing to install: extract the archive and you are already online.</li><li>It speaks Italian, English and French, and changes its look with five visual themes, from Core to Tensor.</li><li>A dedicated server brings the Net to other operators, on a LAN or the Internet, for challenges, sieges and trades.</li><li>Built-in tutorials walk you through your first intrusions, without spoiling the pleasure of discovering the rest yourself.</li></ul>
+          <ul data-l="it"><li>Gira su Linux, Windows e macOS senza installazione: estrai l'archivio e sei già in linea. E ora anche su Android, con comandi a sfioramento.</li><li>Parla italiano, inglese, francese e coreano, e cambia aspetto con cinque temi grafici, da Core a Tensor; l'interfaccia Next è quella predefinita, la Classica resta a portata di mano.</li><li>Un server dedicato porta la Rete ad altri operatori, in LAN o in Internet, per sfide, assedi e scambi.</li><li>I tutorial integrati ti accompagnano nelle prime intrusioni, senza toglierti il gusto di scoprire il resto da solo.</li></ul>
+          <ul data-l="en"><li>It runs on Linux, Windows and macOS with nothing to install: extract the archive and you are already online. And now on Android too, with touch controls.</li><li>It speaks Italian, English, French and Korean, and changes its look with five visual themes, from Core to Tensor; the Next interface is the default, and Classic is still a click away.</li><li>A dedicated server brings the Net to other operators, on a LAN or the Internet, for challenges, sieges and trades.</li><li>Built-in tutorials walk you through your first intrusions, without spoiling the pleasure of discovering the rest yourself.</li></ul>
         </article>
       </div>
     </section>
@@ -893,7 +903,7 @@ h2 .ic { width: 0.78em; height: 0.78em; color: var(--cyan); margin-right: 0.38em
           <i class="ion-l" aria-hidden="true"></i>
           <div class="bar"><span>corehack-server</span><span>:7341</span></div>
           <div class="term small">$ ./corehack-server
-<span class="d">corehack-server 2.13.0 - Guido Cauli</span>
+<span class="d">corehack-server 3.0.0 - Guido Cauli</span>
 certificate fingerprint: 04:0E:E8:57:…:7A
 listening on :7341</div>
         </div>
@@ -914,6 +924,8 @@ listening on :7341</div>
           <span class="os"><svg class="ic" aria-hidden="true"><use href="#i-pkg"/></svg>macOS</span><span class="m"><span data-l="it">Apple Silicon, da macOS 12 · .zip</span><span data-l="en">Apple Silicon, macOS 12+ · .zip</span></span></a>
         <a class="dl" data-file="corehack-linux-amd64.tar.gz" href="#download">
           <span class="os"><svg class="ic" aria-hidden="true"><use href="#i-pkg"/></svg>Linux</span><span class="m"><span data-l="it">x86-64 · .tar.gz</span><span data-l="en">x86-64 · .tar.gz</span></span></a>
+        <a class="dl" data-file="corehack-android.apk" href="#download">
+          <span class="os"><svg class="ic" aria-hidden="true"><use href="#i-pkg"/></svg>Android</span><span class="m"><span data-l="it">7 o successivo, 64 bit · .apk</span><span data-l="en">7 or later, 64-bit · .apk</span></span></a>
       </div>
       <p class="small2"><a data-rel="SHA256SUMS" href="#download">SHA256SUMS</a> · <a data-rel="" href="#download"><span data-l="it">tutte le versioni</span><span data-l="en">all releases</span></a></p>
       <div class="two">
@@ -923,11 +935,13 @@ listening on :7341</div>
             <li><b>Windows:</b> se compare SmartScreen, "Ulteriori informazioni" → "Esegui comunque".</li>
             <li><b>macOS:</b> apri <code>Sblocca-Core-Hack.command</code> con tasto destro → Apri, poi Core-Hack.app.</li>
             <li><b>Linux:</b> avvia <code>./corehack</code> una volta: crea da solo la voce nel menu.</li>
+            <li><b>Android:</b> apri l'APK sul telefono e consenti l'installazione dal browser o dal gestore file.</li>
           </ul>
           <ul class="plain" data-l="en">
             <li><b>Windows:</b> if SmartScreen appears, "More info" → "Run anyway".</li>
             <li><b>macOS:</b> right-click <code>Sblocca-Core-Hack.command</code> → Open, then Core-Hack.app.</li>
             <li><b>Linux:</b> run <code>./corehack</code> once: it adds itself to the menu.</li>
+            <li><b>Android:</b> open the APK on your phone and allow installs from your browser or file manager.</li>
           </ul>
         </div>
         <div>
@@ -958,8 +972,8 @@ listening on :7341</div>
       <div class="chnum">08</div>
       <h2><svg class="ic" aria-hidden="true"><use href="#i-manuals"/></svg><span data-l="it">Manuali</span><span data-l="en">Manuals</span></h2>
       <div class="rule"></div>
-      <p data-l="it">In PDF, aggiornati alla versione 2.13.0.</p>
-      <p data-l="en">PDF manuals for version 2.13.0.</p>
+      <p data-l="it">In PDF, per la versione 3.0.0 (le schermate mostrano ancora l'interfaccia Classica).</p>
+      <p data-l="en">PDF manuals for version 3.0.0 (the screenshots still show the Classic interface).</p>
       <div class="docs">
         <a class="doc" href="CoreHack-Manual.pdf" target="_blank" rel="noopener"><div class="t"><svg class="ic" aria-hidden="true"><use href="#i-doc"/></svg>Player's Manual</div><div class="m">English</div></a>
         <a class="doc" href="CoreHack-Advanced-Manual.pdf" target="_blank" rel="noopener"><div class="t"><svg class="ic" aria-hidden="true"><use href="#i-doc"/></svg>Advanced Manual</div><div class="m">English</div></a>
@@ -977,6 +991,11 @@ listening on :7341</div>
       <h2><svg class="ic" aria-hidden="true"><use href="#i-news"/></svg><span data-l="it">Novità</span><span data-l="en">What's new</span></h2>
       <div class="rule"></div>
       <div class="log" id="news-log" aria-live="polite">
+        <article>
+          <h4>3.0.0</h4>
+          <ul data-l="it"><li>La prima beta pubblica.</li><li>Next è l'interfaccia predefinita: nodi esagonali con l'anello delle azioni, registro e terminale accanto alla mappa, contratti a schede, icone sul desktop e un widget del cielo con il meteo. La Classica resta nelle Opzioni.</li><li>Android: il gioco gira su telefoni e tablet, con un'interfaccia a sfioramento tutta sua.</li><li>Coreano: tutto il gioco tradotto, con un carattere disegnato apposta e rune proprie per le IA.</li><li>MultiEmu: una console retrò dentro il gioco, con dodici cartucce da trovare.</li><li>Workbench: programmi custom compilati da snippet, moduli e ricette trovati nelle reti.</li><li>Il diario del protagonista nell'Archivio, scritto nelle svolte della storia.</li><li>L'ultimo capitolo cresce: duelli logici contro le IA, Restore, un nuovo epilogo.</li></ul>
+          <ul data-l="en"><li>The first public beta.</li><li>Next is the default interface: hexagonal nodes with a ring of actions, the log and the terminal beside the map, contracts as cards, desktop icons and a sky widget with the weather. Classic is still in the Options.</li><li>Android: the game runs on phones and tablets, with a touch interface of its own.</li><li>Korean: the whole game translated, with a typeface drawn for it and runes of their own for the AIs.</li><li>MultiEmu: a retro console inside the game, with twelve cartridges to find.</li><li>Workbench: custom programs compiled from snippets, modules and recipes found in the networks.</li><li>The protagonist's diary in the Archive, written at the turning points of the story.</li><li>The last chapter grows: logic duels against the AIs, Restore, a new epilogue.</li></ul>
+        </article>
         <article>
           <h4>2.13.0</h4>
           <ul data-l="it"><li>WebLens: il browser per i siti delle aziende, con area riservata, archivio FTP e contratti sui siti.</li><li>Città ad anelli: ogni azienda ha il suo anello, e le notizie raccontano la vita dal Primo Anello alla Fossa.</li><li>Contratti speculari: due fazioni vogliono qualcosa dalla stessa azienda, e il doppio gioco paga finché non ti scoprono.</li><li>La trama del Broker e della Rete Nera più profonda, l'origine dell'Id riscritta, i Guardiani che si presentano, i file chiave nello Storage.</li><li>Tre nuovi brani per la radio (koto e shakuhachi, arpa celtica e low whistle, piano elettrico e violoncello).</li><li>L'Archivio nella barra in alto, il rapporto che compare riga per riga, i contatti dei gateway segreti in cima alla Rubrica.</li><li>Nuovo manuale avanzato in francese.</li></ul>
@@ -1055,7 +1074,7 @@ listening on :7341</div>
 <footer>
   <div class="wrap">
     <span class="bye"><span data-l="it">Buona fortuna, operatore.</span><span data-l="en">Good luck, operator.</span></span>
-    <span>Core:Hack: Blackout 2.13.0 - Guido Cauli &lt;<span id="mail">guido.cauli@gmail.com</span>&gt;<button class="copy" type="button" id="copymail" data-it="copia" data-en="copy">copia</button></span>
+    <span>Core:Hack: Blackout 3.0.0 - Guido Cauli &lt;<span id="mail">guido.cauli@gmail.com</span>&gt;<button class="copy" type="button" id="copymail" data-it="copia" data-en="copy">copia</button></span>
   </div>
 </footer>
 

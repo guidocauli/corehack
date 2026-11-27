@@ -1,6 +1,6 @@
 # Core:Hack: Blackout
 
-*Core:Hack 2.13.0 - Guido Cauli <guido.cauli@gmail.com>*
+*Core:Hack 3.0.0 - Guido Cauli <guido.cauli@gmail.com>*
 
 [English](README.md) · **Italiano**
 
@@ -10,7 +10,9 @@
 
 Una simulazione di hacking cyberpunk in tempo reale. Sei un operatore indipendente con un vecchio gateway e un terminale: accetti contratti di intrusione e di difesa, costruisci una reputazione presso quattro fazioni e decidi, lavoro dopo lavoro, da che parte stare.
 
-Gratuito, senza contenuti a pagamento. Linux, Windows e macOS, in italiano, inglese e francese.
+Gratuito, senza contenuti a pagamento. Linux, Windows, macOS e Android, in italiano, inglese, francese e coreano.
+
+[![Trailer](img/trailer.jpg)](img/trailer.mp4)
 
 ## Download
 
@@ -19,6 +21,7 @@ Gratuito, senza contenuti a pagamento. Linux, Windows e macOS, in italiano, ingl
 | Windows 10/11, 64 bit | [corehack-windows-amd64.zip](../../releases/latest/download/corehack-windows-amd64.zip) |
 | macOS 12+, Apple Silicon | [corehack-macos-silicon.zip](../../releases/latest/download/corehack-macos-silicon.zip) |
 | Linux x86-64 | [corehack-linux-amd64.tar.gz](../../releases/latest/download/corehack-linux-amd64.tar.gz) |
+| Android 7+, 64 bit | [corehack-android.apk](../../releases/latest/download/corehack-android.apk) |
 
 [SHA256SUMS](../../releases/latest/download/SHA256SUMS) · [Tutte le versioni](../../releases)
 
@@ -27,6 +30,7 @@ Non si installa: estrai l'archivio e avvia il gioco dalla cartella. Server multi
 - **Windows:** se compare SmartScreen, "Ulteriori informazioni" → "Esegui comunque" (l'eseguibile non è firmato da un'autorità riconosciuta).
 - **macOS:** tasto destro su `Sblocca-Core-Hack.command` → Apri (una volta sola), poi apri `Core-Hack.app`.
 - **Linux:** avvia `./corehack` una volta: aggiunge da solo la voce nel menu delle applicazioni.
+- **Android:** apri l'APK sul telefono e consenti l'installazione dal browser o dal gestore file.
 
 ## Caratteristiche
 
@@ -51,7 +55,9 @@ Non si installa: estrai l'archivio e avvia il gioco dalla cartella. Server multi
 
 **Piattaforma**
 - Tutorial integrati per ogni parte del gioco
-- Cinque temi grafici: Core, Introvert, Ami, IONic, Tensor
+- L'interfaccia Next (predefinita) o quella Classica, e cinque temi grafici: Core, Introvert, Ami, IONic, Tensor
+- Desktop e Android, con un'interfaccia a sfioramento su telefoni e tablet
+- MultiEmu, una console retrò con dodici cartucce dentro il gioco
 - Multigiocatore con un server dedicato leggero
 
 ## Il mondo
@@ -111,7 +117,21 @@ In PDF, inclusi in ogni pacchetto:
 - [Manuel avancé](CoreHack-Manuel-Avance.pdf) (francese)
 - [Manuale del server](CoreHack-Manuale-Server.pdf)
 
-## Novità 2.13.0
+## Novità 3.0.0
+
+La prima beta pubblica. Tutto quello che è cambiato dalla 2.13:
+
+- **Next è l'interfaccia predefinita.** Nodi esagonali con l'anello delle azioni intorno, registro e terminale sempre aperti accanto alla mappa, contratti a schede, icone del desktop che si spostano, salvataggio veloce nella barra in alto e un widget del cielo con il meteo. Intrusioni, difesa e assedi hanno tutti la loro versione Next; l'interfaccia Classica c'è ancora (Opzioni, Interfaccia).
+- **Android.** Core:Hack gira su telefoni e tablet (Android 7 o successivo, 64 bit) con un'interfaccia a sfioramento tutta sua: testi e comandi più grandi, finestre a tutto schermo, niente terminale.
+- **Coreano.** Tutto il gioco è tradotto, con CoreHack Mono CJK, un carattere disegnato apposta, e rune proprie per l'alfabeto delle IA.
+- **MultiEmu.** Una console retrò dentro il gioco, con dodici cartucce da trovare (platform, sparatutto, corse, picchiaduro, breakout, invaders e altro), record, supporto per il gamepad e due giocatori sulla stessa tastiera.
+- **Workbench** (si sblocca con BreachKit v2, `wbench`): compila programmi custom dagli snippet, dai moduli e dalle ricette che trovi nelle reti.
+- **Il diario.** La voce del protagonista, una linguetta dell'Archivio, scritta nelle svolte della storia: rileggendolo capisci verso quale finale stai andando.
+- **L'ultimo capitolo è cresciuto.** Duelli logici contro IA fatte di frasi invece che di difese, Restore per ricostruire ciò che è stato cancellato, un nuovo epilogo e un arco che resta aperto dopo la fine.
+- Molte correzioni e ritocchi di bilanciamento in tutto il gioco.
+- I manuali hanno una pagina sulle novità; le loro schermate mostrano ancora l'interfaccia Classica.
+
+### Novità 2.13.0
 
 - WebLens, un browser da usare fuori missione (menu Applicazioni, `browse`): dato l'IP di un host pubblico di un'azienda ne mostra il sito (home, chi siamo, contatti: i referenti ufficiali vanno in Rubrica) o il terminale informativo con il personale in servizio. Ogni sito ha il suo aspetto. Trovate le credenziali su un host interno si apre l'area riservata: avvisi interni, rubrica interna e indirizzo dell'archivio FTP. Nuovi contratti sui siti: buttarlo giù, sfregiarlo, screditarlo, ripristinarlo.
 - I file di credenziali e configurazione si leggono sul posto (pulsante + arancione), non occupano spazio e nel rapporto risultano come credenziali.

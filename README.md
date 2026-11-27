@@ -1,6 +1,6 @@
 # Core:Hack: Blackout
 
-*Core:Hack 2.13.0 - Guido Cauli <guido.cauli@gmail.com>*
+*Core:Hack 3.0.0 - Guido Cauli <guido.cauli@gmail.com>*
 
 **English** · [Italiano](README.it.md)
 
@@ -10,7 +10,9 @@
 
 A real-time cyberpunk hacking sim. You are an independent operator with an old gateway and a terminal: you take intrusion and defence contracts, build a reputation with four factions and decide, job after job, which side you are on.
 
-Free, with nothing behind a paywall. Linux, Windows and macOS, in Italian, English and French.
+Free, with nothing behind a paywall. Linux, Windows, macOS and Android, in Italian, English, French and Korean.
+
+[![Trailer](img/trailer.jpg)](img/trailer.mp4)
 
 ## Download
 
@@ -19,6 +21,7 @@ Free, with nothing behind a paywall. Linux, Windows and macOS, in Italian, Engli
 | Windows 10/11, 64-bit | [corehack-windows-amd64.zip](../../releases/latest/download/corehack-windows-amd64.zip) |
 | macOS 12+, Apple Silicon | [corehack-macos-silicon.zip](../../releases/latest/download/corehack-macos-silicon.zip) |
 | Linux x86-64 | [corehack-linux-amd64.tar.gz](../../releases/latest/download/corehack-linux-amd64.tar.gz) |
+| Android 7+, 64-bit | [corehack-android.apk](../../releases/latest/download/corehack-android.apk) |
 
 [SHA256SUMS](../../releases/latest/download/SHA256SUMS) · [All releases](../../releases)
 
@@ -27,6 +30,7 @@ Nothing to install: extract the archive and start the game from its folder. The 
 - **Windows:** if SmartScreen appears, "More info" → "Run anyway" (the executable is not signed by a recognised authority).
 - **macOS:** right-click `Sblocca-Core-Hack.command` → Open (only once), then open `Core-Hack.app`.
 - **Linux:** run `./corehack` once: it adds itself to the applications menu.
+- **Android:** open the APK on your phone and allow installs from your browser or file manager.
 
 ## Features
 
@@ -51,7 +55,9 @@ Nothing to install: extract the archive and start the game from its folder. The 
 
 **Platform**
 - Built-in tutorials for every part of the game
-- Five visual themes: Core, Introvert, Ami, IONic, Tensor
+- The Next interface (the default) or the Classic one, and five visual themes: Core, Introvert, Ami, IONic, Tensor
+- Desktop and Android, with a touch interface on phones and tablets
+- MultiEmu, a retro console with twelve cartridges inside the game
 - Multiplayer with a lightweight dedicated server
 
 ## The world
@@ -111,7 +117,21 @@ PDF manuals, included in every package:
 - [Manuel avancé](CoreHack-Manuel-Avance.pdf) (French)
 - [Manuale del server](CoreHack-Manuale-Server.pdf) (Italian)
 
-## What's new in 2.13.0
+## What's new in 3.0.0
+
+The first public beta. Everything that changed since 2.13:
+
+- **Next is the default interface.** Hexagonal nodes with a ring of actions around them, the log and the terminal always open beside the map, contracts shown as cards, desktop icons you can move, a quick save in the top bar and a sky widget with the weather. Intrusions, defence and sieges all have their Next version; the Classic interface is still there (Options, Interface).
+- **Android.** Core:Hack runs on phones and tablets (Android 7 or later, 64-bit) with a touch interface of its own: bigger text and controls, full-screen windows, no terminal.
+- **Korean.** The whole game is translated, with CoreHack Mono CJK, a typeface drawn for it, and runes of their own for the AIs' alphabet.
+- **MultiEmu.** A retro console inside the game, with twelve cartridges to find (platform, shoot'em up, racing, brawler, breakout, invaders and more), high scores, gamepad support and two players on the same keyboard.
+- **Workbench** (unlocked by BreachKit v2, `wbench`): compile custom programs from the snippets, modules and recipes you find in the networks.
+- **The diary.** The protagonist's own voice, a tab in the Archive, written at the turning points of the story: rereading it tells you which way your story is leaning.
+- **The last chapter has grown.** Logic duels against AIs made of sentences instead of defences, Restore to rebuild what was erased, a new epilogue and an arc that stays open after the end.
+- Many fixes and balance changes across the whole game.
+- The manuals have a page on what's new; their screenshots still show the Classic interface.
+
+### What's new in 2.13.0
 
 - WebLens, a browser for outside missions (Applications menu, `browse`): type the IP of a company's public host to see its website (home, about, contacts: the official contacts go into your Directory) or its public kiosk with the staff on duty. Every site has its own look. Find the credentials on an internal host and the reserved area opens: internal notices, the internal directory and the address of the FTP archive. New contracts on websites: take a site down, deface it, smear it, restore it.
 - Credential and configuration files are read on the spot (orange + button), take no storage space and show up in the report as credentials.
