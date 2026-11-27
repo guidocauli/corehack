@@ -82,14 +82,17 @@ nav.tabs a:hover, nav.tabs a.on { color: var(--cyan); border-bottom-color: var(-
 .hero canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 .hero::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(to right, rgba(11,15,26,0.85), rgba(11,15,26,0.35) 60%, rgba(11,15,26,0.1)); }
 .hero .wrap { z-index: 1; }
-.hero .wrap { position: relative; padding-block: 72px 56px; display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 40px; align-items: center; }
-@media (max-width: 880px) { .hero .wrap { grid-template-columns: 1fr; padding-block: 48px 40px; } }
+.hero .wrap { position: relative; padding-block: 84px 64px; container-type: inline-size; }
+@media (max-width: 880px) { .hero .wrap { padding-block: 48px 40px; } }
 .brand { font-family: var(--f-mono); color: var(--white); line-height: 0.95; margin: 0; font-weight: 400;
-  font-size: clamp(48px, 9vw, 96px); letter-spacing: 0.02em; text-shadow: 0 0 18px rgba(0,229,255,0.35); }
+  /* il titolo riempie tutta la larghezza utile della pagina (cqw); la prima riga è per i browser più vecchi */
+  font-size: calc(min(100vw - 48px, 1088px) / 5.24); font-size: calc(100cqw / 5.24); letter-spacing: 0.04em; white-space: nowrap; text-shadow: 0 0 24px rgba(0,229,255,0.35); }
 .brand .colon { color: var(--cyan); }
-.blackout { font-family: var(--f-mono); color: var(--magenta); letter-spacing: 0.62em; font-size: clamp(16px, 2.4vw, 24px); margin: 10px 0 0; padding-left: 0.2em; }
+.blackout { font-family: var(--f-mono); color: var(--magenta); white-space: nowrap; overflow: hidden; margin: 16px 0 0;
+  font-size: max(15px, calc(min(100vw - 48px, 1088px) / 30)); letter-spacing: calc((min(100vw - 48px, 1088px) - 4.32em) / 7);
+  font-size: max(15px, calc(100cqw / 30)); letter-spacing: calc((100cqw - 4.32em) / 7); }
 .tag { font-style: italic; color: var(--magenta); margin: 26px 0 0; font-size: 17px; }
-.lead { font-size: 17px; color: var(--text); max-width: 56ch; margin: 18px 0 0; }
+.lead { font-size: 17px; color: var(--text); max-width: 64ch; margin: 18px 0 0; }
 .cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
 .btn {
   font-family: var(--f-mono); font-size: 15px; display: inline-flex; align-items: center; gap: 8px;
@@ -99,7 +102,7 @@ nav.tabs a:hover, nav.tabs a.on { color: var(--cyan); border-bottom-color: var(-
 .btn:hover { background: rgba(0,229,255,0.18); text-decoration: none; }
 .btn.alt { color: var(--magenta); border-color: var(--magenta); background: rgba(255,46,151,0.07); }
 .btn.alt:hover { background: rgba(255,46,151,0.18); }
-.ver { font-family: var(--f-mono); color: var(--dim); font-size: 13px; margin-top: 18px; }
+.ver { font-family: var(--f-mono); color: var(--dim); font-size: 13px; margin-top: 18px; max-width: none; }
 
 /* ---- Finestre e schermate */
 .win { background: var(--panel); border: 1px solid var(--border); min-width: 0; }
@@ -507,11 +510,6 @@ h2 .ic { width: 0.78em; height: 0.78em; color: var(--cyan); margin-right: 0.38em
           <a class="btn" href="#support"><span data-l="it">Sostieni</span><span data-l="en">Support</span></a>
         </div>
         <p class="ver"><span data-l="it">Versione</span><span data-l="en">Version</span> <span class="vnum">3.0.0</span> <span class="beta">BETA</span> · Linux · Windows · macOS · Android · IT EN FR KO</p>
-      </div>
-      <div class="win">
-          <i class="ion-l" aria-hidden="true"></i>
-        <div class="bar"><span><span data-l="it">Terminale</span><span data-l="en">Terminal</span></span></div>
-        <div class="term" id="term" aria-hidden="true"></div>
       </div>
     </div>
   </section>
@@ -1106,67 +1104,6 @@ listening on :7341</div>
   try { lang = localStorage.getItem("ch-lang") || ""; } catch (e) { lang = ""; }
   if (lang !== "it" && lang !== "en") lang = /^it\b/i.test(navigator.language || "") ? "it" : "en";
 
-  // ---- terminale del titolo: una sessione d'esempio che si scrive da sola, nella lingua scelta
-  var L = {
-    it: [
-      ["p", "CONNESSIONE A LUMINA LABS - SYDNEY HARBOUR"],
-      ["d", "> scan GW-01"],
-      ["", "Scansione GW-01 completa. Barriere: 1, file: 2."],
-      ["d", "> break GW-01"],
-      ["", "Firewall v2 disabilitato. GW-01 aperto."],
-      ["w", "IDS livello 2 su FS-01: accecalo prima di forzarlo."],
-      ["d", "> blind FS-01"],
-      ["d", "> break FS-01 2"],
-      ["", "Password forzata: d3lt4_c0br4"],
-      ["d", "> get FS-01 3"],
-      ["", "research_vault_59.dat scaricato."],
-      ["d", "> wipe FS-01"],
-      ["r", "Obiettivo raggiunto. Disconnettiti prima che ti trovino."],
-      ["d", "> disconnect"],
-      ["", "Connessione chiusa. Nessuna traccia su FS-01."]
-    ],
-    en: [
-      ["p", "CONNECTING TO LUMINA LABS - SYDNEY HARBOUR"],
-      ["d", "> scan GW-01"],
-      ["", "GW-01 scan complete. Barriers: 1, files: 2."],
-      ["d", "> break GW-01"],
-      ["", "Firewall v2 disabled. GW-01 open."],
-      ["w", "Level 2 IDS on FS-01: blind it before forcing it."],
-      ["d", "> blind FS-01"],
-      ["d", "> break FS-01 2"],
-      ["", "Password cracked: d3lt4_c0br4"],
-      ["d", "> get FS-01 3"],
-      ["", "research_vault_59.dat downloaded."],
-      ["d", "> wipe FS-01"],
-      ["r", "Objective complete. Disconnect before they find you."],
-      ["d", "> disconnect"],
-      ["", "Connection closed. No trace left on FS-01."]
-    ]
-  };
-  var term = document.getElementById("term"), timer = 0;
-  function esc(s) { return s.replace(/&/g, "&amp;").replace(/</g, "&lt;"); }
-  function play() {
-    clearTimeout(timer);
-    var lines = L[lang];
-    function render(n, part) {
-      var html = "";
-      for (var i = 0; i < n; i++) html += '<span class="' + lines[i][0] + '">' + esc(lines[i][1]) + "</span>\n";
-      if (part != null && n < lines.length) html += '<span class="' + lines[n][0] + '">' + esc(lines[n][1].slice(0, part)) + "</span>";
-      term.innerHTML = html + '<span class="caret">&nbsp;</span>';
-      term.scrollTop = term.scrollHeight;
-    }
-    if (reduce) { render(lines.length); return; }
-    var li = 0, ch = 0;
-    render(0, 0);
-    (function step() {
-      if (li >= lines.length) { timer = setTimeout(function () { li = 0; ch = 0; step(); }, 4200); return; }
-      var full = lines[li][1], typed = lines[li][0] === "d";
-      if (typed && ch < full.length) { ch++; render(li, ch); timer = setTimeout(step, 38); return; }
-      li++; ch = 0; render(li, 0);
-      timer = setTimeout(step, typed ? 260 : 520);
-    })();
-  }
-
   // ---- lingua
   function setLang(l) {
     lang = l;
@@ -1175,7 +1112,6 @@ listening on :7341</div>
     document.querySelectorAll(".lang button").forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.set === l ? "true" : "false"); });
     var cp = document.getElementById("copymail"); cp.textContent = cp.dataset[l];
     try { localStorage.setItem("ch-lang", l); } catch (e) {}
-    play();
   }
   document.querySelectorAll(".lang button").forEach(function (b) { b.addEventListener("click", function () { setLang(b.dataset.set); }); });
   setLang(lang);
@@ -1321,7 +1257,7 @@ listening on :7341</div>
     if (!html) return;
     log.innerHTML = html;
     var ver = document.querySelector(".ver .vnum"); // la versione in testata segue l'ultima release
-    if (ver && list.length && list[0].tag) ver.textContent = list[0].tag;
+    if (ver && list.length && list[0].tag) ver.textContent = list[0].tag.replace(/-beta$/i, ""); // il BETA ha già il suo bollino
   }
   var cached = null;
   try { cached = JSON.parse(localStorage.getItem(KEY) || "null"); } catch (e) { cached = null; }
