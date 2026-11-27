@@ -106,6 +106,10 @@ nav.tabs a:hover, nav.tabs a.on { color: var(--cyan); border-bottom-color: var(-
 .btn.alt { color: var(--magenta); border-color: var(--magenta); background: rgba(255,46,151,0.07); }
 .btn.alt:hover { background: rgba(255,46,151,0.18); }
 .ver { font-family: var(--f-mono); color: var(--dim); font-size: 13px; margin-top: 18px; max-width: none; }
+/* pulsanti dell'apertura: quattro colonne uguali sotto il titolo, testo al centro (due per riga sul telefono) */
+.hero .cta { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+.hero .cta .btn { justify-content: center; padding-block: 12px; font-size: 16px; }
+@media (max-width: 560px) { .hero .cta { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; } }
 
 /* ---- Finestre e schermate */
 .win { background: var(--panel); border: 1px solid var(--border); min-width: 0; }
