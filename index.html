@@ -227,13 +227,6 @@ dl.gl dd { margin: 2px 0 0; font-size: 14.5px; }
 .doc .m { font-size: 13px; color: var(--dim); display: flex; align-items: center; gap: 8px; margin-top: 4px; }
 .flag { height: 14px; width: auto; flex: none; box-shadow: 0 0 0 1px rgba(255,255,255,0.2); }
 
-/* ---- Novita' */
-.log { border-left: 1px solid var(--border); padding-left: 18px; }
-.log article { margin-bottom: 22px; }
-.log h4 { font-family: var(--f-mono); font-weight: 400; color: var(--magenta); font-size: 17px; margin: 0 0 4px; }
-.log ul { margin: 0; padding-left: 18px; }
-.log li { margin: 4px 0; font-size: 14.5px; max-width: 80ch; }
-
 /* ---- Donazioni: un terminale di pagamento del Mercato nero */
 .donate { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 0; border: 1px solid var(--magenta); background: linear-gradient(135deg, rgba(255,46,151,0.08), rgba(0,229,255,0.05)); }
 @media (max-width: 760px) { .donate { grid-template-columns: 1fr; } }
@@ -458,7 +451,6 @@ h2 .ic { width: 0.78em; height: 0.78em; color: var(--cyan); margin-right: 0.38em
 <symbol id="i-multi" viewBox="0 0 24 24"><path d="M5 6a2 2 0 1 0 0.01 0 M19 6a2 2 0 1 0 0.01 0 M12 18a2 2 0 1 0 0.01 0 M7 7l3.5 9.5 M17 7l-3.5 9.5 M7 6h10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter"/></symbol>
 <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12 M7 10l5 5 5-5 M4 17v3h16v-3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter"/></symbol>
 <symbol id="i-manuals" viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z M15 3v4h4 M9 11h7 M9 14h7 M9 17h4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter"/></symbol>
-<symbol id="i-news" viewBox="0 0 24 24"><path d="M4 4h12l4 4v12H4z M8 9h6 M8 12h8 M8 15h8 M16 4v4h4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter"/></symbol>
 <symbol id="i-about" viewBox="0 0 24 24"><path d="M4 5h16v14H4z M9 9.5a2 2 0 1 0 0.01 0 M6.5 15.5c.8-2 4.2-2 5 0 M14 9h4 M14 12h4 M14 15h3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter"/></symbol>
 <symbol id="i-support" viewBox="0 0 24 24"><path d="M12 20l-7.5-7.5a4.6 4.6 0 0 1 6.5-6.5l1 1 1-1a4.6 4.6 0 0 1 6.5 6.5z M8 11h2l1-2 2 4 1-2h2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter"/></symbol>
 <symbol id="i-job" viewBox="0 0 24 24"><path d="M12 3v4 M12 17v4 M3 12h4 M17 12h4 M12 8a4 4 0 1 0 0.01 0 M12 11.5v1" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter"/></symbol>
@@ -490,7 +482,6 @@ h2 .ic { width: 0.78em; height: 0.78em; color: var(--cyan); margin-right: 0.38em
       <a href="#multiplayer"><span data-l="it">Multigiocatore</span><span data-l="en">Multiplayer</span></a>
       <a href="#download">Download</a>
       <a href="#manuals"><span data-l="it">Manuali</span><span data-l="en">Manuals</span></a>
-      <a href="#whats-new"><span data-l="it">Novità</span><span data-l="en">What's new</span></a>
       <a href="#about"><span data-l="it">Progetto</span><span data-l="en">About</span></a>
       <a href="#support"><span data-l="it">Sostieni</span><span data-l="en">Support</span></a>
     </nav>
@@ -1014,22 +1005,8 @@ listening on :7341</div>
     </section>
 
     <!-- 08 -->
-    <section class="ch" id="whats-new">
-      <div class="chnum">09</div>
-      <h2><svg class="ic" aria-hidden="true"><use href="#i-news"/></svg><span data-l="it">Novità</span><span data-l="en">What's new</span></h2>
-      <div class="rule"></div>
-      <div class="log" id="news-log" aria-live="polite">
-        <article>
-          <h4>3.0.0</h4>
-          <ul data-l="it"><li>La prima beta pubblica.</li><li>Next è l'interfaccia predefinita: nodi esagonali con l'anello delle azioni, registro e terminale accanto alla mappa, contratti a schede, icone sul desktop e un widget del cielo con il meteo. La Classica resta nelle Opzioni.</li><li>Android: il gioco gira su telefoni e tablet, con un'interfaccia a sfioramento tutta sua.</li><li>Coreano: tutto il gioco tradotto, con un carattere disegnato apposta e rune proprie per le IA.</li><li>MultiEmu: una console retrò dentro il gioco, con dodici cartucce da trovare.</li><li>Workbench: programmi custom compilati da snippet, moduli e ricette trovati nelle reti.</li><li>Il diario del protagonista nell'Archivio, scritto nelle svolte della storia.</li></ul>
-          <ul data-l="en"><li>The first public beta.</li><li>Next is the default interface: hexagonal nodes with a ring of actions, the log and the terminal beside the map, contracts as cards, desktop icons and a sky widget with the weather. Classic is still in the Options.</li><li>Android: the game runs on phones and tablets, with a touch interface of its own.</li><li>Korean: the whole game translated, with a typeface drawn for it and runes of their own for the AIs.</li><li>MultiEmu: a retro console inside the game, with twelve cartridges to find.</li><li>Workbench: custom programs compiled from snippets, modules and recipes found in the networks.</li></ul>
-        </article>
-      </div>
-    </section>
-
-    <!-- 09 -->
     <section class="ch" id="about">
-      <div class="chnum">10</div>
+      <div class="chnum">09</div>
       <h2><svg class="ic" aria-hidden="true"><use href="#i-about"/></svg><span data-l="it">Il progetto</span><span data-l="en">About the project</span></h2>
       <div class="rule"></div>
       <div class="about">
@@ -1056,9 +1033,9 @@ listening on :7341</div>
       </div>
     </section>
 
-    <!-- 10 -->
+    <!-- 09 -->
     <section class="ch" id="support">
-      <div class="chnum">11</div>
+      <div class="chnum">10</div>
       <h2><svg class="ic" aria-hidden="true"><use href="#i-support"/></svg><span data-l="it">Sostieni il progetto</span><span data-l="en">Support the project</span></h2>
       <div class="rule"></div>
       <div class="donate">
@@ -1196,76 +1173,26 @@ listening on :7341</div>
   show(0);
   restart();
 })();
-// Novità: prese dalle ultime release pubblicate su GitHub (le note IT/EN delle release). Se GitHub non risponde,
-// resta l'elenco scritto nella pagina. Le risposte restano in memoria nel browser per un'ora.
+// Versione in testata: segue l'ultima release pubblicata su GitHub (in memoria nel browser per un'ora); se GitHub non
+// risponde resta quella scritta nella pagina.
 (function () {
-  var log = document.getElementById("news-log");
-  var dl = document.getElementById("download");
-  if (!log || !dl) return;
-  var repo = dl.getAttribute("data-repo"), KEY = "ch-news:" + repo, TTL = 3600 * 1000;
-  function esc(s) { return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
-  function inline(s) { // markdown minimo: link, grassetto, corsivo, codice
-    s = esc(s);
-    s = s.replace(/\[([^\]]+)\]\((https?:[^)\s]+)\)/g, '<a href="$2" rel="noopener">$1</a>');
-    s = s.replace(/\*\*([^*]+)\*\*/g, "<b>$1</b>").replace(/\*([^*]+)\*/g, "<i>$1</i>").replace(/`([^`]+)`/g, "<code>$1</code>");
-    return s;
-  }
-  // notes estrae dalla nota di una release la sezione "Novità / What's new", divisa per lingua: le righe "**IT:**" e
-  // "**EN:**" vanno alla loro lingua, le altre a tutte e due
-  function notes(body) {
-    var lines = (body || "").replace(/\r/g, "").split("\n"), on = false, it = [], en = [];
-    for (var i = 0; i < lines.length; i++) {
-      var l = lines[i];
-      if (/^#{1,4}\s/.test(l)) {
-        if (on) break;
-        var h = l.toLowerCase();
-        on = h.indexOf("novit") >= 0 || h.indexOf("what's new") >= 0 || h.indexOf("whats new") >= 0 || h.indexOf("nouveaut") >= 0;
-        continue;
-      }
-      if (!on) continue;
-      var m = l.match(/^\s*[-*]\s+(.*)$/);
-      if (!m) continue;
-      var t = m[1], lm = t.match(/^\*\*(IT|EN|FR)\s*:?\*\*\s*:?\s*(.*)$/i);
-      if (lm) {
-        var lg = lm[1].toUpperCase();
-        if (lg === "IT") it.push(lm[2]); else if (lg === "EN") en.push(lm[2]);
-      } else { it.push(t); en.push(t); }
-    }
-    return { it: it, en: en };
-  }
-  function cap(x) { return x.charAt(0).toUpperCase() + x.slice(1); }
-  function li(a) { return a.map(function (x) { return "<li>" + inline(cap(x)) + "</li>"; }).join(""); }
-  function render(list) {
-    var html = "";
-    for (var i = 0; i < list.length; i++) {
-      var n = notes(list[i].body);
-      if (!n.it.length && !n.en.length) continue;
-      html += "<article><h4>" + esc(list[i].tag) + "</h4>" +
-        '<ul data-l="it">' + li(n.it.length ? n.it : n.en) + "</ul>" +
-        '<ul data-l="en">' + li(n.en.length ? n.en : n.it) + "</ul></article>";
-    }
-    if (!html) return;
-    log.innerHTML = html;
-    var ver = document.querySelector(".ver .vnum"); // la versione in testata segue l'ultima release
-    if (ver && list.length && list[0].tag) ver.textContent = list[0].tag.replace(/-beta$/i, ""); // il BETA ha già il suo bollino
-  }
-  var cached = null;
-  try { cached = JSON.parse(localStorage.getItem(KEY) || "null"); } catch (e) { cached = null; }
-  if (cached && cached.list && Date.now() - cached.at < TTL) { render(cached.list); return; }
+  var ver = document.querySelector(".ver .vnum"), dl = document.getElementById("download");
+  if (!ver || !dl) return;
+  var repo = dl.getAttribute("data-repo"), KEY = "ch-ver:" + repo, TTL = 3600 * 1000;
+  function show(tag) { if (tag) ver.textContent = String(tag).replace(/^v/i, "").replace(/-beta$/i, ""); } // il BETA ha già il suo bollino
+  var c = null;
+  try { c = JSON.parse(localStorage.getItem(KEY) || "null"); } catch (e) { c = null; }
+  if (c && c.tag && Date.now() - c.at < TTL) { show(c.tag); return; }
   if (!window.fetch) return;
-  fetch("https://api.github.com/repos/" + repo + "/releases?per_page=6", { headers: { "Accept": "application/vnd.github+json" } })
+  fetch("https://api.github.com/repos/" + repo + "/releases/latest", { headers: { "Accept": "application/vnd.github+json" } })
     .then(function (r) { if (!r.ok) throw new Error(String(r.status)); return r.json(); })
-    .then(function (rs) {
-      var list = [];
-      for (var i = 0; i < rs.length && list.length < 3; i++) {
-        if (rs[i].draft) continue;
-        list.push({ tag: String(rs[i].tag_name || rs[i].name || "").replace(/^v/i, ""), body: rs[i].body || "" });
-      }
-      if (!list.length) return;
-      try { localStorage.setItem(KEY, JSON.stringify({ at: Date.now(), list: list })); } catch (e) {}
-      render(list);
+    .then(function (r) {
+      var tag = r.tag_name || r.name || "";
+      if (!tag) return;
+      try { localStorage.setItem(KEY, JSON.stringify({ at: Date.now(), tag: tag })); } catch (e) {}
+      show(tag);
     })
-    .catch(function () { if (cached && cached.list) render(cached.list); });
+    .catch(function () { if (c && c.tag) show(c.tag); });
 })();
 </script>
 
