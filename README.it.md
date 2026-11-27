@@ -129,7 +129,7 @@ La prima beta pubblica. Tutto quello che è cambiato dalla 2.13:
 - **Il diario.** La voce del protagonista, una linguetta dell'Archivio, scritta nelle svolte della storia: rileggendolo capisci verso quale finale stai andando.
 - **L'ultimo capitolo è cresciuto.** Duelli logici contro IA fatte di frasi invece che di difese, Restore per ricostruire ciò che è stato cancellato, un nuovo epilogo e un arco che resta aperto dopo la fine.
 - Molte correzioni e ritocchi di bilanciamento in tutto il gioco.
-- Manuali rifatti con l'interfaccia Next; il manuale avanzato ora è una guida da campo, senza spoiler.
+- Manuali rifatti con l'interfaccia Next; i manuali ora raccontano invece di spiegare, senza spoiler.
 
 ### Novità 2.13.0
 

@@ -41,8 +41,8 @@ Nothing to install: extract the archive and start the game from its folder. Mult
 - **EN:** The diary: the protagonist's own voice, a tab in the Archive, written at the turning points of the story.
 - **IT:** L'ultimo capitolo è cresciuto: duelli logici contro le IA, Restore per ricostruire ciò che è stato cancellato, un nuovo epilogo e un arco che resta aperto dopo la fine.
 - **EN:** The last chapter has grown: logic duels against the AIs, Restore to rebuild what was erased, a new epilogue and an arc that stays open after the end.
-- **IT:** Molte correzioni e ritocchi di bilanciamento. Manuali rifatti con l'interfaccia Next; il manuale avanzato ora è una guida da campo, senza spoiler.
-- **EN:** Many fixes and balance changes. Manuals redone with the Next interface; the advanced manual is now a field guide, free of spoilers.
+- **IT:** Molte correzioni e ritocchi di bilanciamento. Manuali rifatti con l'interfaccia Next; i manuali ora raccontano invece di spiegare, senza spoiler.
+- **EN:** Many fixes and balance changes. Manuals redone with the Next interface; the manuals now tell rather than explain, free of spoilers.
 
 ## Requisiti minimi / Minimum requirements
 
