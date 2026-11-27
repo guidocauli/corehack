@@ -1,0 +1,47 @@
+# draft-release.yml - Core:Hack, Guido Cauli <guido.cauli@gmail.com>
+# Crea (o aggiorna) una release in bozza con il suo tag e le note di rilascio.
+# Non compila nulla: i binari si caricano a mano nella bozza, poi si pubblica.
+name: Bozza release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Versione (es. 3.0.0): usa RELEASE-<versione>.md"
+        required: true
+      suffix:
+        description: "Suffisso del tag"
+        required: false
+        default: "-BETA"
+      title:
+        description: "Titolo della release"
+        required: false
+        default: "Core:Hack Blackout"
+
+permissions:
+  contents: write
+
+jobs:
+  draft:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Crea la bozza
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ inputs.version }}
+          SUFFIX: ${{ inputs.suffix }}
+          TITLE: ${{ inputs.title }}
+        run: |
+          set -eu
+          echo "Core:Hack draft-release - Guido Cauli <guido.cauli@gmail.com>"
+          TAG="${VERSION}${SUFFIX}"
+          NOTES="RELEASE-${VERSION}.md"
+          test -f "$NOTES" || { echo "::error::manca $NOTES"; exit 1; }
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release edit "$TAG" --title "$TITLE" --notes-file "$NOTES"
+            echo "Bozza/release $TAG aggiornata"
+          else
+            gh release create "$TAG" --draft --target "$GITHUB_SHA" --title "$TITLE" --notes-file "$NOTES"
+            echo "Bozza $TAG creata"
+          fi
